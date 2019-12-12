@@ -5,17 +5,16 @@ using System.IO;
 using Newtonsoft.Json;
 public class JSONMapReader: MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    //TODO: CONTROL DE ERRORES. 
+    // path = "/Resources/Maps/map1.json"
+    public Board deserializarJSON(string path)
     {
-        string json = File.ReadAllText(Application.dataPath + "/Resources/Maps/map1.json");
-        var model = JsonConvert.DeserializeObject<Board>(json);
-        Debug.Log(model.path[0].x);
-        Debug.Log(model.path[0].y);
-        Debug.Log(model.path[1].x);
-        Debug.Log(model.path[1].y);
-        Debug.Log(model.path[2].x);
-        Debug.Log(model.path[2].y);
-
+        string json = File.ReadAllText(Application.dataPath + path );
+        Board board = JsonConvert.DeserializeObject<Board>(json);
+        return board;
     }
+    
+
+
+    
 }
