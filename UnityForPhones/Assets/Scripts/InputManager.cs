@@ -23,6 +23,7 @@ transform.InverseTransformPoint(,);*/
     {
         if (Input.GetMouseButton(0))
         {
+            Debug.Log("RATON EN POSICION: " + clickTracker.gameObject.transform.position);
             clickTracker.enabled = true;
             
             var v = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -34,6 +35,8 @@ transform.InverseTransformPoint(,);*/
         else
         {
             clickTracker.enabled = false;
+            
+
         }
     }
 }

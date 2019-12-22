@@ -7,10 +7,10 @@ public class JSONMapReader: MonoBehaviour
 {
     //TODO: CONTROL DE ERRORES. 
     // path = "/Resources/Maps/map1.json"
-    public Board deserializarJSON(string path)
+    public List<Board> deserializarJSON(string path)
     {
         string json = File.ReadAllText(Application.dataPath + path );
-        Board board = JsonConvert.DeserializeObject<Board>(json);
+        List<Board> board = JsonConvert.DeserializeObject<List<Board>>(json);
         return board;
     }
     
