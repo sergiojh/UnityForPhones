@@ -67,6 +67,7 @@ public class Tile : MonoBehaviour
         if(_pathActive != -1)
         {
             _pathDirection[_pathActive].gameObject.SetActive(false);
+            SetPulsado(false);
             int value = _pathActive;
             _pathActive = -1;
             return value;
