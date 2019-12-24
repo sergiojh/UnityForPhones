@@ -8,6 +8,8 @@ public class BoardManager : MonoBehaviour
     [SerializeField]
     private List<Tile> typeofTile;
 
+    [SerializeField]
+    private Scaler scaler;
 
     private List<Board> mapas = new List<Board>();
 
@@ -21,6 +23,17 @@ public class BoardManager : MonoBehaviour
     {
         mapas = jsonReader.deserializarJSON("/Resources/Maps/map2.json");
         createBoard(mapas,1);
+        scaler.startScaling();
+    }
+
+    public int getWMatrix()
+    {
+        return _ancho;
+    }
+
+    public int getHMatrix()
+    {
+        return _alto;
     }
 
     public void Clicked(Vector3 v)
@@ -29,10 +42,6 @@ public class BoardManager : MonoBehaviour
         v.x += 0.5f;
         v.y += 0.5f;
         
-       // Debug.Log("ALTO: " + _alto);
-       // Debug.Log("ANCHO: " + _ancho);
-       // Debug.Log("_xTileActivo: " + _xTileActivo);
-        //Debug.Log("_yTileActivo: " + _yTileActivo);
         if (v.y > 0 && v.y < _alto && v.x > 0 && v.x < _ancho && matrix[(int)v.x, (int)v.y] != null)
         {
             int val = -1;
@@ -64,7 +73,6 @@ public class BoardManager : MonoBehaviour
                 while ((int)v.y != _yTileActivo || (int)v.x != _xTileActivo)
                 {
                     int i = matrix[_xTileActivo, _yTileActivo].DisableActivedPath();
-                    Debug.Log(i);
                     if (i == 0)
                     {
                         _yTileActivo += 1;
@@ -81,14 +89,8 @@ public class BoardManager : MonoBehaviour
                     {
                         _xTileActivo += 1;
                     }
-                }
-                /*
-                while(!llegueAlObjetivo)
-                    //desapilar usando norte sur este y oeste para moverme
-             */
-             
+                }           
             }
-
         }
     }
 
@@ -96,15 +98,9 @@ public class BoardManager : MonoBehaviour
 
     private bool createBoard(List<Board> b,int nivel)
     {
-
-        
-
         _alto = b[nivel].layout.Count;
         _ancho = b[nivel].layout[0].Length;
-
-
         matrix = new Tile[_ancho, _alto];
-        Debug.Log(_alto + "  " + _ancho);
         //x es alto, y es ancho
         int xLogic = _alto - 1;
         for (int x = 0; x < b[nivel].layout.Count ; x++)//Cada fila del tablero
@@ -112,7 +108,6 @@ public class BoardManager : MonoBehaviour
             int yLogic = 0;
             for (int y = 0; y < b[nivel].layout[x].Length; y++)//Cada casilla en el string de cada fila
             {
-                Debug.Log(xLogic + "  " + yLogic);
                 switch (b[nivel].layout[x][y])
                 {
                     case '0':
@@ -120,10 +115,11 @@ public class BoardManager : MonoBehaviour
                         break;
                     case '1':
                         matrix[yLogic, xLogic] = Instantiate(typeofTile[0], new Vector3(y + transform.position.x, (b[nivel].layout.Count -1) + (transform.position.y - x), 0), Quaternion.identity, gameObject.transform);
+                        matrix[yLogic, xLogic].transform.localPosition = new Vector3(yLogic, xLogic, 0);
                         break;
                     case '2':
                         matrix[yLogic, xLogic] = Instantiate(typeofTile[0],new Vector3(y + transform.position.x, (b[nivel].layout.Count -1 ) + (transform.position.y - x), 0),Quaternion.identity,gameObject.transform);
-                        
+                        matrix[yLogic, xLogic].transform.localPosition = new Vector3(yLogic, xLogic, 0);
                         matrix[yLogic, xLogic].SetPulsado(true);
                         _xTileActivo = yLogic;
                         _yTileActivo = xLogic;
@@ -133,10 +129,6 @@ public class BoardManager : MonoBehaviour
             }
             xLogic--;
         }
-        
-
-
-
         return true;
     }
 }

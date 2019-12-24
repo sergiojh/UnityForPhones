@@ -26,7 +26,7 @@ transform.InverseTransformPoint(,);*/
             clickTracker.enabled = true;
             
             var v = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            v.z = 1;
+            v.z = -1;
             clickTracker.transform.position = v;
             v = boardContainer.transform.InverseTransformPoint(v);
             boardContainer.Clicked(v);
