@@ -59,14 +59,15 @@ public class Scaler : MonoBehaviour
                 
                 if (boardManager.getWMatrix() > 5)
                 {
-                    increment = 0.3f;
+                    increment = 0.6f;
                 }
                 else if (boardManager.getWMatrix() == 5)
                 {
                     increment = 0.05f;
                 }
                 factorScaladoX -= increment;
-                
+                if (factorScaladoX < 0)
+                    factorScaladoX = 0.17f;
                 Vector3 boardScale = new Vector3(boardManager.transform.localScale.x * factorScaladoX, boardManager.transform.localScale.y * factorScaladoX, 1);
                 Vector3 clickScale = new Vector3(factorScaladoY + 0.2f, factorScaladoY + 0.2f, 1);
                 boardManager.transform.localScale = boardScale;
