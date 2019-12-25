@@ -65,6 +65,8 @@ public class Scaler : MonoBehaviour
                 {
                     increment = 0.05f;
                 }
+                if (boardManager.getHMatrix() >= 5)
+                    increment += 0.02f;
                 //Debug.Log(factorScaladoX);
                 if (factorScaladoX != 0 && Screen.height > Screen.width)
                     factorScaladoX -= increment;
@@ -89,6 +91,7 @@ public class Scaler : MonoBehaviour
                 }
                 else
                     increment = 1;
+
                 Vector3 v = new Vector3(boardManager.transform.localScale.x * increment, boardManager.transform.localScale.y * increment, 1);
                 boardManager.transform.localScale = v;
             }
@@ -116,7 +119,17 @@ public class Scaler : MonoBehaviour
                         moveY = 0.5f;
                         break;
                 }
+                if (factorScaladoY > 0 && boardManager.getHMatrix() == 6 && Screen.height > Screen.width)
+                    moveY = 2.0f;
                 boardManager.transform.position = new Vector3(boardManager.transform.position.x, boardManager.transform.position.y + moveY, 0);
+            }
+            else
+            {
+                float moveY = 0;
+                if (factorScaladoY > 0 && boardManager.getHMatrix() == 6 && Screen.height > Screen.width)
+                    moveY = 1.0f;
+                boardManager.transform.position = new Vector3(boardManager.transform.position.x, boardManager.transform.position.y + moveY, 0);
+
             }
             if (boardManager.getWMatrix() < 5)
             {
@@ -139,7 +152,6 @@ public class Scaler : MonoBehaviour
                 }
                 boardManager.transform.position = new Vector3(boardManager.transform.position.x + moveX, boardManager.transform.position.y, 0);
             }
-
         }
     }
 }
