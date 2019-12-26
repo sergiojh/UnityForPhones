@@ -30,6 +30,9 @@ transform.InverseTransformPoint(,);*/
             clickTracker.transform.position = v;
             v = boardContainer.transform.InverseTransformPoint(v);
             boardContainer.Clicked(v);
+            bool fin = boardContainer.checkFinJuego();
+            if (fin)
+                Debug.Log("Completado");
         }
         else
         {

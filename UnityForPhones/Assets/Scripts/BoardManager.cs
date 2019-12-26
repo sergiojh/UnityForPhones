@@ -94,7 +94,23 @@ public class BoardManager : MonoBehaviour
         }
     }
 
-
+    public bool checkFinJuego()
+    {
+        bool clicked = true;
+        int x = 0;
+        while (x < _ancho && clicked)
+        {
+            int y = 0;
+            while (y < _alto && clicked)
+            {
+                if (!matrix[x, y].CheckPulsado())
+                    clicked = false;
+                y++;
+            }
+            x++;
+        }
+        return clicked;
+    }
 
     private bool createBoard(List<Board> b,int nivel)
     {
