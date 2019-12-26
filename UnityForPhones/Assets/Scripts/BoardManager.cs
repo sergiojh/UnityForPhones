@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 public class BoardManager : MonoBehaviour
 {
-    JSONMapReader jsonReader = new JSONMapReader();
+    private JSONMapReader jsonReader = new JSONMapReader();
     [SerializeField]
     private List<Tile> typeofTile;
 
@@ -18,13 +18,14 @@ public class BoardManager : MonoBehaviour
     private int _xTileActivo;
     private int _ancho;
     private int _alto;
-    // Start is called before the first frame update
-    void Start()
+
+    public void initBoard(string mapName, int level)
     {
-        mapas = jsonReader.deserializarJSON("/Resources/Maps/map2.json");
-        createBoard(mapas,1);
+        mapas = jsonReader.deserializarJSON(mapName);
+        createBoard(mapas, level);
         scaler.startScaling();
     }
+
 
     public int getWMatrix()
     {

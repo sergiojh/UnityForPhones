@@ -14,10 +14,6 @@ public class InputManager : MonoBehaviour
         clickTracker.enabled = false;
     }
 
-    /*Camera.main.ScreenToWorldPoint();
-transform.InverseTransformPoint(,);*/
-
-
     // Update is called once per frame
     void Update()
     {
