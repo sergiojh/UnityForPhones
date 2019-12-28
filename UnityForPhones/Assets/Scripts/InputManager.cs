@@ -6,6 +6,8 @@ public class InputManager : MonoBehaviour
 {
     [SerializeField]
     private BoardManager boardContainer;
+    [SerializeField]
+    private LevelManager levelManager;
 
     private SpriteRenderer clickTracker;
     void Start()
@@ -28,7 +30,7 @@ public class InputManager : MonoBehaviour
             boardContainer.Clicked(v);
             bool fin = boardContainer.checkFinJuego();
             if (fin)
-                Debug.Log("Completado");
+                levelManager.finLevel();
         }
         else
         {

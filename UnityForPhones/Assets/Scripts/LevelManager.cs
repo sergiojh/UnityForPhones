@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using UnityEngine.SceneManagement;
 public class LevelManager : MonoBehaviour
 {
     [SerializeField]
@@ -25,6 +25,7 @@ public class LevelManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        gameManager = FindObjectOfType<GameManager>();
         coins = gameManager.getCoins();
         actualLevel = gameManager.getActualLevel();
         actualCategory = gameManager.getNameCategory();
@@ -35,4 +36,42 @@ public class LevelManager : MonoBehaviour
 
         boardManager.initBoard("/Resources/Maps/map2.json",1);
     }
+
+    public void back()
+    {
+        SceneManager.LoadScene("LevelScene",LoadSceneMode.Single);
+    }
+
+    public void buyHints()
+    {
+        if (gameManager.subtractCoins(price))
+        {
+            coins = gameManager.getCoins();
+            coinsText.text = "" + coins;
+        }
+        else
+            Debug.Log("No hay suficiente dinero");
+    }
+
+    public void resetBoard()
+    {
+        boardManager.resetBoard();
+    }
+
+    public void viewAdd()
+    {
+        //AQUI VER ANUNCIO Y SUMAR COINS
+        gameManager.addCoins(1);
+        coins = gameManager.getCoins();
+        coinsText.text = "" + coins;
+    }
+
+    public void finLevel()
+    {
+        //llamar gameManger.completedLevel
+        //aumentar los niveles completados por categoria actual
+        //RECUARDA CREAR LOS BOTONES PARA AVANZAR A "LEVELSCENE" CON UN NIVEL MAS O VOLVER A selectLevel(ES UNA ESCENA)
+        //animacion de pulsado de botones con los putos sprites truñer esos chinos que ahora se pone en gris mendrugo (from: Pablo to: Pablo)
+    }
+
 }

@@ -13,11 +13,21 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private int[] levelsPerCategoryCompleted;
 
+    private static GameManager gameManager;
     private int actualLevel;
-    private int actualCategory;
-    private void Start()
+    public int actualCategory;
+    void Awake()
     {
-       DontDestroyOnLoad(this.gameObject);
+        DontDestroyOnLoad(this);
+
+        if (gameManager == null)
+        {
+            gameManager = this;
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
     }
 
     public void addCoins(int value)
@@ -25,9 +35,14 @@ public class GameManager : MonoBehaviour
         coins += value;
     }
     
-    public void subtractCoins(int value)
+    public bool subtractCoins(int value)
     {
-        coins -= value;
+        if (coins - value >= 0)
+        {
+            coins -= value;
+            return true;
+        }
+        return false;
     }
 
     public int getCoins()
@@ -37,7 +52,7 @@ public class GameManager : MonoBehaviour
 
     public bool setActualLevel(int levelNumber)
     {
-        if (levelNumber < levelsPerCategory[actualCategory])
+        if (levelNumber < levelsPerCategory[actualCategory] && levelNumber + 1 <= levelsPerCategoryCompleted[actualCategory])
         {
             actualLevel = levelNumber;
             return true;
@@ -68,6 +83,11 @@ public class GameManager : MonoBehaviour
     public int getTotalLevelOfCategory(int category)
     {
         return levelsPerCategory[category];
+    }
+
+    public int getTotalLevelCompletedOfCategory(int category)
+    {
+        return levelsPerCategoryCompleted[category];
     }
 
     public void levelCompleted()

@@ -74,7 +74,7 @@ public class Tile : MonoBehaviour
         }
         else
         {
-            Debug.LogError("No habia path activo");
+            Debug.Log("No habia path activo");
             return -1;
         }
     }

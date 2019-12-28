@@ -18,6 +18,8 @@ public class BoardManager : MonoBehaviour
     private int _xTileActivo;
     private int _ancho;
     private int _alto;
+    private int _startPosX;
+    private int _startPosY;
 
     public void initBoard(string mapName, int level)
     {
@@ -140,6 +142,8 @@ public class BoardManager : MonoBehaviour
                         matrix[yLogic, xLogic].SetPulsado(true);
                         _xTileActivo = yLogic;
                         _yTileActivo = xLogic;
+                        _startPosX = yLogic;
+                        _startPosY = xLogic;
                         break;
                 }
                 yLogic++;
@@ -148,4 +152,30 @@ public class BoardManager : MonoBehaviour
         }
         return true;
     }
+
+    public void resetBoard()
+    {
+        int x = 0;
+        while (x < _ancho)
+        {
+            int y = 0;
+            while (y < _alto)
+            {
+                if (matrix[x, y] != null)
+                {
+                    matrix[x, y].SetPulsado(false);
+                    matrix[x, y].DisableActivedPath();
+                }
+                y++;
+            }
+            x++;
+        }
+
+        matrix[_startPosX, _startPosY].SetPulsado(true);
+        _xTileActivo = _startPosX;
+        _yTileActivo = _startPosY;
+    }
+
+
+
 }
