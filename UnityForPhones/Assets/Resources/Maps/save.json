@@ -1,0 +1,5 @@
+{
+  "coins": 540,
+  "categories": ["BEGINNER","REGULAR","ADVANCED","EXPERT","MASTER"],
+  "progress": [10,2,5,0,0]
+}

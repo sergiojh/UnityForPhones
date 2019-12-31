@@ -21,20 +21,24 @@ public class MenuManager : MonoBehaviour
     [SerializeField]
     private Text numLevelMasterText;
 
+    
+
 
     private int coins;
     void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
 
-        coins = gameManager.getCoins();
+        gameManager.SavePersistance("/Resources/Maps/save.json");
+
+        coins = gameManager.GetPersistance().coins;
         coinsText.text = "" + coins;
 
-        numLevelBeginnerText.text = "" + gameManager.getTotalLevelCompletedOfCategory(0) + "/" + gameManager.getTotalLevelOfCategory(0);
-        numLevelRegularText.text = "" + gameManager.getTotalLevelCompletedOfCategory(1) + "/" + gameManager.getTotalLevelOfCategory(1);
-        numLevelAdvancedText.text = "" + gameManager.getTotalLevelCompletedOfCategory(2) + "/" + gameManager.getTotalLevelOfCategory(2);
-        numLevelExpertText.text = "" + gameManager.getTotalLevelCompletedOfCategory(3) + "/" + gameManager.getTotalLevelOfCategory(3);
-        numLevelMasterText.text = "" + gameManager.getTotalLevelCompletedOfCategory(4) + "/" + gameManager.getTotalLevelOfCategory(4);
+        numLevelBeginnerText.text = "" + gameManager.GetPersistance().progress[0] + "/" + gameManager.getTotalLevelOfCategory(0);
+        numLevelRegularText.text = "" + gameManager.GetPersistance().progress[1] + "/" + gameManager.getTotalLevelOfCategory(1);
+        numLevelAdvancedText.text = "" + gameManager.GetPersistance().progress[2] + "/" + gameManager.getTotalLevelOfCategory(2);
+        numLevelExpertText.text = "" + gameManager.GetPersistance().progress[3] + "/" + gameManager.getTotalLevelOfCategory(3);
+        numLevelMasterText.text = "" + gameManager.GetPersistance().progress[4] + "/" + gameManager.getTotalLevelOfCategory(4);
     }
 
     public void exitApp()

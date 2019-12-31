@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Newtonsoft.Json;
+using System.IO;
 
 public class GameManager : MonoBehaviour
 {
@@ -16,6 +18,9 @@ public class GameManager : MonoBehaviour
     private static GameManager gameManager;
     private int actualLevel;
     public int actualCategory;
+
+
+    private static Persistance persistance;
     void Awake()
     {
         DontDestroyOnLoad(this);
@@ -34,7 +39,7 @@ public class GameManager : MonoBehaviour
     {
         coins += value;
     }
-    
+
     public bool subtractCoins(int value)
     {
         if (coins - value >= 0)
@@ -62,7 +67,7 @@ public class GameManager : MonoBehaviour
 
     public bool setActualCategory(int numberCategory)
     {
-        if(nameCategories.Length > numberCategory)
+        if (nameCategories.Length > numberCategory)
         {
             actualCategory = numberCategory;
             return true;
@@ -92,7 +97,7 @@ public class GameManager : MonoBehaviour
 
     public void levelCompleted()
     {
-        if(actualLevel > levelsPerCategoryCompleted[actualCategory])
+        if (actualLevel > levelsPerCategoryCompleted[actualCategory])
         {
             levelsPerCategoryCompleted[actualCategory]++;
         }
@@ -104,4 +109,16 @@ public class GameManager : MonoBehaviour
         return levelsPerCategoryCompleted[actualCategory];
     }
 
+
+
+    public void SavePersistance(string path)
+    {
+        string json = File.ReadAllText(Application.dataPath + path);
+        persistance = JsonConvert.DeserializeObject<Persistance>(json);
+        
+    }
+    public Persistance GetPersistance()
+    {
+        return persistance;
+    }
 }

@@ -106,7 +106,7 @@ public class BoardManager : MonoBehaviour
             int y = 0;
             while (y < _alto && clicked)
             {
-                if (!matrix[x, y].CheckPulsado())
+                if (matrix[x, y] != null && !matrix[x, y].CheckPulsado())
                     clicked = false;
                 y++;
             }

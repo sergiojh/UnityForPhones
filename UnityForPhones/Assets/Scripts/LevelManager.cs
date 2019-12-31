@@ -34,7 +34,7 @@ public class LevelManager : MonoBehaviour
         categoryText.text = actualCategory+ " " + actualLevel;
         priceText.text = "" + price;
 
-        boardManager.initBoard("/Resources/Maps/map2.json",1);
+        boardManager.initBoard("/Resources/Maps/maps.json",1);
     }
 
     public void back()
@@ -68,6 +68,7 @@ public class LevelManager : MonoBehaviour
 
     public void finLevel()
     {
+        Debug.Log("FIN DEL JUEGO");
         //llamar gameManger.completedLevel
         //aumentar los niveles completados por categoria actual
         //RECUARDA CREAR LOS BOTONES PARA AVANZAR A "LEVELSCENE" CON UN NIVEL MAS O VOLVER A selectLevel(ES UNA ESCENA)
