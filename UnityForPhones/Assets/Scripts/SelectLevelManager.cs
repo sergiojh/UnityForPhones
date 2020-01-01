@@ -46,14 +46,21 @@ public class SelectLevelManager : MonoBehaviour
         {
             levelsCompleted = gameManager.GetPersistance().progress[4];
         }
-
+        Debug.Log(gameManager.getActualLevel() + "   " + levelsCompleted);
         createBoard(gameManager.getTotalLevelOfCategory(gameManager.getActualLevel()),levelsCompleted);
 
     }
 
     public void back()
     {
+        gameManager.setActualLevel(0);
         SceneManager.LoadScene("MenuScene", LoadSceneMode.Single);
+    }
+
+    public void click(int levelPress)
+    {
+        if (gameManager.setActualLevel(levelPress) && levelPress > 0)
+            SceneManager.LoadScene("GameScene", LoadSceneMode.Single);
     }
 
 

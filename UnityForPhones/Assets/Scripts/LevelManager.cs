@@ -5,7 +5,6 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 public class LevelManager : MonoBehaviour
 {
-    [SerializeField]
     private GameManager gameManager;
     [SerializeField]
     private BoardManager boardManager;
@@ -34,12 +33,21 @@ public class LevelManager : MonoBehaviour
         categoryText.text = actualCategory+ " " + actualLevel;
         priceText.text = "" + price;
 
-        boardManager.initBoard("/Resources/Maps/maps.json",1);
+        int levelLoad = gameManager.getActualLevel() + gameManager.getActualCategory() * 100;
+        boardManager.initBoard("/Resources/Maps/maps.json",levelLoad);
     }
 
     public void back()
     {
+        gameManager.setActualLevel(0);
         SceneManager.LoadScene("LevelScene",LoadSceneMode.Single);
+    }
+
+    public void loadNextLevel()
+    {
+        gameManager.levelCompleted();
+        gameManager.setActualLevel(gameManager.getActualLevel() + 1);
+        SceneManager.LoadScene("GameScene", LoadSceneMode.Single);
     }
 
     public void buyHints()
@@ -68,7 +76,7 @@ public class LevelManager : MonoBehaviour
 
     public void finLevel()
     {
-        Debug.Log("FIN DEL JUEGO");
+        loadNextLevel();
         //llamar gameManger.completedLevel
         //aumentar los niveles completados por categoria actual
         //RECUARDA CREAR LOS BOTONES PARA AVANZAR A "LEVELSCENE" CON UN NIVEL MAS O VOLVER A selectLevel(ES UNA ESCENA)

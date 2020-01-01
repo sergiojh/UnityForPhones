@@ -5,8 +5,9 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 public class MenuManager : MonoBehaviour
 {
-
     [SerializeField]
+    private GameManager prefab;
+
     private GameManager gameManager;
     [SerializeField]
     private Text coinsText;
@@ -29,6 +30,12 @@ public class MenuManager : MonoBehaviour
     {
         gameManager = FindObjectOfType<GameManager>();
 
+        if (gameManager == null)
+        {
+            gameManager = Instantiate(prefab, this.transform);
+            gameManager.starRuning();
+        }
+        
         gameManager.SavePersistance("/Resources/Maps/save.json");
 
         coins = gameManager.GetPersistance().coins;
@@ -39,6 +46,12 @@ public class MenuManager : MonoBehaviour
         numLevelAdvancedText.text = "" + gameManager.GetPersistance().progress[2] + "/" + gameManager.getTotalLevelOfCategory(2);
         numLevelExpertText.text = "" + gameManager.GetPersistance().progress[3] + "/" + gameManager.getTotalLevelOfCategory(3);
         numLevelMasterText.text = "" + gameManager.GetPersistance().progress[4] + "/" + gameManager.getTotalLevelOfCategory(4);
+
+        gameManager.setLevelsCompleted(0, gameManager.GetPersistance().progress[0]);
+        gameManager.setLevelsCompleted(1, gameManager.GetPersistance().progress[1]);
+        gameManager.setLevelsCompleted(2, gameManager.GetPersistance().progress[2]);
+        gameManager.setLevelsCompleted(3, gameManager.GetPersistance().progress[3]);
+        gameManager.setLevelsCompleted(4, gameManager.GetPersistance().progress[4]);
     }
 
     public void exitApp()

@@ -17,10 +17,26 @@ public class GameManager : MonoBehaviour
 
     private static GameManager gameManager;
     private int actualLevel;
-    public int actualCategory;
+    private int actualCategory;
 
 
     private static Persistance persistance;
+
+    public void starRuning()
+    {
+        DontDestroyOnLoad(this);
+
+        if (gameManager == null)
+        {
+            gameManager = this;
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
+    }
+
+
     void Awake()
     {
         DontDestroyOnLoad(this);
@@ -52,12 +68,13 @@ public class GameManager : MonoBehaviour
 
     public int getCoins()
     {
-        return coins;
+        return GetPersistance().coins;
     }
 
     public bool setActualLevel(int levelNumber)
     {
-        if (levelNumber < levelsPerCategory[actualCategory] && levelNumber + 1 <= levelsPerCategoryCompleted[actualCategory])
+        Debug.Log(levelsPerCategoryCompleted[actualCategory]);
+        if (levelNumber <= levelsPerCategoryCompleted[actualCategory] + 1)
         {
             actualLevel = levelNumber;
             return true;
@@ -80,6 +97,11 @@ public class GameManager : MonoBehaviour
         return nameCategories[actualCategory];
     }
 
+    public int getActualCategory()
+    {
+        return actualCategory;
+    }
+
     public int getActualLevel()
     {
         return actualLevel;
@@ -100,6 +122,7 @@ public class GameManager : MonoBehaviour
         if (actualLevel > levelsPerCategoryCompleted[actualCategory])
         {
             levelsPerCategoryCompleted[actualCategory]++;
+            persistance.progress[actualCategory]++;
         }
     }
 
@@ -109,16 +132,19 @@ public class GameManager : MonoBehaviour
         return levelsPerCategoryCompleted[actualCategory];
     }
 
-
-
     public void SavePersistance(string path)
     {
         string json = File.ReadAllText(Application.dataPath + path);
         persistance = JsonConvert.DeserializeObject<Persistance>(json);
-        
     }
     public Persistance GetPersistance()
     {
         return persistance;
+    }
+
+    
+    public void setLevelsCompleted(int category, int levelCompleted)
+    {
+        levelsPerCategoryCompleted[category] = levelCompleted;
     }
 }
