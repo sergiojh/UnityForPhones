@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
     private int actualCategory;
 
 
-    private static Persistance persistance;
+    private Persistance persistance;
 
     public void starRuning()
     {
@@ -132,10 +132,24 @@ public class GameManager : MonoBehaviour
         return levelsPerCategoryCompleted[actualCategory];
     }
 
-    public void SavePersistance(string path)
+    public void loadPersistance(string path)
     {
-        string json = File.ReadAllText(Application.dataPath + path);
-        persistance = JsonConvert.DeserializeObject<Persistance>(json);
+        if (File.Exists(Application.dataPath + path))
+        {
+            Debug.Log("EXISTE");
+            string json = File.ReadAllText(Application.dataPath + path);
+            persistance = JsonConvert.DeserializeObject<Persistance>(json);
+        }
+
+        else
+        {
+            Debug.Log("NO EXISTE");
+            persistance = new Persistance();
+            persistance.coins = 0;
+            persistance.categories = new List<string>() { "BEGINNER", "REGULAR", "ADVANCED", "EXPERT", "MASTER" };
+            persistance.progress = new List<int>() { 0, 0, 0, 0, 0 };
+
+        }
     }
     public Persistance GetPersistance()
     {
@@ -150,9 +164,7 @@ public class GameManager : MonoBehaviour
 
     public void savePersistance()
     {
-        Debug.Log(persistance);
         string json = JsonUtility.ToJson(persistance);
-        Debug.Log(json);
         File.WriteAllText(Application.dataPath + "/Resources/Maps/save.json", json);
 
         
