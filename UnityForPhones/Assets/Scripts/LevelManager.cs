@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Newtonsoft.Json;
+using System.IO;
+
 public class LevelManager : MonoBehaviour
 {
     private GameManager gameManager;
@@ -20,6 +23,9 @@ public class LevelManager : MonoBehaviour
     private int coins;
     private int actualLevel;
     private string actualCategory;
+
+
+    private JSONMapReader jsonReader = new JSONMapReader();
     //"/Resources/Maps/map2.json"
     // Start is called before the first frame update
     void Start()
@@ -47,6 +53,8 @@ public class LevelManager : MonoBehaviour
     {
         gameManager.levelCompleted();
         gameManager.setActualLevel(gameManager.getActualLevel() + 1);
+        gameManager.GetPersistance().coins = 0;
+        gameManager.savePersistance();
         SceneManager.LoadScene("GameScene", LoadSceneMode.Single);
     }
 
@@ -76,6 +84,8 @@ public class LevelManager : MonoBehaviour
 
     public void finLevel()
     {
+        //
+
         loadNextLevel();
         //llamar gameManger.completedLevel
         //aumentar los niveles completados por categoria actual

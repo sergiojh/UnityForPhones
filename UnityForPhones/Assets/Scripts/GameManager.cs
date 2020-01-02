@@ -147,4 +147,14 @@ public class GameManager : MonoBehaviour
     {
         levelsPerCategoryCompleted[category] = levelCompleted;
     }
+
+    public void savePersistance()
+    {
+        Debug.Log(persistance);
+        string json = JsonUtility.ToJson(persistance);
+        Debug.Log(json);
+        File.WriteAllText(Application.dataPath + "/Resources/Maps/save.json", json);
+
+        
+    }
 }

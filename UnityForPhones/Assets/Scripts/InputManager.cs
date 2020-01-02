@@ -10,10 +10,13 @@ public class InputManager : MonoBehaviour
     private LevelManager levelManager;
 
     private SpriteRenderer clickTracker;
+
+    private bool oneTime;
     void Start()
     {
         clickTracker = gameObject.GetComponentInChildren<SpriteRenderer>();
         clickTracker.enabled = false;
+        oneTime = true;
     }
 
     // Update is called once per frame
@@ -29,8 +32,11 @@ public class InputManager : MonoBehaviour
             v = boardContainer.transform.InverseTransformPoint(v);
             boardContainer.Clicked(v);
             bool fin = boardContainer.checkFinJuego();
-            if (fin)
+            if (fin && oneTime)
+            {
                 levelManager.finLevel();
+                oneTime = false;
+            }
         }
         else
         {

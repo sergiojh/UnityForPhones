@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Persistance : MonoBehaviour
+
+public class Persistance 
 {
-    public int coins { get; set; }
-    public List<string> categories { get; set; }
-    public List<int> progress { get; set; }
+    public int coins;
+    public List<string> categories;
+    public List<int> progress;
 
 }
