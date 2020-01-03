@@ -39,7 +39,7 @@ public class InputManagerLevelSelect : MonoBehaviour
             int x = ((int)v.x - 100) / 100;
             int y = (-1 * (int)v.y) / 100;
 
-            int levelPress = x + y * 5;
+            int levelPress = x + y * 5 + 1;
             selectLevelManager.click(levelPress);
         }
 #endif
