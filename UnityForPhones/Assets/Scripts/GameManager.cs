@@ -6,7 +6,7 @@ using System.IO;
 
 public class GameManager : MonoBehaviour
 {
-    private int coins = 0;
+    private int coins;
 
     [SerializeField]
     private string[] nameCategories;
@@ -54,6 +54,7 @@ public class GameManager : MonoBehaviour
     public void addCoins(int value)
     {
         coins += value;
+        persistance.coins = coins;
     }
 
     public bool subtractCoins(int value)

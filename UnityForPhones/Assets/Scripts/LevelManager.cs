@@ -19,10 +19,23 @@ public class LevelManager : MonoBehaviour
     private Text priceText;
     [SerializeField]
     private int price;
+    [SerializeField]
+    private Canvas container;
+
+    [SerializeField]
+    private Text gameOverCategory;
+    [SerializeField]
+    private Text gameOverLevel;
+
+    [SerializeField]
+    private AdController adController;
 
     private int coins;
     private int actualLevel;
     private string actualCategory;
+
+
+    private bool finNivel = false;
 
 
     private JSONMapReader jsonReader = new JSONMapReader();
@@ -41,56 +54,80 @@ public class LevelManager : MonoBehaviour
 
         int levelLoad = gameManager.getActualLevel() + gameManager.getActualCategory() * 100;
         boardManager.initBoard("/Resources/Maps/maps.json",levelLoad);
+
+        container.gameObject.SetActive(false);
     }
 
     public void back()
     {
-        gameManager.setActualLevel(0);
-        SceneManager.LoadScene("LevelScene",LoadSceneMode.Single);
+        if (!finNivel)
+        {
+            gameManager.setActualLevel(0);
+            SceneManager.LoadScene("LevelScene", LoadSceneMode.Single);
+        }
     }
 
     public void loadNextLevel()
     {
-        gameManager.levelCompleted();
-        gameManager.setActualLevel(gameManager.getActualLevel() + 1);
-        gameManager.GetPersistance().coins = 0;
-        gameManager.savePersistance();
         SceneManager.LoadScene("GameScene", LoadSceneMode.Single);
     }
 
     public void buyHints()
     {
-        if (gameManager.subtractCoins(price))
+        if (!finNivel)
         {
-            coins = gameManager.getCoins();
-            coinsText.text = "" + coins;
+            if (gameManager.subtractCoins(price))
+            {
+                coins = gameManager.getCoins();
+                coinsText.text = "" + coins;
+            }
+            else
+                Debug.Log("No hay suficiente dinero");
         }
-        else
-            Debug.Log("No hay suficiente dinero");
     }
 
     public void resetBoard()
     {
-        boardManager.resetBoard();
+        if(!finNivel)
+            boardManager.resetBoard();
     }
 
     public void viewAdd()
     {
-        //AQUI VER ANUNCIO Y SUMAR COINS
-        gameManager.addCoins(1);
-        coins = gameManager.getCoins();
-        coinsText.text = "" + coins;
+        if (!finNivel)
+        {
+            adController.showAd();
+        }
     }
 
     public void finLevel()
     {
-        //
-
-        loadNextLevel();
-        //llamar gameManger.completedLevel
-        //aumentar los niveles completados por categoria actual
-        //RECUARDA CREAR LOS BOTONES PARA AVANZAR A "LEVELSCENE" CON UN NIVEL MAS O VOLVER A selectLevel(ES UNA ESCENA)
+        gameOverCategory.text = "" + actualCategory;
+        gameOverLevel.text = "" + actualLevel;
+        finNivel = true;
+        container.gameObject.SetActive(true);
+        gameManager.levelCompleted();
+        gameManager.setActualLevel(gameManager.getActualLevel() + 1);
+        gameManager.savePersistance();
         //animacion de pulsado de botones con los putos sprites truñer esos chinos que ahora se pone en gris mendrugo (from: Pablo to: Pablo)
     }
+
+    public void goHome()
+    {
+        if(finNivel)
+            SceneManager.LoadScene("MenuScene", LoadSceneMode.Single);
+    }
+
+    public int getCoins()
+    {
+        return coins;
+    }
+    public void addCoins(int value)
+    {
+        gameManager.addCoins(value);
+        coins = gameManager.getCoins();
+        coinsText.text = "" + coins;
+    }
+    
 
 }
