@@ -90,63 +90,6 @@ public class Scaler : MonoBehaviour
             Vector3 v = new Vector3(boardManager.transform.localScale.x * increment, boardManager.transform.localScale.y * increment, 1);
             boardManager.transform.localScale = v;
         }
-
-        //move position
-        if (boardManager.getHMatrix() < 6)
-        {
-
-            float moveY = 0;
-            switch (boardManager.getHMatrix())
-            {
-                case 1:
-                    moveY = 2.5f;
-                    break;
-                case 2:
-                    moveY = 2.0f;
-                    break;
-                case 3:
-                    moveY = 1.5f;
-                    break;
-                case 4:
-                    moveY = 1.0f;
-                    break;
-                case 5:
-                    moveY = 0.5f;
-                    break;
-            }
-            if (factorScaladoY > 0 && boardManager.getHMatrix() == 6 && Screen.height > Screen.width)
-                moveY = 2.0f;
-            boardManager.transform.position = new Vector3(boardManager.transform.position.x, boardManager.transform.position.y + moveY, 0);
-        }
-        else
-        {
-            float moveY = 0;
-            if (factorScaladoY > 0 && boardManager.getHMatrix() == 6 && Screen.height > Screen.width)
-                moveY = 1.0f;
-            boardManager.transform.position = new Vector3(boardManager.transform.position.x, boardManager.transform.position.y + moveY, 0);
-
-        }
-        if (boardManager.getWMatrix() < 5)
-        {
-
-            float moveX = 0;
-            switch (boardManager.getWMatrix())
-            {
-                case 1:
-                    moveX = 2.0f;
-                    break;
-                case 2:
-                    moveX = 1.5f;
-                    break;
-                case 3:
-                    moveX = 1.0f;
-                    break;
-                case 4:
-                    moveX = 0.5f;
-                    break;
-            }
-            boardManager.transform.position = new Vector3(boardManager.transform.position.x + moveX, boardManager.transform.position.y, 0);
-        }
     }
     
 }

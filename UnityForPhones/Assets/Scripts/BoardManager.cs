@@ -11,6 +11,9 @@ public class BoardManager : MonoBehaviour
     [SerializeField]
     private Scaler scaler;
 
+    [SerializeField]
+    private Camera camera;
+
     private List<Board> mapas = new List<Board>();
 
     private Tile[,] matrix;
@@ -31,6 +34,13 @@ public class BoardManager : MonoBehaviour
         createBoard(mapas, level);
         _nivel = level;
         scaler.startScaling();
+        float x = 0.5f;
+        float y = 0.5f;
+        if (_alto != 0)
+            y = _alto / 2;
+        if (_ancho != 0)
+            x = _ancho / 2;
+        camera.transform.localPosition = new Vector3(x, y,-10);
     }
 
     public int getTotalTypeTiles()
@@ -142,11 +152,11 @@ public class BoardManager : MonoBehaviour
                         break;
                     case '1':
                         matrix[yLogic, xLogic] = Instantiate(typeofTile[_piel], new Vector3(y + transform.position.x, (b[nivel].layout.Count -1) + (transform.position.y - x), 0), Quaternion.identity, gameObject.transform);
-                        matrix[yLogic, xLogic].transform.localPosition = new Vector3(yLogic, xLogic, 0);
+                        matrix[yLogic, xLogic].transform.localPosition = new Vector3(yLogic, xLogic, 85);
                         break;
                     case '2':
                         matrix[yLogic, xLogic] = Instantiate(typeofTile[_piel],new Vector3(y + transform.position.x, (b[nivel].layout.Count -1 ) + (transform.position.y - x), 0),Quaternion.identity,gameObject.transform);
-                        matrix[yLogic, xLogic].transform.localPosition = new Vector3(yLogic, xLogic, 0);
+                        matrix[yLogic, xLogic].transform.localPosition = new Vector3(yLogic, xLogic, 85);
                         matrix[yLogic, xLogic].SetPulsado(true);
                         _xTileActivo = yLogic;
                         _yTileActivo = xLogic;
