@@ -11,7 +11,6 @@ public class AdController : MonoBehaviour, IUnityAdsListener
     private string rewarded_video_ad = "rewardedVideo";
     [SerializeField]
     private LevelManager levelManager;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -36,7 +35,6 @@ public class AdController : MonoBehaviour, IUnityAdsListener
         // Define conditional logic for each ad completion status:
         if (showResult == ShowResult.Finished)
         {
-            Debug.Log("VISTO");
             // Reward the user for watching the ad to completion.
             levelManager.addCoins(25);
         }
@@ -65,5 +63,10 @@ public class AdController : MonoBehaviour, IUnityAdsListener
     public void OnUnityAdsDidStart(string placementId)
     {
         // Optional actions to take when the end-users triggers an ad.
+    }
+
+    public void stopListening()
+    {
+        Advertisement.RemoveListener(this);
     }
 }

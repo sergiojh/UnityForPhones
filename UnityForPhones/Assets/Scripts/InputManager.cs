@@ -8,20 +8,44 @@ public class InputManager : MonoBehaviour
     private BoardManager boardContainer;
     [SerializeField]
     private LevelManager levelManager;
+    [SerializeField]
+    private List<SpriteRenderer> TypeClickTrackers;
 
     private SpriteRenderer clickTracker;
-
-    private bool oneTime;
-    void Start()
+    public void Init(int piel)
     {
-        clickTracker = gameObject.GetComponentInChildren<SpriteRenderer>();
+        clickTracker = Instantiate(TypeClickTrackers[piel],this.transform);
         clickTracker.enabled = false;
-        oneTime = true;
     }
 
     // Update is called once per frame
     void Update()
     {
+#if !UNITY_EDITOR && UNITY_ANDROID
+
+        Touch t = Input.GetTouch(0);
+        if (t.phase == TouchPhase.Began || t.phase == TouchPhase.Moved)
+        {
+            clickTracker.enabled = true;
+            var v = Camera.main.ScreenToWorldPoint(t.position);
+
+            clickTracker.transform.position = v;
+            v = boardContainer.transform.InverseTransformPoint(v);
+            boardContainer.Clicked(v);
+            bool fin = boardContainer.checkFinJuego();
+
+            if (fin && oneTime)
+            {
+                levelManager.finLevel();
+                Destroy(this.gameObject);
+            }
+        }
+        else
+        {
+            clickTracker.enabled = false;
+        }
+
+#else
         if (Input.GetMouseButton(0))
         {
             clickTracker.enabled = true;
@@ -32,17 +56,16 @@ public class InputManager : MonoBehaviour
             v = boardContainer.transform.InverseTransformPoint(v);
             boardContainer.Clicked(v);
             bool fin = boardContainer.checkFinJuego();
-            if (fin && oneTime)
+            if (fin)
             {
                 levelManager.finLevel();
-                oneTime = false;
+                Destroy(this.gameObject);
             }
         }
         else
         {
             clickTracker.enabled = false;
-            
-
         }
+#endif
     }
 }

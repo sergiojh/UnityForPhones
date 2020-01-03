@@ -16,6 +16,12 @@ public class Tile : MonoBehaviour
     [SerializeField]
     private SpriteRenderer[] _pathDirection;
 
+    /// <summary>
+    /// La colocacion es Norte, Sur, Oeste y Este
+    /// </summary>
+    [SerializeField]
+    private SpriteRenderer[] _pathHintDirection;
+
     private bool _pulsado = false;
     private int _pathActive = -1;
 
@@ -24,6 +30,8 @@ public class Tile : MonoBehaviour
     {
 
         foreach (var sprite in _pathDirection)
+            sprite.gameObject.SetActive(false);
+        foreach (var sprite in _pathHintDirection)
             sprite.gameObject.SetActive(false);
 
         if (_pulsado)
@@ -54,6 +62,22 @@ public class Tile : MonoBehaviour
         {
             _pathActive = value;
             _pathDirection[value].gameObject.SetActive(true);
+        }
+        else
+            Debug.LogError("La variable no esta contenida entre 0 y 3");
+    }
+    /// <summary>
+    /// 0 ->  Norte
+    /// 1 ->  Sur
+    /// 2 ->  Oeste
+    /// 3 ->  Este
+    /// </summary>
+    /// <param name="value">debe estar entre 0-3</param>
+    public void setActiveHintPath(int value)
+    {
+        if (value >= 0 && value < 4)
+        {
+            _pathHintDirection[value].gameObject.SetActive(true);
         }
         else
             Debug.LogError("La variable no esta contenida entre 0 y 3");

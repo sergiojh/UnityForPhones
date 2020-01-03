@@ -12,6 +12,8 @@ public class LevelManager : MonoBehaviour
     [SerializeField]
     private BoardManager boardManager;
     [SerializeField]
+    private InputManager inputManager;
+    [SerializeField]
     private Text coinsText;
     [SerializeField]
     private Text categoryText;
@@ -34,12 +36,11 @@ public class LevelManager : MonoBehaviour
     private int actualLevel;
     private string actualCategory;
 
-
     private bool finNivel = false;
 
 
     private JSONMapReader jsonReader = new JSONMapReader();
-    //"/Resources/Maps/map2.json"
+
     // Start is called before the first frame update
     void Start()
     {
@@ -53,7 +54,12 @@ public class LevelManager : MonoBehaviour
         priceText.text = "" + price;
 
         int levelLoad = gameManager.getActualLevel() + gameManager.getActualCategory() * 100;
-        boardManager.initBoard("/Resources/Maps/maps.json",levelLoad);
+
+        int numOfTiles = boardManager.getTotalTypeTiles();
+        int r = Random.Range(0,numOfTiles); // es exclusivo en el valor max
+        boardManager.initBoard("/Resources/Maps/maps.json",levelLoad, r);
+
+        inputManager.Init(r);
 
         container.gameObject.SetActive(false);
     }
@@ -63,12 +69,14 @@ public class LevelManager : MonoBehaviour
         if (!finNivel)
         {
             gameManager.setActualLevel(0);
+            adController.stopListening();
             SceneManager.LoadScene("LevelScene", LoadSceneMode.Single);
         }
     }
 
     public void loadNextLevel()
     {
+        adController.stopListening();
         SceneManager.LoadScene("GameScene", LoadSceneMode.Single);
     }
 
@@ -78,8 +86,13 @@ public class LevelManager : MonoBehaviour
         {
             if (gameManager.subtractCoins(price))
             {
-                coins = gameManager.getCoins();
-                coinsText.text = "" + coins;
+                if (boardManager.ActiveMoreHints())
+                {
+                    coins = gameManager.getCoins();
+                    coinsText.text = "" + coins;
+                }
+                else
+                    gameManager.addCoins(price);
             }
             else
                 Debug.Log("No hay suficiente dinero");
@@ -109,13 +122,16 @@ public class LevelManager : MonoBehaviour
         gameManager.levelCompleted();
         gameManager.setActualLevel(gameManager.getActualLevel() + 1);
         gameManager.savePersistance();
-        //animacion de pulsado de botones con los putos sprites truñer esos chinos que ahora se pone en gris mendrugo (from: Pablo to: Pablo)
     }
 
     public void goHome()
     {
-        if(finNivel)
+        if (finNivel)
+        {
+            gameManager.setActualLevel(0);
+            adController.stopListening();
             SceneManager.LoadScene("MenuScene", LoadSceneMode.Single);
+        }
     }
 
     public int getCoins()
@@ -124,10 +140,15 @@ public class LevelManager : MonoBehaviour
     }
     public void addCoins(int value)
     {
-        gameManager.addCoins(value);
+        gameManager.addCoins(25);
         coins = gameManager.getCoins();
-        coinsText.text = "" + coins;
+        if (coinsText != null)
+            coinsText.text = "" + coins;
+        else
+        {           
+            var a = GameObject.Find("Amount");
+            coinsText = a.GetComponent<Text>();
+            coinsText.text = "" + coins;
+        }
     }
-    
-
 }

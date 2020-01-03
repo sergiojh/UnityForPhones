@@ -6,14 +6,12 @@ using System.IO;
 
 public class GameManager : MonoBehaviour
 {
-    private int coins;
 
     [SerializeField]
     private string[] nameCategories;
     [SerializeField]
     private int[] levelsPerCategory;
-    [SerializeField]
-    private int[] levelsPerCategoryCompleted;
+
 
     private static GameManager gameManager;
     private int actualLevel;
@@ -53,15 +51,14 @@ public class GameManager : MonoBehaviour
 
     public void addCoins(int value)
     {
-        coins += value;
-        persistance.coins = coins;
+        persistance.coins += value;
     }
 
     public bool subtractCoins(int value)
     {
-        if (coins - value >= 0)
+        if (persistance.coins - value >= 0)
         {
-            coins -= value;
+            persistance.coins -= value;
             return true;
         }
         return false;
@@ -74,8 +71,7 @@ public class GameManager : MonoBehaviour
 
     public bool setActualLevel(int levelNumber)
     {
-        Debug.Log(levelsPerCategoryCompleted[actualCategory]);
-        if (levelNumber <= levelsPerCategoryCompleted[actualCategory] + 1)
+        if (levelNumber <= persistance.progress[actualCategory] + 1)
         {
             actualLevel = levelNumber;
             return true;
@@ -115,14 +111,13 @@ public class GameManager : MonoBehaviour
 
     public int getTotalLevelCompletedOfCategory(int category)
     {
-        return levelsPerCategoryCompleted[category];
+        return persistance.progress[category];
     }
 
     public void levelCompleted()
     {
-        if (actualLevel > levelsPerCategoryCompleted[actualCategory])
+        if (actualLevel > persistance.progress[actualCategory])
         {
-            levelsPerCategoryCompleted[actualCategory]++;
             persistance.progress[actualCategory]++;
         }
     }
@@ -130,21 +125,18 @@ public class GameManager : MonoBehaviour
 
     public int getLevelsCompletedFromActualLevel()
     {
-        return levelsPerCategoryCompleted[actualCategory];
+        return persistance.progress[actualCategory];
     }
 
     public void loadPersistance(string path)
     {
         if (File.Exists(Application.dataPath + path))
         {
-            Debug.Log("EXISTE");
             string json = File.ReadAllText(Application.dataPath + path);
             persistance = JsonConvert.DeserializeObject<Persistance>(json);
         }
-
         else
         {
-            Debug.Log("NO EXISTE");
             persistance = new Persistance();
             persistance.coins = 0;
             persistance.categories = new List<string>() { "BEGINNER", "REGULAR", "ADVANCED", "EXPERT", "MASTER" };
@@ -160,7 +152,7 @@ public class GameManager : MonoBehaviour
     
     public void setLevelsCompleted(int category, int levelCompleted)
     {
-        levelsPerCategoryCompleted[category] = levelCompleted;
+        persistance.progress[category] = levelCompleted;
     }
 
     public void savePersistance()

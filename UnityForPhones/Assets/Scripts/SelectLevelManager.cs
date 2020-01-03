@@ -59,7 +59,7 @@ public class SelectLevelManager : MonoBehaviour
 
     public void click(int levelPress)
     {
-        if (gameManager.setActualLevel(levelPress) && levelPress > 0)
+        if (gameManager.setActualLevel(levelPress) && levelPress >= 0)
             SceneManager.LoadScene("GameScene", LoadSceneMode.Single);
     }
 

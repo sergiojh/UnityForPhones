@@ -20,15 +20,23 @@ public class BoardManager : MonoBehaviour
     private int _alto;
     private int _startPosX;
     private int _startPosY;
-
-    public void initBoard(string mapName, int level)
+    private int _piel;
+    private int _hintNumber;
+    private int _nivel;
+    public void initBoard(string mapName, int level, int piel)
     {
+        _hintNumber = 1;
+        _piel = piel;
         mapas = jsonReader.deserializarJSON(mapName);
         createBoard(mapas, level);
+        _nivel = level;
         scaler.startScaling();
     }
 
-
+    public int getTotalTypeTiles()
+    {
+        return typeofTile.Count;
+    }
     public int getWMatrix()
     {
         return _ancho;
@@ -121,7 +129,7 @@ public class BoardManager : MonoBehaviour
         _ancho = b[nivel].layout[0].Length;
         matrix = new Tile[_ancho, _alto];
         //x es alto, y es ancho
-        int xLogic = _alto - 1;
+        int xLogic = 0;
         for (int x = 0; x < b[nivel].layout.Count ; x++)//Cada fila del tablero
         {
             int yLogic = 0;
@@ -133,11 +141,11 @@ public class BoardManager : MonoBehaviour
                         matrix[yLogic, xLogic] = null;
                         break;
                     case '1':
-                        matrix[yLogic, xLogic] = Instantiate(typeofTile[0], new Vector3(y + transform.position.x, (b[nivel].layout.Count -1) + (transform.position.y - x), 0), Quaternion.identity, gameObject.transform);
+                        matrix[yLogic, xLogic] = Instantiate(typeofTile[_piel], new Vector3(y + transform.position.x, (b[nivel].layout.Count -1) + (transform.position.y - x), 0), Quaternion.identity, gameObject.transform);
                         matrix[yLogic, xLogic].transform.localPosition = new Vector3(yLogic, xLogic, 0);
                         break;
                     case '2':
-                        matrix[yLogic, xLogic] = Instantiate(typeofTile[0],new Vector3(y + transform.position.x, (b[nivel].layout.Count -1 ) + (transform.position.y - x), 0),Quaternion.identity,gameObject.transform);
+                        matrix[yLogic, xLogic] = Instantiate(typeofTile[_piel],new Vector3(y + transform.position.x, (b[nivel].layout.Count -1 ) + (transform.position.y - x), 0),Quaternion.identity,gameObject.transform);
                         matrix[yLogic, xLogic].transform.localPosition = new Vector3(yLogic, xLogic, 0);
                         matrix[yLogic, xLogic].SetPulsado(true);
                         _xTileActivo = yLogic;
@@ -148,7 +156,7 @@ public class BoardManager : MonoBehaviour
                 }
                 yLogic++;
             }
-            xLogic--;
+            xLogic++;
         }
         return true;
     }
@@ -176,6 +184,49 @@ public class BoardManager : MonoBehaviour
         _yTileActivo = _startPosY;
     }
 
+    public bool ActiveMoreHints()
+    {
+        resetBoard();
 
+        int i = 0;
+
+        while(i < 5 && _hintNumber < mapas[_nivel].path.Count)
+        {
+
+            int x = mapas[_nivel].path[_hintNumber][1];
+            int y = mapas[_nivel].path[_hintNumber][0];
+
+            if (mapas[_nivel].path[_hintNumber][0] == mapas[_nivel].path[_hintNumber - 1][0])//se mueve en x
+            {
+                if (mapas[_nivel].path[_hintNumber][1] == mapas[_nivel].path[_hintNumber - 1][1] - 1)//izquierda
+                {
+                    matrix[x, y].setActiveHintPath(3);
+                }
+                else //derecha
+                {
+                    matrix[x, y].setActiveHintPath(2);
+                }
+            }
+            else //se mueve en y
+            {
+                if (mapas[_nivel].path[_hintNumber][0] == mapas[_nivel].path[_hintNumber - 1][0] - 1)//abajo
+                {
+                    matrix[x, y].setActiveHintPath(0);
+                }
+                else //arriba
+                {
+                    matrix[x, y].setActiveHintPath(1);
+                }
+            }
+            _hintNumber++;
+            i++;
+        }
+
+        if (i == 0)
+            return false;
+        else
+            return true;
+
+    }
 
 }
