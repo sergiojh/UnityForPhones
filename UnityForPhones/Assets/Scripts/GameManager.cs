@@ -130,9 +130,10 @@ public class GameManager : MonoBehaviour
 
     public void loadPersistance(string path)
     {
-        if (File.Exists(Application.dataPath + path))
+        if (File.Exists(Application.persistentDataPath + path))
         {
-            string json = File.ReadAllText(Application.dataPath + path);
+            string json;
+            json = File.ReadAllText(Application.persistentDataPath + path);
             persistance = JsonConvert.DeserializeObject<Persistance>(json);
         }
         else
@@ -158,8 +159,6 @@ public class GameManager : MonoBehaviour
     public void savePersistance()
     {
         string json = JsonUtility.ToJson(persistance);
-        File.WriteAllText(Application.dataPath + "/Resources/Maps/save.json", json);
-
-        
+        File.WriteAllText(Application.persistentDataPath + "save.json", json);        
     }
 }

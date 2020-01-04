@@ -36,7 +36,7 @@ public class MenuManager : MonoBehaviour
             gameManager.starRuning();
         }
         
-        gameManager.loadPersistance("/Resources/Maps/save.json");
+        gameManager.loadPersistance("save.json");
 
         coins = gameManager.GetPersistance().coins;
         coinsText.text = "" + coins;

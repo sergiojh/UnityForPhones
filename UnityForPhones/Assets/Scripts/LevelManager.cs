@@ -57,7 +57,7 @@ public class LevelManager : MonoBehaviour
 
         int numOfTiles = boardManager.getTotalTypeTiles();
         int r = Random.Range(0,numOfTiles); // es exclusivo en el valor max
-        boardManager.initBoard("/Resources/Maps/maps.json",levelLoad - 1, r);
+        boardManager.initBoard("/maps.json",levelLoad - 1, r);
 
         inputManager.Init(r);
 
@@ -142,13 +142,6 @@ public class LevelManager : MonoBehaviour
     {
         gameManager.addCoins(25);
         coins = gameManager.getCoins();
-        //if (coinsText != null)
-            coinsText.text = "" + coins;
-       /* else
-        {           
-            var a = GameObject.Find("Amount");
-            coinsText = a.GetComponent<Text>();
-            coinsText.text = "" + coins;
-        }*/
+        coinsText.text = "" + coins;
     }
 }

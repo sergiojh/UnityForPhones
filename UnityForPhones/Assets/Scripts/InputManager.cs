@@ -34,7 +34,7 @@ public class InputManager : MonoBehaviour
             boardContainer.Clicked(v);
             bool fin = boardContainer.checkFinJuego();
 
-            if (fin && oneTime)
+            if (fin)
             {
                 levelManager.finLevel();
                 Destroy(this.gameObject);
