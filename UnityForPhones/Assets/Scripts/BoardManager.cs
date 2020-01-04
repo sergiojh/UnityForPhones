@@ -26,14 +26,14 @@ public class BoardManager : MonoBehaviour
     private int _piel;
     private int _hintNumber;
     private int _nivel;
-    public void initBoard(string mapName, int level, int piel)
+    public void initBoard(string mapName, int level, int piel,SpriteRenderer clickTracker)
     {
         _hintNumber = 1;
         _piel = piel;
         mapas = jsonReader.deserializarJSON(mapName);
         createBoard(mapas, level);
         _nivel = level;
-        scaler.startScaling();
+        scaler.startScaling(clickTracker);
         float x = 0.5f;
         float y = 0.5f;
         if (_alto != 0)

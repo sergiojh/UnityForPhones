@@ -7,8 +7,7 @@ public class Scaler : MonoBehaviour
 
     [SerializeField]
     private BoardManager boardManager;
-    [SerializeField]
-    private SpriteRenderer clickTraker;
+    
 
     private const int _defaultAncho = 720;
     private const int _defaultAlto = 1280;
@@ -23,7 +22,7 @@ public class Scaler : MonoBehaviour
     private SpriteRenderer bottomPart;
 
     // Start is called before the first frame update
-    public void startScaling()
+    public void startScaling(SpriteRenderer clickTracker)
     {
         //sacamos la parte blanca
         _alto = _defaultAlto - _blueBottomPart - _blueTopPart;
@@ -72,7 +71,8 @@ public class Scaler : MonoBehaviour
             Vector3 boardScale = new Vector3(boardManager.transform.localScale.x * factorScaladoX, boardManager.transform.localScale.y * factorScaladoX, 1);
             Vector3 clickScale = new Vector3(factorScaladoY + 0.2f, factorScaladoY + 0.2f, 1);
             boardManager.transform.localScale = boardScale;
-            clickTraker.transform.localScale = clickScale;
+            clickTracker.transform.localScale = clickScale;
+
         }
         else
         {

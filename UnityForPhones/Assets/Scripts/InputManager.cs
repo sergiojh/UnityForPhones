@@ -68,4 +68,9 @@ public class InputManager : MonoBehaviour
         }
 #endif
     }
+
+    public SpriteRenderer getTracker()
+    {
+        return clickTracker;
+    }
 }
