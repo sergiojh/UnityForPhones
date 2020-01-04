@@ -130,6 +130,7 @@ public class GameManager : MonoBehaviour
 
     public void loadPersistance(string path)
     {
+        /*
         if (File.Exists(Application.persistentDataPath + path))
         {
             string json;
@@ -143,6 +144,33 @@ public class GameManager : MonoBehaviour
             persistance.categories = new List<string>() { "BEGINNER", "REGULAR", "ADVANCED", "EXPERT", "MASTER" };
             persistance.progress = new List<int>() { 0, 0, 0, 0, 0 };
 
+        }*/
+
+        string filePath = Application.streamingAssetsPath + "/save.json";
+        string jsonString;
+        if (File.Exists(filePath))
+        {
+            if (Application.platform == RuntimePlatform.Android) //Need to extract file from apk first
+            {
+                WWW reader = new WWW(filePath);
+                while (!reader.isDone) { }
+
+                jsonString = reader.text;
+            }
+            else
+            {
+                jsonString = File.ReadAllText(filePath);
+            }
+
+
+            persistance = JsonConvert.DeserializeObject<Persistance>(jsonString);
+        }
+        else
+        {
+            persistance = new Persistance();
+            persistance.coins = 0;
+            persistance.categories = new List<string>() { "BEGINNER", "REGULAR", "ADVANCED", "EXPERT", "MASTER" };
+            persistance.progress = new List<int>() { 0, 0, 0, 0, 0 };
         }
     }
     public Persistance GetPersistance()

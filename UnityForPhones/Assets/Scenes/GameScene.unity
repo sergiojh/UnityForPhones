@@ -2494,7 +2494,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2006456681
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2611,7 +2611,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boardManager: {fileID: 2119189486}
-  clickTraker: {fileID: 0}
   topPart: {fileID: 2000281882}
   bottomPart: {fileID: 1500336258}
 --- !u!4 &2021428286

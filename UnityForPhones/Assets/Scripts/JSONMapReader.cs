@@ -12,6 +12,10 @@ public class JSONMapReader: MonoBehaviour
     public List<Board> deserializarJSON(string path)
     {
         //string json = File.ReadAllText(Application.dataPath + path);
+
+
+
+
         string filePath = Application.streamingAssetsPath + "/maps.json";
         string jsonString;
 
@@ -27,7 +31,15 @@ public class JSONMapReader: MonoBehaviour
             jsonString = File.ReadAllText(filePath);
         }
 
-        List<Board> board = JsonConvert.DeserializeObject<List<Board>>(jsonString);
+    
+
+
+
+
+         List<Board> board = JsonConvert.DeserializeObject<List<Board>>(jsonString);
+
+
+        //List<Board> board = JsonUtility.FromJson<List<Board>>(Application.dataPath + path);
         return board;
     }
     
