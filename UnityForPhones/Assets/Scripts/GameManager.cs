@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Newtonsoft.Json;
 using System.IO;
 
 public class GameManager : MonoBehaviour
@@ -163,7 +162,7 @@ public class GameManager : MonoBehaviour
             }
 
 
-            persistance = JsonConvert.DeserializeObject<Persistance>(jsonString);
+            persistance = JsonUtility.FromJson<Persistance>(Application.streamingAssetsPath + "/save.json");
         }
         else
         {

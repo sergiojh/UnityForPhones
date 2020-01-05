@@ -1,8 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
-using Newtonsoft.Json;
+using System.Text.Json;
+
+
 
 public class JSONMapReader: MonoBehaviour
 {
@@ -13,34 +14,20 @@ public class JSONMapReader: MonoBehaviour
     {
         //string json = File.ReadAllText(Application.dataPath + path);
 
-
-
+        Debug.Log("AAA " + Application.streamingAssetsPath + "/maps.json");
 
         string filePath = Application.streamingAssetsPath + "/maps.json";
         string jsonString;
+     
+        jsonString = File.ReadAllText(filePath);
+        
+        List<Board> board;
+        board = JsonSerializer.Deserialize<List<Board>>(jsonString);
 
-        if (Application.platform == RuntimePlatform.Android) //Need to extract file from apk first
-        {
-            WWW reader = new WWW(filePath);
-            while (!reader.isDone) { }
-
-            jsonString = reader.text;
-        }
-        else
-        {
-            jsonString = File.ReadAllText(filePath);
-        }
-
-    
-
-
-
-
-         List<Board> board = JsonConvert.DeserializeObject<List<Board>>(jsonString);
-
-
-        //List<Board> board = JsonUtility.FromJson<List<Board>>(Application.dataPath + path);
         return board;
+
+        
+        
     }
     
 }
