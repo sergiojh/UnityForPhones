@@ -155,20 +155,20 @@ public class GameManager : MonoBehaviour
 
     public void loadPersistance(string path)
     {
-        if (File.Exists(Application.persistentDataPath + path))
+        /*if (File.Exists(Application.persistentDataPath + path))
         {
             string json;
             json = File.ReadAllText(Application.persistentDataPath + path);
             persistance = JsonConvert.DeserializeObject<Persistance>(json);
         }
         else
-        {
+        {*/
             persistance = new Persistance();
             persistance.coins = 0;
             persistance.categories = new List<string>() { "BEGINNER", "REGULAR", "ADVANCED", "EXPERT", "MASTER", "CHALLENGE" };
             persistance.progress = new List<int>() { 0, 0, 0, 0, 0 , 0 };
             persistance.archievement = 0;
-        }
+        //}
     }
 
     public Persistance GetPersistance()

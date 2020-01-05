@@ -27,7 +27,7 @@ public class InputManager : MonoBehaviour
     void Update()
     {
 #if !UNITY_EDITOR && UNITY_ANDROID
-
+        if(Input.touchCount > 0){
         Touch t = Input.GetTouch(0);
         if (t.phase == TouchPhase.Began || t.phase == TouchPhase.Moved)
         {
@@ -48,6 +48,7 @@ public class InputManager : MonoBehaviour
         else
         {
             clickTracker.enabled = false;
+        }
         }
 
 #else
