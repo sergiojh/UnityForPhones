@@ -29,7 +29,7 @@ public class ChallengeLevelManager : MonoBehaviour
         int numOfTiles = boardManager.getTotalTypeTiles();
         int piel = Random.Range(0, numOfTiles); // es exclusivo en el valor max
         inputManager.Init(piel);
-        boardManager.initBoard("/maps.json", levelLoad, piel, inputManager.getClickTracker());
+        boardManager.initBoard("maps", levelLoad, piel, inputManager.getClickTracker());
     }
 
     public void endGame()

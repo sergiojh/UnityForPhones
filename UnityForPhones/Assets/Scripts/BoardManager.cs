@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
+using System.Text.RegularExpressions;
 public class BoardManager : MonoBehaviour
 {
     private JSONMapReader jsonReader = new JSONMapReader();
+
     [SerializeField]
     private List<Tile> typeofTile;
 
@@ -14,8 +15,7 @@ public class BoardManager : MonoBehaviour
     [SerializeField]
     private Camera camera;
 
-    private List<Board> mapas = new List<Board>();
-
+    private Board mapa;
     private Tile[,] matrix;
     private int _yTileActivo;
     private int _xTileActivo;
@@ -30,8 +30,8 @@ public class BoardManager : MonoBehaviour
     {
         _hintNumber = 1;
         _piel = piel;
-        mapas = jsonReader.deserializarJSON(mapName);
-        createBoard(mapas, level);
+        mapa = parseTxtMaps(mapName, level);
+        createBoard(mapa, level);
         _nivel = level;
         scaler.startScaling(clickTracker);
         float x = 0.5f;
@@ -133,29 +133,29 @@ public class BoardManager : MonoBehaviour
         return clicked;
     }
 
-    private bool createBoard(List<Board> b,int nivel)
+    private bool createBoard(Board b,int nivel)
     {
-        _alto = b[nivel].layout.Count;
-        _ancho = b[nivel].layout[0].Length;
+        _alto = b.layout.Count;
+        _ancho = b.layout[0].Length;
         matrix = new Tile[_ancho, _alto];
         //x es alto, y es ancho
         int xLogic = 0;
-        for (int x = 0; x < b[nivel].layout.Count ; x++)//Cada fila del tablero
+        for (int x = 0; x < b.layout.Count ; x++)//Cada fila del tablero
         {
             int yLogic = 0;
-            for (int y = 0; y < b[nivel].layout[x].Length; y++)//Cada casilla en el string de cada fila
+            for (int y = 0; y < b.layout[x].Length; y++)//Cada casilla en el string de cada fila
             {
-                switch (b[nivel].layout[x][y])
+                switch (b.layout[x][y])
                 {
                     case '0':
                         matrix[yLogic, xLogic] = null;
                         break;
                     case '1':
-                        matrix[yLogic, xLogic] = Instantiate(typeofTile[_piel], new Vector3(y + transform.position.x, (b[nivel].layout.Count -1) + (transform.position.y - x), 0), Quaternion.identity, gameObject.transform);
+                        matrix[yLogic, xLogic] = Instantiate(typeofTile[_piel], new Vector3(y + transform.position.x, (b.layout.Count -1) + (transform.position.y - x), 0), Quaternion.identity, gameObject.transform);
                         matrix[yLogic, xLogic].transform.localPosition = new Vector3(yLogic, xLogic, 85);
                         break;
                     case '2':
-                        matrix[yLogic, xLogic] = Instantiate(typeofTile[_piel],new Vector3(y + transform.position.x, (b[nivel].layout.Count -1 ) + (transform.position.y - x), 0),Quaternion.identity,gameObject.transform);
+                        matrix[yLogic, xLogic] = Instantiate(typeofTile[_piel],new Vector3(y + transform.position.x, (b.layout.Count -1 ) + (transform.position.y - x), 0),Quaternion.identity,gameObject.transform);
                         matrix[yLogic, xLogic].transform.localPosition = new Vector3(yLogic, xLogic, 85);
                         matrix[yLogic, xLogic].SetPulsado(true);
                         _xTileActivo = yLogic;
@@ -200,15 +200,15 @@ public class BoardManager : MonoBehaviour
 
         int i = 0;
 
-        while(i < 5 && _hintNumber < mapas[_nivel].path.Count)
+        while(i < 5 && _hintNumber < mapa.path.Count)
         {
 
-            int x = mapas[_nivel].path[_hintNumber][1];
-            int y = mapas[_nivel].path[_hintNumber][0];
+            int x = mapa.path[_hintNumber][1];
+            int y = mapa.path[_hintNumber][0];
 
-            if (mapas[_nivel].path[_hintNumber][0] == mapas[_nivel].path[_hintNumber - 1][0])//se mueve en x
+            if (mapa.path[_hintNumber][0] == mapa.path[_hintNumber - 1][0])//se mueve en x
             {
-                if (mapas[_nivel].path[_hintNumber][1] == mapas[_nivel].path[_hintNumber - 1][1] - 1)//izquierda
+                if (mapa.path[_hintNumber][1] == mapa.path[_hintNumber - 1][1] - 1)//izquierda
                 {
                     matrix[x, y].setActiveHintPath(3);
                 }
@@ -219,7 +219,7 @@ public class BoardManager : MonoBehaviour
             }
             else //se mueve en y
             {
-                if (mapas[_nivel].path[_hintNumber][0] == mapas[_nivel].path[_hintNumber - 1][0] - 1)//abajo
+                if (mapa.path[_hintNumber][0] == mapa.path[_hintNumber - 1][0] - 1)//abajo
                 {
                     matrix[x, y].setActiveHintPath(0);
                 }
@@ -239,4 +239,59 @@ public class BoardManager : MonoBehaviour
 
     }
 
+    private Board parseTxtMaps(string pathToMaps, int level)
+    {
+        TextAsset files = Resources.Load(pathToMaps) as TextAsset;
+
+        string text = files.text;
+        //Regular Expressions de Unity permite definir que queremos del txt y que no
+        Regex r = new Regex("(?:[^ 0-9 } ]|(?<=['\",]))");
+        text = r.Replace(text, string.Empty);
+        string[] lines = Regex.Split(text, " ");
+        //una vez partido buscamos el nivel correspondiente y lo creamos tipo Board
+        Board b = new Board();
+        b.layout = new List<string>();
+        b.path = new List<List<int>>();
+
+        int i = 0;
+        int corchetePast = 0;
+        bool hecho = false;
+        while (i < lines.Length && !hecho)
+        {
+            if(corchetePast == level)
+            {
+                b.index = int.Parse(lines[i + 1]);
+                for(int x = i + 2; !hecho; x++)
+                {
+                    
+                    if (lines[x] != " " && lines[x] != "")
+                    {
+                        if(lines[x] == "}")
+                        {
+                            hecho = true;
+                        }
+                        else if (int.Parse(lines[x]) > 9)
+                        {//es un nivel  
+                            
+                            b.layout.Add(lines[x]);
+                        }
+                        else if(int.Parse(lines[x]) <= 9)//pista
+                        {
+                            List<int> pistaPos = new List<int>();
+                            pistaPos.Add(int.Parse(lines[x]));
+                            pistaPos.Add(int.Parse(lines[x + 1]));
+                            b.path.Add(pistaPos);
+                            x++;
+                        }
+                    }
+                }
+            }
+            else if (lines[i] == "}")
+            {
+                corchetePast++;
+            }
+            i++;
+        }
+        return b;
+    }
 }

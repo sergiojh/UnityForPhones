@@ -24,7 +24,6 @@ public class AdController : MonoBehaviour, IUnityAdsListener
         if (Advertisement.IsReady(rewarded_video_ad))
         {
             Advertisement.Show(rewarded_video_ad);
-            Debug.Log("viendo video");
         }
     }
 
@@ -37,9 +36,7 @@ public class AdController : MonoBehaviour, IUnityAdsListener
         if (showResult == ShowResult.Finished)
         {
             // Reward the user for watching the ad to completion.
-            Debug.Log("añado coins");
             levelManager.addCoins(25);
-            Debug.Log("vuelvo de añadir");
         }
         else if (showResult == ShowResult.Skipped)
         {

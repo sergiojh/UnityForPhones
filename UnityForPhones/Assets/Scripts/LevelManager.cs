@@ -59,7 +59,7 @@ public class LevelManager : MonoBehaviour
         int numOfTiles = boardManager.getTotalTypeTiles();
         int r = Random.Range(0,numOfTiles); // es exclusivo en el valor max
         inputManager.Init(r);
-        boardManager.initBoard("/maps.json",levelLoad - 1, r, inputManager.getClickTracker());
+        boardManager.initBoard("maps",levelLoad - 1, r, inputManager.getClickTracker());
         container.gameObject.SetActive(false);
     }
 
