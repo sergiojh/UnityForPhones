@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Newtonsoft.Json;
 using System.IO;
 
 public class LevelManager : MonoBehaviour
@@ -34,6 +35,7 @@ public class LevelManager : MonoBehaviour
     private int coins;
     private int actualLevel;
     private string actualCategory;
+    private bool adSeen = false;
 
     private bool finNivel = false;
 
@@ -57,10 +59,7 @@ public class LevelManager : MonoBehaviour
         int numOfTiles = boardManager.getTotalTypeTiles();
         int r = Random.Range(0,numOfTiles); // es exclusivo en el valor max
         inputManager.Init(r);
-        boardManager.initBoard("maps",levelLoad - 1, r,inputManager.getTracker());
-
-        
-
+        boardManager.initBoard("/maps.json",levelLoad - 1, r, inputManager.getClickTracker());
         container.gameObject.SetActive(false);
     }
 
@@ -107,8 +106,9 @@ public class LevelManager : MonoBehaviour
 
     public void viewAdd()
     {
-        if (!finNivel)
+        if (!finNivel && !adSeen)
         {
+            adSeen = true;
             adController.showAd();
         }
     }

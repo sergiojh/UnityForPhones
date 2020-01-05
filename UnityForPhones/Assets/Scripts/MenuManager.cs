@@ -7,7 +7,8 @@ public class MenuManager : MonoBehaviour
 {
     [SerializeField]
     private GameManager prefab;
-
+    [SerializeField]
+    private AdController adController;
     private GameManager gameManager;
     [SerializeField]
     private Text coinsText;
@@ -21,15 +22,21 @@ public class MenuManager : MonoBehaviour
     private Text numLevelExpertText;
     [SerializeField]
     private Text numLevelMasterText;
+    [SerializeField]
+    private Text archievementText;
+    [SerializeField]
+    private CanvasRenderer challengeFrame;
+    [SerializeField]
+    private CanvasRenderer challengeDoneFrame;
+    [SerializeField]
+    private TimeMenuChallege timeMenuChallege;
 
-    
-
-
+    private bool frameActive = false;
     private int coins;
     void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
-
+        challengeFrame.gameObject.SetActive(false);
         if (gameManager == null)
         {
             gameManager = Instantiate(prefab, this.transform);
@@ -40,7 +47,7 @@ public class MenuManager : MonoBehaviour
 
         coins = gameManager.GetPersistance().coins;
         coinsText.text = "" + coins;
-
+        archievementText.text = "" + gameManager.getArchievement();
         numLevelBeginnerText.text = "" + gameManager.GetPersistance().progress[0] + "/" + gameManager.getTotalLevelOfCategory(0);
         numLevelRegularText.text = "" + gameManager.GetPersistance().progress[1] + "/" + gameManager.getTotalLevelOfCategory(1);
         numLevelAdvancedText.text = "" + gameManager.GetPersistance().progress[2] + "/" + gameManager.getTotalLevelOfCategory(2);
@@ -52,6 +59,18 @@ public class MenuManager : MonoBehaviour
         gameManager.setLevelsCompleted(2, gameManager.GetPersistance().progress[2]);
         gameManager.setLevelsCompleted(3, gameManager.GetPersistance().progress[3]);
         gameManager.setLevelsCompleted(4, gameManager.GetPersistance().progress[4]);
+
+        if (!gameManager.checkChallenge())
+        {
+            challengeDoneFrame.gameObject.SetActive(true);
+            timeMenuChallege.init(gameManager.getTimer());
+        }
+        else
+        {
+            challengeDoneFrame.gameObject.SetActive(false);
+            timeMenuChallege.notNow();
+        }
+
     }
 
     public void exitApp()
@@ -61,31 +80,72 @@ public class MenuManager : MonoBehaviour
 
     public void goToBeginner()
     {
-        if(gameManager.setActualCategory(0))
+        if(!frameActive && gameManager.setActualCategory(0))
             SceneManager.LoadScene("LevelScene", LoadSceneMode.Single);
     }
 
     public void goToRegular()
     {
-        if (gameManager.setActualCategory(1))
+        if (!frameActive && gameManager.setActualCategory(1))
             SceneManager.LoadScene("LevelScene", LoadSceneMode.Single);
     }
 
     public void goToAdvanced()
     {
-        if (gameManager.setActualCategory(2))
+        if (!frameActive && gameManager.setActualCategory(2))
             SceneManager.LoadScene("LevelScene", LoadSceneMode.Single);
     }
 
     public void goToExpert()
     {
-        if (gameManager.setActualCategory(3))
+        if (!frameActive && gameManager.setActualCategory(3))
             SceneManager.LoadScene("LevelScene", LoadSceneMode.Single);
     }
 
     public void goToMaster()
     {
-        if (gameManager.setActualCategory(4))
+        if (!frameActive && gameManager.setActualCategory(4))
             SceneManager.LoadScene("LevelScene", LoadSceneMode.Single);
+    }
+
+    public void updateChallenge()
+    {
+        gameManager.checkChallenge();
+        challengeDoneFrame.gameObject.SetActive(false);
+        timeMenuChallege.notNow();
+    }
+
+    public void goToChallenge()
+    {
+        if (gameManager.checkChallenge())
+        {
+            frameActive = true;
+            challengeFrame.gameObject.SetActive(true);
+        }
+    }
+
+    public void DesactiveChallengeFrame()
+    {
+        frameActive = false;
+        challengeFrame.gameObject.SetActive(false);
+    }
+    public void challengeAd()
+    {
+        adController.showAd();
+    }
+
+    public void adSeen()
+    {
+        if (gameManager.setActualCategory(5))
+            SceneManager.LoadScene("Challenge", LoadSceneMode.Single);
+    }
+
+    public void challengeCost()
+    {
+        if (gameManager.subtractCoins(25) && gameManager.setActualCategory(5))
+        {
+            gameManager.savePersistance();
+            SceneManager.LoadScene("Challenge", LoadSceneMode.Single);
+        }
     }
 }

@@ -18,6 +18,11 @@ public class InputManager : MonoBehaviour
         clickTracker.enabled = false;
     }
 
+    public SpriteRenderer getClickTracker()
+    {
+        return clickTracker;
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -67,10 +72,5 @@ public class InputManager : MonoBehaviour
             clickTracker.enabled = false;
         }
 #endif
-    }
-
-    public SpriteRenderer getTracker()
-    {
-        return clickTracker;
     }
 }

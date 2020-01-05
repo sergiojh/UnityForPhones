@@ -7,7 +7,6 @@ public class Scaler : MonoBehaviour
 
     [SerializeField]
     private BoardManager boardManager;
-    
 
     private const int _defaultAncho = 720;
     private const int _defaultAlto = 1280;
@@ -52,18 +51,34 @@ public class Scaler : MonoBehaviour
                 factorScaladoX = factorScaladoY;
             else if(factorScaladoX < factorScaladoY)
                 factorScaladoY = factorScaladoX;
-
-                
-            if (boardManager.getWMatrix() > 5)
+            if (factorScaladoX > 1.0f)
             {
-                increment = 0.6f;
+                factorScaladoY -= 0.3f;
+                factorScaladoX -= 0.3f;
+                if (boardManager.getWMatrix() > 5)
+                {
+                    increment = 0.6f;
+                }
+                else if (boardManager.getWMatrix() <= 5)
+                {
+                    increment = 0.3f;
+                }
+                if (boardManager.getHMatrix() >= 5)
+                    increment += 0.02f;
             }
-            else if (boardManager.getWMatrix() == 5)
+            else
             {
-                increment = 0.05f;
+                if (boardManager.getWMatrix() > 5)
+                {
+                    increment = 0.2f;
+                }
+                else if (boardManager.getWMatrix() <= 5)
+                {
+                    increment = 0.05f;
+                }
+                if (boardManager.getHMatrix() >= 5)
+                    increment += 0.02f;
             }
-            if (boardManager.getHMatrix() >= 5)
-                increment += 0.02f;
             if (factorScaladoX != 0 && Screen.height > Screen.width)
                 factorScaladoX -= increment;
             if (factorScaladoX < 0)
@@ -72,7 +87,6 @@ public class Scaler : MonoBehaviour
             Vector3 clickScale = new Vector3(factorScaladoY + 0.2f, factorScaladoY + 0.2f, 1);
             boardManager.transform.localScale = boardScale;
             clickTracker.transform.localScale = clickScale;
-
         }
         else
         {

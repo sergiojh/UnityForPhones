@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Newtonsoft.Json;
 using System.IO;
 
 public class GameManager : MonoBehaviour
@@ -16,7 +17,8 @@ public class GameManager : MonoBehaviour
     private int actualLevel;
     private int actualCategory;
 
-
+    public bool challengeReady;
+    private float timer;
     private Persistance persistance;
 
     public void starRuning()
@@ -26,7 +28,9 @@ public class GameManager : MonoBehaviour
         if (gameManager == null)
         {
             gameManager = this;
-        }
+            challengeReady = true;
+            timer = 1800.0f;
+}
         else
         {
             Destroy(this.gameObject);
@@ -47,7 +51,10 @@ public class GameManager : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
-
+    void Update()
+    {
+        timer -= Time.deltaTime;
+    }
     public void addCoins(int value)
     {
         persistance.coins += value;
@@ -113,6 +120,16 @@ public class GameManager : MonoBehaviour
         return persistance.progress[category];
     }
 
+    public int getTotalLevels()
+    {
+        int levelN = 0;
+        foreach (int i in levelsPerCategory)
+        {
+            levelN += i;
+        }
+        return levelN;
+    }
+
     public void levelCompleted()
     {
         if (actualLevel > persistance.progress[actualCategory])
@@ -121,6 +138,15 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void addArchievement()
+    {
+        persistance.archievement++;
+    }
+
+    public int getArchievement()
+    {
+        return persistance.archievement;
+    }
 
     public int getLevelsCompletedFromActualLevel()
     {
@@ -129,7 +155,6 @@ public class GameManager : MonoBehaviour
 
     public void loadPersistance(string path)
     {
-        /*
         if (File.Exists(Application.persistentDataPath + path))
         {
             string json;
@@ -140,38 +165,12 @@ public class GameManager : MonoBehaviour
         {
             persistance = new Persistance();
             persistance.coins = 0;
-            persistance.categories = new List<string>() { "BEGINNER", "REGULAR", "ADVANCED", "EXPERT", "MASTER" };
-            persistance.progress = new List<int>() { 0, 0, 0, 0, 0 };
-
-        }*/
-
-        string filePath = Application.streamingAssetsPath + "/save.json";
-        string jsonString;
-        if (File.Exists(filePath))
-        {
-            if (Application.platform == RuntimePlatform.Android) //Need to extract file from apk first
-            {
-                WWW reader = new WWW(filePath);
-                while (!reader.isDone) { }
-
-                jsonString = reader.text;
-            }
-            else
-            {
-                jsonString = File.ReadAllText(filePath);
-            }
-
-
-            persistance = JsonUtility.FromJson<Persistance>(Application.streamingAssetsPath + "/save.json");
-        }
-        else
-        {
-            persistance = new Persistance();
-            persistance.coins = 0;
-            persistance.categories = new List<string>() { "BEGINNER", "REGULAR", "ADVANCED", "EXPERT", "MASTER" };
-            persistance.progress = new List<int>() { 0, 0, 0, 0, 0 };
+            persistance.categories = new List<string>() { "BEGINNER", "REGULAR", "ADVANCED", "EXPERT", "MASTER", "CHALLENGE" };
+            persistance.progress = new List<int>() { 0, 0, 0, 0, 0 , 0 };
+            persistance.archievement = 0;
         }
     }
+
     public Persistance GetPersistance()
     {
         return persistance;
@@ -181,6 +180,35 @@ public class GameManager : MonoBehaviour
     public void setLevelsCompleted(int category, int levelCompleted)
     {
         persistance.progress[category] = levelCompleted;
+    }
+
+    public bool checkChallenge()
+    {
+
+        if (challengeReady)
+            return true;
+        else if (timer <= 0.0f)//30 min
+        {
+            challengeReady = true;
+            timer = 1800.0f;
+            return true;
+        }
+        else
+        {
+            Debug.Log(timer);
+            return false;
+        }
+    }
+
+    public float getTimer()
+    {
+        return timer;
+    }
+
+    public void resetTimerChallenge()
+    {
+        timer = 1800.0f;
+        challengeReady = false;
     }
 
     public void savePersistance()

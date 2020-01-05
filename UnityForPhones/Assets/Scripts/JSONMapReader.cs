@@ -1,10 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
-using System.Text.Json;
-
-
-
+using Newtonsoft.Json;
 public class JSONMapReader: MonoBehaviour
 {
     //TODO: CONTROL DE ERRORES. 
@@ -12,22 +10,9 @@ public class JSONMapReader: MonoBehaviour
 
     public List<Board> deserializarJSON(string path)
     {
-        //string json = File.ReadAllText(Application.dataPath + path);
-
-        Debug.Log("AAA " + Application.streamingAssetsPath + "/maps.json");
-
-        string filePath = Application.streamingAssetsPath + "/maps.json";
-        string jsonString;
-     
-        jsonString = File.ReadAllText(filePath);
-        
-        List<Board> board;
-        board = JsonSerializer.Deserialize<List<Board>>(jsonString);
-
+        string json = File.ReadAllText(Application.streamingAssetsPath + path);
+        List<Board> board = JsonConvert.DeserializeObject<List<Board>>(json);
         return board;
-
-        
-        
     }
     
 }

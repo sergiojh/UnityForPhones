@@ -8,5 +8,5 @@ public class Persistance
     public int coins;
     public List<string> categories;
     public List<int> progress;
-
+    public int archievement;
 }

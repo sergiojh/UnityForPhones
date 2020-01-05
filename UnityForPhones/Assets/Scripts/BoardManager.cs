@@ -26,7 +26,7 @@ public class BoardManager : MonoBehaviour
     private int _piel;
     private int _hintNumber;
     private int _nivel;
-    public void initBoard(string mapName, int level, int piel,SpriteRenderer clickTracker)
+    public void initBoard(string mapName, int level, int piel, SpriteRenderer clickTracker)
     {
         _hintNumber = 1;
         _piel = piel;
@@ -37,9 +37,9 @@ public class BoardManager : MonoBehaviour
         float x = 0.5f;
         float y = 0.5f;
         if (_alto != 0)
-            y = _alto / 2;
+            y = _alto / 2 - 0.5f;
         if (_ancho != 0)
-            x = _ancho / 2;
+            x = _ancho / 2 - 0.5f;
         camera.transform.localPosition = new Vector3(x, y,-10);
     }
 

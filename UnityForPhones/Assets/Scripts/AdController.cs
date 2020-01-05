@@ -7,12 +7,12 @@ using UnityEngine.Advertisements;
 public class AdController : MonoBehaviour, IUnityAdsListener
 {
 
-    private string store_id = "3419076";
-    private string rewarded_video_ad = "rewardedVideo";
+    protected string store_id = "3419076";
+    protected string rewarded_video_ad = "rewardedVideo";
     [SerializeField]
     private LevelManager levelManager;
     // Start is called before the first frame update
-    void Start()
+    protected void Start()
     {
         Advertisement.AddListener(this);
         Advertisement.Initialize(store_id,true);
@@ -30,7 +30,7 @@ public class AdController : MonoBehaviour, IUnityAdsListener
     // Update is called once per frame
 
     // Implement IUnityAdsListener interface methods:
-    public void OnUnityAdsDidFinish(string placementId, ShowResult showResult)
+    public virtual void OnUnityAdsDidFinish(string placementId, ShowResult showResult)
     {
         // Define conditional logic for each ad completion status:
         if (showResult == ShowResult.Finished)
