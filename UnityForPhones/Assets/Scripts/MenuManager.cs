@@ -8,7 +8,8 @@ public class MenuManager : MonoBehaviour
     [SerializeField]
     private GameManager prefab;
     [SerializeField]
-    private AdController adController;
+    private AdControllerMenu adController;
+
     private GameManager gameManager;
     [SerializeField]
     private Text coinsText;
@@ -80,32 +81,47 @@ public class MenuManager : MonoBehaviour
 
     public void goToBeginner()
     {
-        if(!frameActive && gameManager.setActualCategory(0))
+        if (!frameActive && gameManager.setActualCategory(0))
+        {
+            adController.stopListening();
             SceneManager.LoadScene("LevelScene", LoadSceneMode.Single);
+        }
     }
 
     public void goToRegular()
     {
         if (!frameActive && gameManager.setActualCategory(1))
+        {
+            adController.stopListening();
             SceneManager.LoadScene("LevelScene", LoadSceneMode.Single);
+        }
     }
 
     public void goToAdvanced()
     {
         if (!frameActive && gameManager.setActualCategory(2))
+        {
+            adController.stopListening();
             SceneManager.LoadScene("LevelScene", LoadSceneMode.Single);
+        }
     }
 
     public void goToExpert()
     {
         if (!frameActive && gameManager.setActualCategory(3))
+        {
+            adController.stopListening();
             SceneManager.LoadScene("LevelScene", LoadSceneMode.Single);
+        }
     }
 
     public void goToMaster()
     {
         if (!frameActive && gameManager.setActualCategory(4))
+        {
+            adController.stopListening();
             SceneManager.LoadScene("LevelScene", LoadSceneMode.Single);
+        }
     }
 
     public void updateChallenge()
@@ -137,13 +153,17 @@ public class MenuManager : MonoBehaviour
     public void adSeen()
     {
         if (gameManager.setActualCategory(5))
+        {
+            adController.stopListening();
             SceneManager.LoadScene("Challenge", LoadSceneMode.Single);
+        }
     }
 
     public void challengeCost()
     {
         if (gameManager.subtractCoins(25) && gameManager.setActualCategory(5))
         {
+            adController.stopListening();
             gameManager.savePersistance();
             SceneManager.LoadScene("Challenge", LoadSceneMode.Single);
         }

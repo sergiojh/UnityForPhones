@@ -7,7 +7,7 @@ public class ChallengeLevelManager : MonoBehaviour
     private GameManager gameManager;
 
     [SerializeField]
-    private AdController adController;
+    private AdControllerChallenge adController;
     [SerializeField]
     private Canvas EndGameCanvas;
     [SerializeField]

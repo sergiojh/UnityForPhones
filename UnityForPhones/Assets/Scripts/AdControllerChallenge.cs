@@ -17,6 +17,7 @@ public class AdControllerChallenge : AdController
             if (challengeLevelManager == null)
                 challengeLevelManager = FindObjectOfType<ChallengeLevelManager>();
             challengeLevelManager.adSeen();
+            
         }
         else if (showResult == ShowResult.Skipped)
         {

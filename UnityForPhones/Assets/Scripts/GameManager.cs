@@ -155,20 +155,46 @@ public class GameManager : MonoBehaviour
 
     public void loadPersistance(string path)
     {
-        /*if (File.Exists(Application.persistentDataPath + path))
+        if (File.Exists(Application.persistentDataPath + path))
         {
             string json;
             json = File.ReadAllText(Application.persistentDataPath + path);
-            persistance = JsonConvert.DeserializeObject<Persistance>(json);
+            PersistanceSecurity persistanceSec = JsonConvert.DeserializeObject<PersistanceSecurity>(json);
+            if (persistanceSec != null)
+            {
+                persistance = new Persistance();
+                persistance.archievement = persistanceSec.archievement;
+                persistance.coins = persistanceSec.coins;
+                persistance.progress = persistanceSec.progress;
+
+                SecurityHelper s = new SecurityHelper();
+                string data = JsonUtility.ToJson(persistance);
+                string code = s.encript(data);
+                string jsonCode = s.encript(data + code);
+                string salted = s.encript(nameCategories[0] + jsonCode);
+                if (salted != persistanceSec.hash)
+                {
+                    persistance = new Persistance();
+                    persistance.coins = 0;
+                    persistance.progress = new List<int>() { 0, 0, 0, 0, 0, 0 };
+                    persistance.archievement = 0;
+                }
+            }
+            else
+            {
+                persistance = new Persistance();
+                persistance.coins = 0;
+                persistance.progress = new List<int>() { 0, 0, 0, 0, 0, 0 };
+                persistance.archievement = 0;
+            }
         }
         else
-        {*/
+        {
             persistance = new Persistance();
             persistance.coins = 0;
-            persistance.categories = new List<string>() { "BEGINNER", "REGULAR", "ADVANCED", "EXPERT", "MASTER", "CHALLENGE" };
             persistance.progress = new List<int>() { 0, 0, 0, 0, 0 , 0 };
             persistance.archievement = 0;
-        //}
+        }
     }
 
     public Persistance GetPersistance()
@@ -195,7 +221,6 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            Debug.Log(timer);
             return false;
         }
     }
@@ -214,6 +239,16 @@ public class GameManager : MonoBehaviour
     public void savePersistance()
     {
         string json = JsonUtility.ToJson(persistance);
-        File.WriteAllText(Application.persistentDataPath + "save.json", json);        
+        SecurityHelper s = new SecurityHelper();
+        string code = s.encript(json);
+        string jsonCode = s.encript(json + code);
+        string salted = s.encript(nameCategories[0] + jsonCode);
+        PersistanceSecurity persistenceSec =  new PersistanceSecurity();
+        persistenceSec.coins = persistance.coins;
+        persistenceSec.archievement = persistance.archievement;
+        persistenceSec.progress = persistance.progress;
+        persistenceSec.hash = salted;
+        string finalJson = JsonUtility.ToJson(persistenceSec);
+        File.WriteAllText(Application.persistentDataPath + "save.json", finalJson);        
     }
 }

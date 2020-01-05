@@ -141,6 +141,7 @@ public class LevelManager : MonoBehaviour
     public void addCoins(int value)
     {
         gameManager.addCoins(25);
+        gameManager.savePersistance();
         coins = gameManager.getCoins();
         coinsText.text = "" + coins;
     }
