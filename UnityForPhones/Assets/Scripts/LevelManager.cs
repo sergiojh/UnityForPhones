@@ -10,7 +10,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField]
     private BoardManager boardManager;
     [SerializeField]
-    private InputManager inputManager;
+    private InputManagerGame inputManager;
     [SerializeField]
     private Text coinsText;
     [SerializeField]
@@ -28,7 +28,7 @@ public class LevelManager : MonoBehaviour
     private Text gameOverLevel;
 
     [SerializeField]
-    private AdController adController;
+    private AdControllerGame adController;
 
     private int coins;
     private int actualLevel;

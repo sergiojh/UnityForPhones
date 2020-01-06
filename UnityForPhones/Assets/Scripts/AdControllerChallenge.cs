@@ -22,7 +22,7 @@ public class AdControllerChallenge : AdController
         else if (showResult == ShowResult.Skipped)
         {
             // Do not reward the user for skipping the ad.
-            Debug.Log("SALTADO");
+            Debug.Log("Skipped");
 
         }
         else if (showResult == ShowResult.Failed)
