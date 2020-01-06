@@ -77,7 +77,27 @@ public class GameManager : MonoBehaviour
 
     public bool setActualLevel(int levelNumber)
     {
-        if (levelNumber <= persistance.progress[actualCategory] + 1)
+        int valor = 0;
+        switch (actualCategory)
+        {
+            case 0:
+                valor = persistance.progress;
+                break;
+            case 1:
+                valor = persistance.progress1;
+                break;
+            case 2:
+                valor = persistance.progress2;
+                break;
+            case 3:
+                valor = persistance.progress3;
+                break;
+            case 4:
+                valor = persistance.progress4;
+                break;
+        }
+
+        if (levelNumber <= valor + 1)
         {
             actualLevel = levelNumber;
             return true;
@@ -117,7 +137,20 @@ public class GameManager : MonoBehaviour
 
     public int getTotalLevelCompletedOfCategory(int category)
     {
-        return persistance.progress[category];
+        switch (category)
+        {
+            case 0:
+                return persistance.progress;
+            case 1:
+                return persistance.progress1;
+            case 2:
+                return persistance.progress2;
+            case 3:
+                return persistance.progress3;
+            case 4:
+                return persistance.progress4;
+        }
+        return -1;
     }
 
     public int getTotalLevels()
@@ -132,9 +165,28 @@ public class GameManager : MonoBehaviour
 
     public void levelCompleted()
     {
-        if (actualLevel > persistance.progress[actualCategory])
+        switch (actualCategory)
         {
-            persistance.progress[actualCategory]++;
+            case 0:
+                if (actualLevel > persistance.progress)
+                    persistance.progress++;
+                break;
+            case 1:
+                if (actualLevel > persistance.progress1)
+                    persistance.progress1++;
+                break;
+            case 2:
+                if (actualLevel > persistance.progress2)
+                    persistance.progress2++;
+                break;
+            case 3:
+                if (actualLevel > persistance.progress3)
+                    persistance.progress3++;
+                break;
+            case 4:
+                if (actualLevel > persistance.progress4)
+                    persistance.progress4++;
+                break;
         }
     }
 
@@ -150,7 +202,20 @@ public class GameManager : MonoBehaviour
 
     public int getLevelsCompletedFromActualLevel()
     {
-        return persistance.progress[actualCategory];
+        switch (actualCategory)
+        {
+            case 0:
+                return persistance.progress;
+            case 1:
+                return persistance.progress1;
+            case 2:
+                return persistance.progress2;
+            case 3:
+                return persistance.progress3;
+            case 4:
+                return persistance.progress4;
+        }
+        return -1;
     }
 
     public void loadPersistance(string path)
@@ -166,6 +231,10 @@ public class GameManager : MonoBehaviour
                 persistance.archievement = persistanceSec.archievement;
                 persistance.coins = persistanceSec.coins;
                 persistance.progress = persistanceSec.progress;
+                persistance.progress1 = persistanceSec.progress1;
+                persistance.progress2 = persistanceSec.progress2;
+                persistance.progress3 = persistanceSec.progress3;
+                persistance.progress4 = persistanceSec.progress4;
 
                 SecurityHelper s = new SecurityHelper();
                 string data = JsonUtility.ToJson(persistance);
@@ -176,7 +245,11 @@ public class GameManager : MonoBehaviour
                 {
                     persistance = new Persistance();
                     persistance.coins = 0;
-                    persistance.progress = new List<int>() { 0, 0, 0, 0, 0, 0 };
+                    persistance.progress = 0;
+                    persistance.progress1 = 0;
+                    persistance.progress2 = 0;
+                    persistance.progress3 = 0;
+                    persistance.progress4 = 0;
                     persistance.archievement = 0;
                 }
             }
@@ -184,7 +257,11 @@ public class GameManager : MonoBehaviour
             {
                 persistance = new Persistance();
                 persistance.coins = 0;
-                persistance.progress = new List<int>() { 0, 0, 0, 0, 0, 0 };
+                persistance.progress = 0;
+                persistance.progress1 = 0;
+                persistance.progress2 = 0;
+                persistance.progress3 = 0;
+                persistance.progress4 = 0;
                 persistance.archievement = 0;
             }
         }
@@ -192,7 +269,11 @@ public class GameManager : MonoBehaviour
         {
             persistance = new Persistance();
             persistance.coins = 0;
-            persistance.progress = new List<int>() { 0, 0, 0, 0, 0 , 0 };
+            persistance.progress = 0;
+            persistance.progress1 = 0;
+            persistance.progress2 = 0;
+            persistance.progress3 = 0;
+            persistance.progress4 = 0;
             persistance.archievement = 0;
         }
     }
@@ -205,7 +286,21 @@ public class GameManager : MonoBehaviour
     
     public void setLevelsCompleted(int category, int levelCompleted)
     {
-        persistance.progress[category] = levelCompleted;
+        switch (category)
+        {
+            case 0:
+                persistance.progress = levelCompleted;
+                break;
+            case 1:
+                persistance.progress1 = levelCompleted;
+                break;
+            case 2:
+                persistance.progress2 = levelCompleted;
+                break;
+            case 3:
+                persistance.progress3 = levelCompleted;
+                break;
+        }
     }
 
     public bool checkChallenge()
@@ -247,6 +342,10 @@ public class GameManager : MonoBehaviour
         persistenceSec.coins = persistance.coins;
         persistenceSec.archievement = persistance.archievement;
         persistenceSec.progress = persistance.progress;
+        persistenceSec.progress1 = persistance.progress1;
+        persistenceSec.progress2 = persistance.progress2;
+        persistenceSec.progress3 = persistance.progress3;
+        persistenceSec.progress4 = persistance.progress4;
         persistenceSec.hash = salted;
         string finalJson = JsonUtility.ToJson(persistenceSec);
         File.WriteAllText(Application.persistentDataPath + "save.json", finalJson);        

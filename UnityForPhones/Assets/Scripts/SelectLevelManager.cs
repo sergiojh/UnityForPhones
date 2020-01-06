@@ -28,23 +28,23 @@ public class SelectLevelManager : MonoBehaviour
 
         if(actualCategory == "BEGINNER")
         {
-            levelsCompleted = gameManager.GetPersistance().progress[0];
+            levelsCompleted = gameManager.GetPersistance().progress;
         }
         else if (actualCategory == "REGULAR")
         {
-            levelsCompleted = gameManager.GetPersistance().progress[1];
+            levelsCompleted = gameManager.GetPersistance().progress1;
         }
         else if (actualCategory == "ADVANCED")
         {
-            levelsCompleted = gameManager.GetPersistance().progress[2];
+            levelsCompleted = gameManager.GetPersistance().progress2;
         }
         else if (actualCategory == "EXPERT")
         {
-            levelsCompleted = gameManager.GetPersistance().progress[3];
+            levelsCompleted = gameManager.GetPersistance().progress3;
         }
         else if (actualCategory == "MASTER")
         {
-            levelsCompleted = gameManager.GetPersistance().progress[4];
+            levelsCompleted = gameManager.GetPersistance().progress4;
         }
         Debug.Log(gameManager.getActualLevel() + "   " + levelsCompleted);
         createBoard(gameManager.getTotalLevelOfCategory(gameManager.getActualLevel()),levelsCompleted);
