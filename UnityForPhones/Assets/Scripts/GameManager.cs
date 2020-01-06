@@ -224,7 +224,7 @@ public class GameManager : MonoBehaviour
         {
             string json;
             json = File.ReadAllText(Application.persistentDataPath + path);
-            PersistanceSecurity persistanceSec = JsonConvert.DeserializeObject<PersistanceSecurity>(json);
+            PersistanceSecurity persistanceSec = JsonUtility.FromJson<PersistanceSecurity>(json);
             if (persistanceSec != null)
             {
                 persistance = new Persistance();

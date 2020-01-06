@@ -39,9 +39,6 @@ public class LevelManager : MonoBehaviour
 
     private bool finNivel = false;
 
-
-    private JSONMapReader jsonReader = new JSONMapReader();
-
     // Start is called before the first frame update
     void Start()
     {

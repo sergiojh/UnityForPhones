@@ -27,27 +27,27 @@ public class InputManagerChallege : MonoBehaviour
     {
 #if !UNITY_EDITOR && UNITY_ANDROID
         if(Input.touchCount > 0){
-        Touch t = Input.GetTouch(0);
-        if (t.phase == TouchPhase.Began || t.phase == TouchPhase.Moved)
-        {
-            clickTracker.enabled = true;
-            var v = Camera.main.ScreenToWorldPoint(t.position);
-
-            clickTracker.transform.position = v;
-            v = boardContainer.transform.InverseTransformPoint(v);
-            boardContainer.Clicked(v);
-            bool fin = boardContainer.checkFinJuego();
-
-            if (fin)
+            Touch t = Input.GetTouch(0);
+            if (t.phase == TouchPhase.Began || t.phase == TouchPhase.Moved)
             {
-                challengeLevelManager.endGame();
-                Destroy(this.gameObject);
+                clickTracker.enabled = true;
+                var v = Camera.main.ScreenToWorldPoint(t.position);
+                v.z = -1;
+                clickTracker.transform.position = v;
+                v = boardContainer.transform.InverseTransformPoint(v);
+                boardContainer.Clicked(v);
+                bool fin = boardContainer.checkFinJuego();
+
+                if (fin)
+                {
+                    challengeLevelManager.endGame();
+                    Destroy(this.gameObject);
+                }
             }
-        }
-        else
-        {
-            clickTracker.enabled = false;
-        }
+            else
+            {
+                clickTracker.enabled = false;
+            }
         }
 
 #else

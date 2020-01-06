@@ -4,8 +4,6 @@ using UnityEngine;
 using System.Text.RegularExpressions;
 public class BoardManager : MonoBehaviour
 {
-    private JSONMapReader jsonReader = new JSONMapReader();
-
     [SerializeField]
     private List<Tile> typeofTile;
 

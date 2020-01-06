@@ -28,34 +28,33 @@ public class InputManager : MonoBehaviour
     {
 #if !UNITY_EDITOR && UNITY_ANDROID
         if(Input.touchCount > 0){
-        Touch t = Input.GetTouch(0);
-        if (t.phase == TouchPhase.Began || t.phase == TouchPhase.Moved)
-        {
-            clickTracker.enabled = true;
-            var v = Camera.main.ScreenToWorldPoint(t.position);
-
-            clickTracker.transform.position = v;
-            v = boardContainer.transform.InverseTransformPoint(v);
-            boardContainer.Clicked(v);
-            bool fin = boardContainer.checkFinJuego();
-
-            if (fin)
+            Touch t = Input.GetTouch(0);
+            if (t.phase == TouchPhase.Began || t.phase == TouchPhase.Moved)
             {
-                levelManager.finLevel();
-                Destroy(this.gameObject);
+                clickTracker.enabled = true;
+                var v = Camera.main.ScreenToWorldPoint(t.position);
+                v.z = -1;
+                clickTracker.transform.position = v;
+                v = boardContainer.transform.InverseTransformPoint(v);
+                boardContainer.Clicked(v);
+                bool fin = boardContainer.checkFinJuego();
+
+                if (fin)
+                {
+                    levelManager.finLevel();
+                    Destroy(this.gameObject);
+                }
             }
-        }
-        else
-        {
-            clickTracker.enabled = false;
-        }
+            else
+            {
+                clickTracker.enabled = false;
+            }
         }
 
 #else
         if (Input.GetMouseButton(0))
         {
             clickTracker.enabled = true;
-            
             var v = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             v.z = -1;
             clickTracker.transform.position = v;

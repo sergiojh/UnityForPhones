@@ -15,19 +15,19 @@ public class InputManagerLevelSelect : MonoBehaviour
 #if  !UNITY_EDITOR && UNITY_ANDROID
 
         if(Input.touchCount > 0){
-        Touch t = Input.GetTouch(0);
-        if (t.phase == TouchPhase.Began || t.phase == TouchPhase.Moved)
-        {
-            var v = Camera.main.ScreenToWorldPoint(t.position);
+            Touch t = Input.GetTouch(0);
+            if (t.phase == TouchPhase.Began || t.phase == TouchPhase.Moved)
+            {
+                var v = Camera.main.ScreenToWorldPoint(t.position);
 
-            v = layoutGroup.transform.InverseTransformPoint(v);
+                v = layoutGroup.transform.InverseTransformPoint(v);
 
-            int x = ((int)v.x - 100) / 100;
-            int y = (-1 * (int)v.y) / 100;
+                int x = ((int)v.x - 100) / 100;
+                int y = (-1 * (int)v.y) / 100;
 
-            int levelPress = x + y * 5 + 1;
-            selectLevelManager.click(levelPress);
-        }
+                int levelPress = x + y * 5 + 1;
+                selectLevelManager.click(levelPress);
+            }
         }
 #else
         if (Input.GetMouseButton(0))
