@@ -1,8 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+/// <summary>
+/// Clase que controla la escena del Menú principal.
+/// </summary>
 public class MenuManager : MonoBehaviour
 {
     [SerializeField]
@@ -34,6 +35,10 @@ public class MenuManager : MonoBehaviour
 
     private bool frameActive = false;
     private int coins;
+    /// <summary>
+    /// Carga la persistencia para mostrar el progreso del usuario en cada categoría, 
+    /// las medallas conseguidas en el modo Challenge y las monedas de las que dispone el usuario.
+    /// </summary>
     void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
@@ -73,12 +78,16 @@ public class MenuManager : MonoBehaviour
         }
 
     }
-
+    /// <summary>
+    /// Cierra la aplicación.
+    /// </summary>
     public void exitApp()
     {
         Application.Quit();
     }
-
+    /// <summary>
+    /// Carga la selección de niveles de la categoría Beginner.
+    /// </summary>
     public void goToBeginner()
     {
         if (!frameActive && gameManager.setActualCategory(0))
@@ -87,7 +96,9 @@ public class MenuManager : MonoBehaviour
             SceneManager.LoadScene("LevelScene", LoadSceneMode.Single);
         }
     }
-
+    /// <summary>
+    /// Carga la selección de niveles de la categoría Regular.
+    /// </summary>
     public void goToRegular()
     {
         if (!frameActive && gameManager.setActualCategory(1))
@@ -96,7 +107,9 @@ public class MenuManager : MonoBehaviour
             SceneManager.LoadScene("LevelScene", LoadSceneMode.Single);
         }
     }
-
+    /// <summary>
+    /// Carga la selección de niveles de la categoría Advanced.
+    /// </summary>
     public void goToAdvanced()
     {
         if (!frameActive && gameManager.setActualCategory(2))
@@ -105,7 +118,9 @@ public class MenuManager : MonoBehaviour
             SceneManager.LoadScene("LevelScene", LoadSceneMode.Single);
         }
     }
-
+    /// <summary>
+    /// Carga la selección de niveles de la categoría Expert.
+    /// </summary>
     public void goToExpert()
     {
         if (!frameActive && gameManager.setActualCategory(3))
@@ -114,7 +129,9 @@ public class MenuManager : MonoBehaviour
             SceneManager.LoadScene("LevelScene", LoadSceneMode.Single);
         }
     }
-
+    /// <summary>
+    /// Carga la selección de niveles de la categoría Master.
+    /// </summary>
     public void goToMaster()
     {
         if (!frameActive && gameManager.setActualCategory(4))
@@ -123,14 +140,18 @@ public class MenuManager : MonoBehaviour
             SceneManager.LoadScene("LevelScene", LoadSceneMode.Single);
         }
     }
-
+    /// <summary>
+    /// Cambia el botón de Challenge para que este no tenga el tiempo de espera.
+    /// </summary>
     public void updateChallenge()
     {
         gameManager.checkChallenge();
         challengeDoneFrame.gameObject.SetActive(false);
         timeMenuChallege.notNow();
     }
-
+    /// <summary>
+    /// Carga la pantalla del modo challenge.
+    /// </summary>
     public void goToChallenge()
     {
         if (gameManager.checkChallenge())
@@ -139,17 +160,24 @@ public class MenuManager : MonoBehaviour
             challengeFrame.gameObject.SetActive(true);
         }
     }
-
+    /// <summary>
+    /// Desactiva la pantalla de modo challenge.
+    /// </summary>
     public void DesactiveChallengeFrame()
     {
         frameActive = false;
         challengeFrame.gameObject.SetActive(false);
     }
+    /// <summary>
+    /// Carga el anuncio para jugar el modo challenge gratis.
+    /// </summary>
     public void challengeAd()
     {
         adController.showAd();
     }
-
+    /// <summary>
+    /// Añade la visualización del anuncio y carga la escena challenge.
+    /// </summary>
     public void adSeen()
     {
         if (gameManager.setActualCategory(5))
@@ -158,7 +186,9 @@ public class MenuManager : MonoBehaviour
             SceneManager.LoadScene("Challenge", LoadSceneMode.Single);
         }
     }
-
+    /// <summary>
+    /// Carga el modo challenge pagando monedas.
+    /// </summary>
     public void challengeCost()
     {
         if (gameManager.subtractCoins(25) && gameManager.setActualCategory(5))

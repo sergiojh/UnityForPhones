@@ -1,7 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using System.Text.RegularExpressions;
+/// <summary>
+/// Clase que controla todo lo relacionado con el tablero. Tanto las pulsaciones del usuario como el fin del juego y su creación.
+/// </summary>
 public class BoardManager : MonoBehaviour
 {
     [SerializeField]
@@ -24,6 +26,13 @@ public class BoardManager : MonoBehaviour
     private int _piel;
     private int _hintNumber;
     private int _nivel;
+    /// <summary>
+    /// Inicialización del tablero, lee el archivo, crea el tablero y lo escala.
+    /// </summary>
+    /// <param name="mapName">Ruta donde se encuentra el archivo.</param>
+    /// <param name="level">Nivel a cargar</param>
+    /// <param name="piel">Piel a usar para que el color sea uniforme.</param>
+    /// <param name="clickTracker">Tracker de la pulsación del usuario.</param>
     public void initBoard(string mapName, int level, int piel, SpriteRenderer clickTracker)
     {
         _hintNumber = 1;
@@ -49,12 +58,15 @@ public class BoardManager : MonoBehaviour
     {
         return _ancho;
     }
-
+   
     public int getHMatrix()
     {
         return _alto;
     }
-
+    /// <summary>
+    /// Pulsación del usuario en una casilla.
+    /// </summary>
+    /// <param name="v"> Posición donde ha pulsado el usuario.</param>
     public void Clicked(Vector3 v)
     {
         
@@ -112,7 +124,10 @@ public class BoardManager : MonoBehaviour
             }
         }
     }
-
+    /// <summary>
+    /// Comprueba si se ha terminado la partida.
+    /// </summary>
+    /// <returns>True en el caso de haberse terminado el juego, false en caso contrario.</returns>
     public bool checkFinJuego()
     {
         bool clicked = true;
@@ -130,7 +145,12 @@ public class BoardManager : MonoBehaviour
         }
         return clicked;
     }
-
+    /// <summary>
+    /// Crea el nivel a partir de un tablero.
+    /// </summary>
+    /// <param name="b"> Tablero con los datos que hay que cargar.</param>
+    /// <param name="nivel"> Nivel que quiere cargarse.</param>
+    /// <returns></returns>
     private bool createBoard(Board b,int nivel)
     {
         _alto = b.layout.Count;
@@ -168,7 +188,9 @@ public class BoardManager : MonoBehaviour
         }
         return true;
     }
-
+    /// <summary>
+    /// Resetea el tablero al estado inicial.
+    /// </summary>
     public void resetBoard()
     {
         int x = 0;
@@ -191,7 +213,10 @@ public class BoardManager : MonoBehaviour
         _xTileActivo = _startPosX;
         _yTileActivo = _startPosY;
     }
-
+    /// <summary>
+    /// Activador de pistas, activa un máximo de 5.
+    /// </summary>
+    /// <returns>True en el caso de que se haya activado alguna pista, false si no.</returns>
     public bool ActiveMoreHints()
     {
         resetBoard();
@@ -236,6 +261,12 @@ public class BoardManager : MonoBehaviour
             return true;
 
     }
+    /// <summary>
+    /// Parseador del txt donde se encuentra el mapa a un objeto de tipo Board.
+    /// </summary>
+    /// <param name="pathToMaps"> Path al directorio donde se encuentra el archivo.</param>
+    /// <param name="level"> Nivel que se quiere cargar.</param>
+    /// <returns></returns>
 
     private Board parseTxtMaps(string pathToMaps, int level)
     {

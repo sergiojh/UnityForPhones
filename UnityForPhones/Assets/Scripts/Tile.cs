@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// Clase que controla cada uno de los Tiles que componen un Board.
+/// </summary>
 public class Tile : MonoBehaviour
 {
 

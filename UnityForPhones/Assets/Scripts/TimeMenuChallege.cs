@@ -1,8 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
-
+/// <summary>
+/// Clase que se encarga de controlar el tiempo que está en el Menú.
+/// </summary>
 public class TimeMenuChallege : MonoBehaviour
 {
 
@@ -12,7 +12,10 @@ public class TimeMenuChallege : MonoBehaviour
     private MenuManager menuManager;
 
     private float _timer;
-    // Start is called before the first frame update
+    /// <summary>
+    /// Inicialización de los atributos del tiempo y el texto de este.
+    /// </summary>
+    /// <param name="timer">Tiempo.</param>
     public void init(float timer)
     {
         _timer = timer;
@@ -33,6 +36,9 @@ public class TimeMenuChallege : MonoBehaviour
         chrono.text = timeLeft;
     }
 
+    /// <summary>
+    /// Destruye el objeto tiempo ya que el Challenge puede realizarse.
+    /// </summary>
     public void notNow()
     {
         Destroy(this.gameObject);

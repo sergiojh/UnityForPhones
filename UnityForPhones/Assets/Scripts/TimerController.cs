@@ -1,7 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
+/// <summary>
+/// Clase que se encarga de controlar el tiempo que está en el nivel Challenge.
+/// </summary>
 public class TimerController : MonoBehaviour
 {
     [SerializeField]

@@ -1,8 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Advertisements;
 
+/// <summary>
+/// Clase que controla todo lo que ocurre con los anuncios usando UnityAds. Hereda de AdController ya que únicamente cambia la funcionalidad el método OnUnityAdsDidFinish.
+/// Esta clase es usada para que el usuario no pueda ver más de un anuncio por sesión. Es utilizado en el caso de ver un anuncio para ejecutar el modo Challenge.
+/// </summary>
 public class AdControllerMenu : AdController
 {
     [SerializeField]

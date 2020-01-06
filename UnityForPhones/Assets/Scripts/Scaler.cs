@@ -1,7 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
+﻿using UnityEngine;
+/// <summary>
+/// Clase que se encarga de escalar el tablero dada una resolución base para que se respete esa relación <alto,ancho>.
+/// </summary>
 public class Scaler : MonoBehaviour
 {
 
@@ -15,12 +15,11 @@ public class Scaler : MonoBehaviour
 
     private int _alto;
 
-    [SerializeField]
-    private SpriteRenderer topPart;
-    [SerializeField]
-    private SpriteRenderer bottomPart;
 
-    // Start is called before the first frame update
+/// <summary>
+/// Escala el tablero para que este quepa en el espacio reservado que tiene en la pantalla.
+/// </summary>
+/// <param name="clickTracker">Referencia al Tracker de la pulsaciíon del jugador para que este se escale también.</param>
     public void startScaling(SpriteRenderer clickTracker)
     {
         //sacamos la parte blanca

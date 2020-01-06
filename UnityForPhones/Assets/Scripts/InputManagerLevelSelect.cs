@@ -1,7 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
+/// <summary>
+/// Clase que se encarga del manejo del Input en la escena de selección de nivel.
+/// </summary>
 public class InputManagerLevelSelect : MonoBehaviour
 {
     [SerializeField]
@@ -9,7 +10,9 @@ public class InputManagerLevelSelect : MonoBehaviour
     [SerializeField]
     private SelectLevelManager selectLevelManager;
 
-    // Update is called once per frame
+    /// <summary>
+    /// Comprueba las pulsaciones del usuario en cada tick.
+    /// </summary>
     void Update()
     {
 #if  !UNITY_EDITOR && UNITY_ANDROID

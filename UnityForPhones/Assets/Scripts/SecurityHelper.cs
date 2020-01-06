@@ -1,16 +1,22 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Security.Cryptography;
+﻿using System.Security.Cryptography;
 using System.Text;
+/// <summary>
+/// Clase que se encarga de la seguridad del progreso.
+/// </summary>
 public class SecurityHelper
 {
     MD5 md5;
 
     public SecurityHelper()
     {
+        //Crea un hash MD5
         md5 = MD5.Create();
     }
-
+    /// <summary>
+    /// Encripta el archivo
+    /// </summary>
+    /// <param name="data">Contenido del archivo que se va a encriptar.</param>
+    /// <returns>Texto encriptado.</returns>
     public string encript(string data)
     {
         byte[] inputBytes = Encoding.ASCII.GetBytes(data);

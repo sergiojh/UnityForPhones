@@ -1,7 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// Clase que controla el Input en la escena juego.
+/// </summary>
 public class InputManager : MonoBehaviour
 {
     [SerializeField]
@@ -12,20 +13,30 @@ public class InputManager : MonoBehaviour
     private List<SpriteRenderer> TypeClickTrackers;
 
     private SpriteRenderer clickTracker;
+    /// <summary>
+    /// Inicializa el Tracker con la misma piel que tengan los Tiles del Board.
+    /// </summary>
+    /// <param name="piel">Piel a usar por el Tracker.</param>
     public void Init(int piel)
     {
         clickTracker = Instantiate(TypeClickTrackers[piel],this.transform);
         clickTracker.enabled = false;
     }
-
+    /// <summary>
+    /// Devuelve el Tracker.
+    /// </summary>
+    /// <returns>Tracker de la pulsación del usuario.</returns>
     public SpriteRenderer getClickTracker()
     {
         return clickTracker;
     }
 
-    // Update is called once per frame
+    /// <summary>
+    /// Comprueba las pulsaciones del usuario en cada tick.
+    /// </summary>
     void Update()
     {
+        //Código específico de Android
 #if !UNITY_EDITOR && UNITY_ANDROID
         if(Input.touchCount > 0){
             Touch t = Input.GetTouch(0);
@@ -52,6 +63,7 @@ public class InputManager : MonoBehaviour
         }
 
 #else
+        //Código específico de Windows y Editor.
         if (Input.GetMouseButton(0))
         {
             clickTracker.enabled = true;

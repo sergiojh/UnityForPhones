@@ -1,5 +1,8 @@
 ﻿using System.Collections.Generic;
 
+/// <summary>
+/// Clase que guarda el Mapa que leemos de fichero.
+/// </summary>
 public class Board
 {
     public int index { get; set; }
