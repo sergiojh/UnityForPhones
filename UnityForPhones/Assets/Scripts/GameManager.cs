@@ -98,27 +98,7 @@ public class GameManager : MonoBehaviour
     /// <returns></returns>
     public bool setActualLevel(int levelNumber)
     {
-        int valor = 0;
-        switch (actualCategory)
-        {
-            case 0:
-                valor = persistance.progress;
-                break;
-            case 1:
-                valor = persistance.progress1;
-                break;
-            case 2:
-                valor = persistance.progress2;
-                break;
-            case 3:
-                valor = persistance.progress3;
-                break;
-            case 4:
-                valor = persistance.progress4;
-                break;
-        }
-
-        if (levelNumber <= valor + 1)
+        if (levelNumber <= persistance.progress[actualCategory] + 1)
         {
             actualLevel = levelNumber;
             return true;
@@ -178,20 +158,7 @@ public class GameManager : MonoBehaviour
     /// <returns>Niveles completados para una categoría dada.</returns>
     public int getTotalLevelCompletedOfCategory(int category)
     {
-        switch (category)
-        {
-            case 0:
-                return persistance.progress;
-            case 1:
-                return persistance.progress1;
-            case 2:
-                return persistance.progress2;
-            case 3:
-                return persistance.progress3;
-            case 4:
-                return persistance.progress4;
-        }
-        return -1;
+        return persistance.progress[category];
     }
     /// <summary>
     /// </summary>
@@ -210,28 +177,9 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void levelCompleted()
     {
-        switch (actualCategory)
+        if (actualLevel > persistance.progress[actualCategory])
         {
-            case 0:
-                if (actualLevel > persistance.progress)
-                    persistance.progress++;
-                break;
-            case 1:
-                if (actualLevel > persistance.progress1)
-                    persistance.progress1++;
-                break;
-            case 2:
-                if (actualLevel > persistance.progress2)
-                    persistance.progress2++;
-                break;
-            case 3:
-                if (actualLevel > persistance.progress3)
-                    persistance.progress3++;
-                break;
-            case 4:
-                if (actualLevel > persistance.progress4)
-                    persistance.progress4++;
-                break;
+            persistance.progress[actualCategory]++;
         }
     }
     /// <summary>
@@ -254,20 +202,7 @@ public class GameManager : MonoBehaviour
     /// <returns>Número de niveles completados de la categoría actual.</returns>
     public int getLevelsCompletedFromActualLevel()
     {
-        switch (actualCategory)
-        {
-            case 0:
-                return persistance.progress;
-            case 1:
-                return persistance.progress1;
-            case 2:
-                return persistance.progress2;
-            case 3:
-                return persistance.progress3;
-            case 4:
-                return persistance.progress4;
-        }
-        return -1;
+        return persistance.progress[actualCategory];
     }
     /// <summary>
     /// Carga el archivo que contiene la persistencia, en caso de que este no exista, carga una persistencia por defecto.
@@ -275,7 +210,7 @@ public class GameManager : MonoBehaviour
     public void loadPersistance()
     {
         PersistanceManager p = new PersistanceManager();
-        persistance = p.loadPersistance(nameCategories[0]);
+        persistance = p.loadPersistance(nameCategories[0], nameCategories.Length);
     }
 
     /// <summary>
@@ -285,21 +220,7 @@ public class GameManager : MonoBehaviour
     /// <param name="levelCompleted">Número de niveles completados para la categoría.</param>
     public void setLevelsCompleted(int category, int levelCompleted)
     {
-        switch (category)
-        {
-            case 0:
-                persistance.progress = levelCompleted;
-                break;
-            case 1:
-                persistance.progress1 = levelCompleted;
-                break;
-            case 2:
-                persistance.progress2 = levelCompleted;
-                break;
-            case 3:
-                persistance.progress3 = levelCompleted;
-                break;
-        }
+        persistance.progress[category] = levelCompleted;
     }
     /// <summary>
     /// Comprobación si el modo Challenge está listo para usarse. En caso de que el tiempo de espera llegue a 0, activa el modo para que el usuario pueda usarlo.

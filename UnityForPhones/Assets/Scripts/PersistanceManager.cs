@@ -12,7 +12,7 @@ public class PersistanceManager : MonoBehaviour
     /// Carga el archivo que contiene la persistencia, en caso de que este no exista, carga una persistencia por defecto.
     /// </summary>
     /// <param name="salt">sal de hash</param>
-    public Persistance loadPersistance(string salt)
+    public Persistance loadPersistance(string salt, int tam)
     {
         Persistance persistance;
         if (File.Exists(Application.persistentDataPath + path))
@@ -26,10 +26,6 @@ public class PersistanceManager : MonoBehaviour
                 persistance.archievement = persistanceSec.archievement;
                 persistance.coins = persistanceSec.coins;
                 persistance.progress = persistanceSec.progress;
-                persistance.progress1 = persistanceSec.progress1;
-                persistance.progress2 = persistanceSec.progress2;
-                persistance.progress3 = persistanceSec.progress3;
-                persistance.progress4 = persistanceSec.progress4;
 
                 SecurityHelper s = new SecurityHelper();
                 string data = JsonUtility.ToJson(persistance);
@@ -40,11 +36,9 @@ public class PersistanceManager : MonoBehaviour
                 {
                     persistance = new Persistance();
                     persistance.coins = 0;
-                    persistance.progress = 0;
-                    persistance.progress1 = 0;
-                    persistance.progress2 = 0;
-                    persistance.progress3 = 0;
-                    persistance.progress4 = 0;
+                    persistance.progress = new int[tam];
+                    for (int i = 0; i < tam; i++)
+                        persistance.progress[i] = 0;
                     persistance.archievement = 0;
                 }
             }
@@ -52,11 +46,9 @@ public class PersistanceManager : MonoBehaviour
             {
                 persistance = new Persistance();
                 persistance.coins = 0;
-                persistance.progress = 0;
-                persistance.progress1 = 0;
-                persistance.progress2 = 0;
-                persistance.progress3 = 0;
-                persistance.progress4 = 0;
+                persistance.progress = new int[tam];
+                for (int i = 0; i < tam; i++)
+                    persistance.progress[i] = 0;
                 persistance.archievement = 0;
             }
         }
@@ -64,11 +56,9 @@ public class PersistanceManager : MonoBehaviour
         {
             persistance = new Persistance();
             persistance.coins = 0;
-            persistance.progress = 0;
-            persistance.progress1 = 0;
-            persistance.progress2 = 0;
-            persistance.progress3 = 0;
-            persistance.progress4 = 0;
+            persistance.progress = new int[tam];
+            for (int i = 0; i < tam; i++)
+                persistance.progress[i] = 0;
             persistance.archievement = 0;
         }
         return persistance;
@@ -90,10 +80,6 @@ public class PersistanceManager : MonoBehaviour
         persistenceSec.coins = persistance.coins;
         persistenceSec.archievement = persistance.archievement;
         persistenceSec.progress = persistance.progress;
-        persistenceSec.progress1 = persistance.progress1;
-        persistenceSec.progress2 = persistance.progress2;
-        persistenceSec.progress3 = persistance.progress3;
-        persistenceSec.progress4 = persistance.progress4;
         persistenceSec.hash = salted;
         string finalJson = JsonUtility.ToJson(persistenceSec);
         File.WriteAllText(Application.persistentDataPath + path, finalJson);
