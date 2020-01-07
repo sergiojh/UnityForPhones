@@ -65,7 +65,6 @@ public class LevelManager : MonoBehaviour
     {
         if (!finNivel)
         {
-            gameManager.setActualLevel(0);
             adController.stopListening();
             SceneManager.LoadScene("LevelScene", LoadSceneMode.Single);
         }
@@ -138,7 +137,6 @@ public class LevelManager : MonoBehaviour
     {
         if (finNivel)
         {
-            gameManager.setActualLevel(0);
             adController.stopListening();
             SceneManager.LoadScene("MenuScene", LoadSceneMode.Single);
         }

@@ -29,25 +29,25 @@ public class SelectLevelManager : MonoBehaviour
 
         if(actualCategory == "BEGINNER")
         {
-            levelsCompleted = gameManager.GetPersistance().progress;
+            levelsCompleted = gameManager.getTotalLevelCompletedOfCategory(0);
         }
         else if (actualCategory == "REGULAR")
         {
-            levelsCompleted = gameManager.GetPersistance().progress1;
+            levelsCompleted = gameManager.getTotalLevelCompletedOfCategory(1);
         }
         else if (actualCategory == "ADVANCED")
         {
-            levelsCompleted = gameManager.GetPersistance().progress2;
+            levelsCompleted = gameManager.getTotalLevelCompletedOfCategory(2);
         }
         else if (actualCategory == "EXPERT")
         {
-            levelsCompleted = gameManager.GetPersistance().progress3;
+            levelsCompleted = gameManager.getTotalLevelCompletedOfCategory(3);
         }
         else if (actualCategory == "MASTER")
         {
-            levelsCompleted = gameManager.GetPersistance().progress4;
+            levelsCompleted = gameManager.getTotalLevelCompletedOfCategory(4);
         }
-        createBoard(gameManager.getTotalLevelOfCategory(gameManager.getActualLevel()),levelsCompleted);
+        createBoard(gameManager.getTotalLevelOfCategory(gameManager.getActualCategory()),levelsCompleted);
 
     }
     /// <summary>
@@ -55,7 +55,6 @@ public class SelectLevelManager : MonoBehaviour
     /// </summary>
     public void back()
     {
-        gameManager.setActualLevel(0);
         SceneManager.LoadScene("MenuScene", LoadSceneMode.Single);
     }
     /// <summary>

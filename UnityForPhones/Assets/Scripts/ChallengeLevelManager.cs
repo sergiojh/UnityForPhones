@@ -16,7 +16,7 @@ public class ChallengeLevelManager : MonoBehaviour
     [SerializeField]
     private BoardManager boardManager;
     [SerializeField]
-    private InputManagerChallege inputManager;
+    private InputManagerChallenge inputManager;
     private bool finNivel = false;
     /// <summary>
     /// Secarga el nivel al azar, se añade una piel  y se carga el tablero.

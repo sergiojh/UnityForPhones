@@ -4,7 +4,7 @@ using UnityEngine;
 /// <summary>
 /// Clase que controla el Input en la escena Challenge.
 /// </summary>
-public class InputManagerChallege : InputManagerGameplay
+public class InputManagerChallenge : InputManagerGameplay
 {
     [SerializeField]
     private ChallengeLevelManager challengeLevelManager;

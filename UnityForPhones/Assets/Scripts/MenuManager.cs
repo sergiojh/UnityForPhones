@@ -49,22 +49,22 @@ public class MenuManager : MonoBehaviour
             gameManager.starRuning();
         }
         
-        gameManager.loadPersistance("save.json");
+        gameManager.loadPersistance();
 
-        coins = gameManager.GetPersistance().coins;
+        coins = gameManager.getCoins();
         coinsText.text = "" + coins;
         archievementText.text = "" + gameManager.getArchievement();
-        numLevelBeginnerText.text = "" + gameManager.GetPersistance().progress + "/" + gameManager.getTotalLevelOfCategory(0);
-        numLevelRegularText.text = "" + gameManager.GetPersistance().progress1 + "/" + gameManager.getTotalLevelOfCategory(1);
-        numLevelAdvancedText.text = "" + gameManager.GetPersistance().progress2 + "/" + gameManager.getTotalLevelOfCategory(2);
-        numLevelExpertText.text = "" + gameManager.GetPersistance().progress3 + "/" + gameManager.getTotalLevelOfCategory(3);
-        numLevelMasterText.text = "" + gameManager.GetPersistance().progress4 + "/" + gameManager.getTotalLevelOfCategory(4);
+        numLevelBeginnerText.text = "" + gameManager.getTotalLevelCompletedOfCategory(0) + "/" + gameManager.getTotalLevelOfCategory(0);
+        numLevelRegularText.text = "" + gameManager.getTotalLevelCompletedOfCategory(1) + "/" + gameManager.getTotalLevelOfCategory(1);
+        numLevelAdvancedText.text = "" + gameManager.getTotalLevelCompletedOfCategory(2) + "/" + gameManager.getTotalLevelOfCategory(2);
+        numLevelExpertText.text = "" + gameManager.getTotalLevelCompletedOfCategory(3) + "/" + gameManager.getTotalLevelOfCategory(3);
+        numLevelMasterText.text = "" + gameManager.getTotalLevelCompletedOfCategory(4) + "/" + gameManager.getTotalLevelOfCategory(4);
 
-        gameManager.setLevelsCompleted(0, gameManager.GetPersistance().progress);
-        gameManager.setLevelsCompleted(1, gameManager.GetPersistance().progress1);
-        gameManager.setLevelsCompleted(2, gameManager.GetPersistance().progress2);
-        gameManager.setLevelsCompleted(3, gameManager.GetPersistance().progress3);
-        gameManager.setLevelsCompleted(4, gameManager.GetPersistance().progress4);
+        gameManager.setLevelsCompleted(0, gameManager.getTotalLevelCompletedOfCategory(0));
+        gameManager.setLevelsCompleted(1, gameManager.getTotalLevelCompletedOfCategory(1));
+        gameManager.setLevelsCompleted(2, gameManager.getTotalLevelCompletedOfCategory(2));
+        gameManager.setLevelsCompleted(3, gameManager.getTotalLevelCompletedOfCategory(3));
+        gameManager.setLevelsCompleted(4, gameManager.getTotalLevelCompletedOfCategory(4));
 
         if (!gameManager.checkChallenge())
         {
