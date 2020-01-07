@@ -60,7 +60,7 @@ public class Scaler : MonoBehaviour
                 }
                 else if (boardManager.getWMatrix() <= 5)
                 {
-                    increment = 0.3f;
+                    increment = 0.5f;
                 }
                 if (boardManager.getHMatrix() >= 5)
                     increment += 0.02f;

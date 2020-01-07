@@ -10,6 +10,7 @@ public class InputManagerLevelSelect : MonoBehaviour
     [SerializeField]
     private SelectLevelManager selectLevelManager;
 
+    private bool moved = false;
     /// <summary>
     /// Comprueba las pulsaciones del usuario en cada tick.
     /// </summary>
@@ -19,17 +20,26 @@ public class InputManagerLevelSelect : MonoBehaviour
 
         if(Input.touchCount > 0){
             Touch t = Input.GetTouch(0);
-            if (t.phase == TouchPhase.Began || t.phase == TouchPhase.Moved)
+            if (t.phase == TouchPhase.Moved)
             {
-                var v = Camera.main.ScreenToWorldPoint(t.position);
+                moved = true;
+            }
+             else if (t.phase == TouchPhase.Ended)
+            {
+                if(moved)
+                    moved = false;
+                else
+                {
+                    var v = Camera.main.ScreenToWorldPoint(t.position);
 
-                v = layoutGroup.transform.InverseTransformPoint(v);
+                    v = layoutGroup.transform.InverseTransformPoint(v);
 
-                int x = ((int)v.x - 100) / 100;
-                int y = (-1 * (int)v.y) / 100;
+                    int x = ((int)v.x - 100) / 100;
+                    int y = (-1 * (int)v.y) / 100;
 
-                int levelPress = x + y * 5 + 1;
-                selectLevelManager.click(levelPress);
+                    int levelPress = x + y * 5 + 1;
+                    selectLevelManager.click(levelPress);
+                }
             }
         }
 #else

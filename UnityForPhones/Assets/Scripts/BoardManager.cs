@@ -38,15 +38,25 @@ public class BoardManager : MonoBehaviour
         _hintNumber = 1;
         _piel = piel;
         mapa = parseTxtMaps(mapName, level);
-        createBoard(mapa, level);
+        createBoard(mapa);
         _nivel = level;
         scaler.startScaling(clickTracker);
         float x = 0.5f;
         float y = 0.5f;
         if (_alto != 0)
-            y = _alto / 2 - 0.5f;
+        {
+            if (y % 2 == 0)
+                y = _alto / 2 - 0.5f;
+            else
+                y = _alto / 2;
+        }
         if (_ancho != 0)
-            x = _ancho / 2 - 0.5f;
+        {
+            if (x % 2 == 0)
+                x = _ancho / 2 - 0.5f;
+            else
+                x = _ancho / 2;
+        }
         camera.transform.localPosition = new Vector3(x, y,-10);
     }
 
@@ -149,9 +159,8 @@ public class BoardManager : MonoBehaviour
     /// Crea el nivel a partir de un tablero.
     /// </summary>
     /// <param name="b"> Tablero con los datos que hay que cargar.</param>
-    /// <param name="nivel"> Nivel que quiere cargarse.</param>
     /// <returns></returns>
-    private bool createBoard(Board b,int nivel)
+    private bool createBoard(Board b)
     {
         _alto = b.layout.Count;
         _ancho = b.layout[0].Length;
