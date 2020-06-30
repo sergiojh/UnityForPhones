@@ -187,6 +187,15 @@ public class MenuManager : MonoBehaviour
         }
     }
     /// <summary>
+    /// Añade 25 monedas al darle al regalo diario
+    /// </summary>
+    public void GiftClicked()
+    {
+        gameManager.addCoins(25);
+        coins = gameManager.getCoins();
+        coinsText.text = "" + coins;
+    }
+    /// <summary>
     /// Carga el modo challenge pagando monedas.
     /// </summary>
     public void challengeCost()
