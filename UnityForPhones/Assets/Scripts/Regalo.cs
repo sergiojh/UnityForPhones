@@ -15,13 +15,19 @@ public class Regalo : MonoBehaviour
     private MenuManager menuManager;
 
     private bool isActive;
-    // Start is called before the first frame update
-    void Start()
+
+    public void Init()
     {
-        isActive = true;
-
-        imagenComponent.sprite = Sprite.Create(regaloActivo,new Rect(0,0,regaloActivo.width,regaloActivo.height),new Vector2(0,0));
-
+        if (menuManager.CheckGiftActive())
+        {
+            isActive = true;
+            imagenComponent.sprite = Sprite.Create(regaloActivo, new Rect(0, 0, regaloActivo.width, regaloActivo.height), new Vector2(0, 0));
+        }
+        else
+        {
+            isActive = false;
+            imagenComponent.sprite = Sprite.Create(regaloInactivo, new Rect(0, 0, regaloInactivo.width, regaloInactivo.height), new Vector2(0, 0));
+        }
     }
 
     public void GetCoins()

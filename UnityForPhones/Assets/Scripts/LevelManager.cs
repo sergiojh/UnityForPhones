@@ -125,6 +125,7 @@ public class LevelManager : MonoBehaviour
         gameOverCategory.text = "" + actualCategory;
         gameOverLevel.text = "" + actualLevel;
         finNivel = true;
+        adController.showAd();
         container.gameObject.SetActive(true);
         gameManager.levelCompleted();
         gameManager.setActualLevel(gameManager.getActualLevel() + 1);

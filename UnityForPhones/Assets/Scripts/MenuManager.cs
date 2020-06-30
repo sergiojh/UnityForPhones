@@ -32,7 +32,8 @@ public class MenuManager : MonoBehaviour
     private CanvasRenderer challengeDoneFrame;
     [SerializeField]
     private TimeMenuChallege timeMenuChallege;
-
+    [SerializeField]
+    private Regalo regalo;
     private bool frameActive = false;
     private int coins;
     /// <summary>
@@ -65,7 +66,7 @@ public class MenuManager : MonoBehaviour
         gameManager.setLevelsCompleted(2, gameManager.getTotalLevelCompletedOfCategory(2));
         gameManager.setLevelsCompleted(3, gameManager.getTotalLevelCompletedOfCategory(3));
         gameManager.setLevelsCompleted(4, gameManager.getTotalLevelCompletedOfCategory(4));
-
+        
         if (!gameManager.checkChallenge())
         {
             challengeDoneFrame.gameObject.SetActive(true);
@@ -77,6 +78,7 @@ public class MenuManager : MonoBehaviour
             timeMenuChallege.notNow();
         }
 
+        regalo.Init();
     }
     /// <summary>
     /// Cierra la aplicación.
@@ -194,6 +196,12 @@ public class MenuManager : MonoBehaviour
         gameManager.addCoins(25);
         coins = gameManager.getCoins();
         coinsText.text = "" + coins;
+        gameManager.GiftTaken();
+    }
+
+    public bool CheckGiftActive()
+    {
+        return gameManager.CheckGiftActive();
     }
     /// <summary>
     /// Carga el modo challenge pagando monedas.

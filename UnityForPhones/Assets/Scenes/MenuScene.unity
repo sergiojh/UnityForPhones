@@ -1763,7 +1763,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Content: {fileID: 960931333}
-  m_Horizontal: 1
+  m_Horizontal: 0
   m_Vertical: 1
   m_MovementType: 1
   m_Elasticity: 0.1
@@ -3476,6 +3476,7 @@ MonoBehaviour:
   challengeFrame: {fileID: 82760904}
   challengeDoneFrame: {fileID: 1743068632}
   timeMenuChallege: {fileID: 1821086406}
+  regalo: {fileID: 458542975}
 --- !u!4 &1395299611
 Transform:
   m_ObjectHideFlags: 0

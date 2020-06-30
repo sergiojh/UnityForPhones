@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
     private int actualCategory;
 
     public bool challengeReady;
+    private bool giftReady = true;
     private float timer;
     private Persistance persistance;
 
@@ -35,8 +36,9 @@ public class GameManager : MonoBehaviour
         {
             gameManager = this;
             challengeReady = true;
+            giftReady = true;
             timer = 1800.0f;
-}
+        }
         else
         {
             Destroy(this.gameObject);
@@ -267,5 +269,20 @@ public class GameManager : MonoBehaviour
     {
         PersistanceManager p = new PersistanceManager();
         p.savePersistance(persistance, nameCategories[0]);
+    }
+    /// <summary>
+    /// Activamos que hemos cogido el regalo de la sesión
+    /// </summary>
+    public void GiftTaken()
+    {
+        giftReady = false;
+    }
+    /// <summary>
+    /// Miramos si el regalo está cogido en la sesión
+    /// </summary>
+    /// <returns>Retornamos true si aun no se ha cogido y falso si se ha cogido el regalo</returns>
+    public bool CheckGiftActive()
+    {
+        return giftReady;
     }
 }
