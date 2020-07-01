@@ -33,14 +33,14 @@ public class BoardManager : MonoBehaviour
     /// <param name="level">Nivel a cargar</param>
     /// <param name="piel">Piel a usar para que el color sea uniforme.</param>
     /// <param name="clickTracker">Tracker de la pulsación del usuario.</param>
-    public void initBoard(string mapName, int level, int piel, SpriteRenderer clickTracker)
+    public void InitBoard(string mapName, int level, int piel, SpriteRenderer clickTracker)
     {
         _hintNumber = 1;
         _piel = piel;
-        mapa = parseTxtMaps(mapName, level);
-        createBoard(mapa);
+        mapa = ParseTxtMaps(mapName, level);
+        CreateBoard(mapa);
         _nivel = level;
-        scaler.startScaling(clickTracker);
+        scaler.StartScaling(clickTracker);
         float x = 0.5f;
         float y = 0.5f;
         if (_alto != 0)
@@ -60,16 +60,16 @@ public class BoardManager : MonoBehaviour
         camera.transform.localPosition = new Vector3(x, y,-10);
     }
 
-    public int getTotalTypeTiles()
+    public int GetTotalTypeTiles()
     {
         return typeofTile.Count;
     }
-    public int getWMatrix()
+    public int GetWMatrix()
     {
         return _ancho;
     }
    
-    public int getHMatrix()
+    public int GetHMatrix()
     {
         return _alto;
     }
@@ -105,7 +105,7 @@ public class BoardManager : MonoBehaviour
             if (val != -1 && !matrix[(int)v.x, (int)v.y].CheckPulsado())
             {
                 matrix[(int)v.x, (int)v.y].SetPulsado(true);
-                matrix[(int)v.x, (int)v.y].setActivePath(val);
+                matrix[(int)v.x, (int)v.y].SetActivePath(val);
                 _xTileActivo = (int)v.x;
                 _yTileActivo = (int)v.y;
             }
@@ -138,7 +138,7 @@ public class BoardManager : MonoBehaviour
     /// Comprueba si se ha terminado la partida.
     /// </summary>
     /// <returns>True en el caso de haberse terminado el juego, false en caso contrario.</returns>
-    public bool checkFinJuego()
+    public bool CheckFinJuego()
     {
         bool clicked = true;
         int x = 0;
@@ -160,7 +160,7 @@ public class BoardManager : MonoBehaviour
     /// </summary>
     /// <param name="b"> Tablero con los datos que hay que cargar.</param>
     /// <returns></returns>
-    private bool createBoard(Board b)
+    private bool CreateBoard(Board b)
     {
         _alto = b.layout.Count;
         _ancho = b.layout[0].Length;
@@ -200,7 +200,7 @@ public class BoardManager : MonoBehaviour
     /// <summary>
     /// Resetea el tablero al estado inicial.
     /// </summary>
-    public void resetBoard()
+    public void ResetBoard()
     {
         int x = 0;
         while (x < _ancho)
@@ -228,7 +228,7 @@ public class BoardManager : MonoBehaviour
     /// <returns>True en el caso de que se haya activado alguna pista, false si no.</returns>
     public bool ActiveMoreHints()
     {
-        resetBoard();
+        ResetBoard();
 
         int i = 0;
 
@@ -242,22 +242,22 @@ public class BoardManager : MonoBehaviour
             {
                 if (mapa.path[_hintNumber][1] == mapa.path[_hintNumber - 1][1] - 1)//izquierda
                 {
-                    matrix[x, y].setActiveHintPath(3);
+                    matrix[x, y].SetActiveHintPath(3);
                 }
                 else //derecha
                 {
-                    matrix[x, y].setActiveHintPath(2);
+                    matrix[x, y].SetActiveHintPath(2);
                 }
             }
             else //se mueve en y
             {
                 if (mapa.path[_hintNumber][0] == mapa.path[_hintNumber - 1][0] - 1)//abajo
                 {
-                    matrix[x, y].setActiveHintPath(0);
+                    matrix[x, y].SetActiveHintPath(0);
                 }
                 else //arriba
                 {
-                    matrix[x, y].setActiveHintPath(1);
+                    matrix[x, y].SetActiveHintPath(1);
                 }
             }
             _hintNumber++;
@@ -277,7 +277,7 @@ public class BoardManager : MonoBehaviour
     /// <param name="level"> Nivel que se quiere cargar.</param>
     /// <returns></returns>
 
-    private Board parseTxtMaps(string pathToMaps, int level)
+    private Board ParseTxtMaps(string pathToMaps, int level)
     {
         TextAsset files = Resources.Load(pathToMaps) as TextAsset;
 

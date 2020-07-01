@@ -96,6 +96,7 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
+    m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
   m_UseShadowmask: 1
 --- !u!196 &4
@@ -515,6 +516,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -620,8 +622,9 @@ Light:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 705507993}
   m_Enabled: 1
-  serializedVersion: 9
+  serializedVersion: 10
   m_Type: 1
+  m_Shape: 0
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
   m_Intensity: 1
   m_Range: 10
@@ -731,6 +734,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1144,7 +1148,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1293270033}
-        m_MethodName: goHome
+        m_MethodName: GoHome
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1199,6 +1203,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1317,7 +1322,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1293270033}
-        m_MethodName: back
+        m_MethodName: Back
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1498,7 +1503,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1293270033}
-        m_MethodName: viewAdd
+        m_MethodName: ViewAdd
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1627,7 +1632,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1293270033}
-        m_MethodName: buyHints
+        m_MethodName: BuyHints
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1707,7 +1712,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.7454064}
   m_AnchorMax: {x: 0.5, y: 0.7454064}
-  m_AnchoredPosition: {x: -0.1, y: -5.700012}
+  m_AnchoredPosition: {x: -0.1, y: -5.699951}
   m_SizeDelta: {x: 693, y: 157.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1404800304
@@ -1803,6 +1808,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -2090,7 +2096,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -5.670044, y: -3.5430908}
+  m_AnchoredPosition: {x: -5.670044, y: -3.5429688}
   m_SizeDelta: {x: 757.90283, y: 273.94458}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1705869190
@@ -2211,7 +2217,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1293270033}
-        m_MethodName: resetBoard
+        m_MethodName: ResetBoard
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2286,8 +2292,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe63b05563e50944cbc59b26ba6c1717, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boardContainer: {fileID: 2119189486}
-  levelManager: {fileID: 1293270033}
   TypeClickTrackers:
   - {fileID: 4189276706015378014, guid: eb3ff8bcd2c74674d8fd891d7a59908e, type: 3}
   - {fileID: 4189276706015378014, guid: f6101ce1c461bbf4a84067b77f158d2a, type: 3}
@@ -2296,6 +2300,8 @@ MonoBehaviour:
   - {fileID: 4189276706015378014, guid: 7d80094b8d75574438d54f239f390a53, type: 3}
   - {fileID: 4189276706015378014, guid: a5e8c0bd5e793b94895d933732d1a9fc, type: 3}
   - {fileID: 4189276706015378014, guid: 15202353ed3345f43980d52c7eec59f6, type: 3}
+  boardContainer: {fileID: 2119189486}
+  levelManager: {fileID: 1293270033}
 --- !u!4 &1821108013
 Transform:
   m_ObjectHideFlags: 0
@@ -2440,6 +2446,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -2611,9 +2618,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boardManager: {fileID: 2119189486}
-  clickTraker: {fileID: 0}
-  topPart: {fileID: 2000281882}
-  bottomPart: {fileID: 1500336258}
 --- !u!4 &2021428286
 Transform:
   m_ObjectHideFlags: 0
@@ -2819,7 +2823,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1293270033}
-        m_MethodName: loadNextLevel
+        m_MethodName: LoadNextLevel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

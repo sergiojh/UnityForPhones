@@ -20,7 +20,7 @@ public class Scaler : MonoBehaviour
 /// Escala el tablero para que este quepa en el espacio reservado que tiene en la pantalla.
 /// </summary>
 /// <param name="clickTracker">Referencia al Tracker de la pulsaciíon del jugador para que este se escale también.</param>
-    public void startScaling(SpriteRenderer clickTracker)
+    public void StartScaling(SpriteRenderer clickTracker)
     {
         //sacamos la parte blanca
         _alto = _defaultAlto - _blueBottomPart - _blueTopPart;
@@ -54,28 +54,28 @@ public class Scaler : MonoBehaviour
             {
                 factorScaladoY -= 0.3f;
                 factorScaladoX -= 0.3f;
-                if (boardManager.getWMatrix() > 5)
+                if (boardManager.GetWMatrix() > 5)
                 {
                     increment = 0.6f;
                 }
-                else if (boardManager.getWMatrix() <= 5)
+                else if (boardManager.GetWMatrix() <= 5)
                 {
                     increment = 0.5f;
                 }
-                if (boardManager.getHMatrix() >= 5)
+                if (boardManager.GetHMatrix() >= 5)
                     increment += 0.02f;
             }
             else
             {
-                if (boardManager.getWMatrix() > 5)
+                if (boardManager.GetWMatrix() > 5)
                 {
                     increment = 0.2f;
                 }
-                else if (boardManager.getWMatrix() <= 5)
+                else if (boardManager.GetWMatrix() <= 5)
                 {
                     increment = 0.05f;
                 }
-                if (boardManager.getHMatrix() >= 5)
+                if (boardManager.GetHMatrix() >= 5)
                     increment += 0.02f;
             }
             if (factorScaladoX != 0 && Screen.height > Screen.width)
@@ -89,11 +89,11 @@ public class Scaler : MonoBehaviour
         }
         else
         {
-            if (boardManager.getWMatrix() > 5)
+            if (boardManager.GetWMatrix() > 5)
             {
                 increment = 0.55f;
             }
-            else if (boardManager.getWMatrix() == 5)
+            else if (boardManager.GetWMatrix() == 5)
             {
                 increment = 0.8f;
             }

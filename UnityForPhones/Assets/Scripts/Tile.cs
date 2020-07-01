@@ -58,7 +58,7 @@ public class Tile : MonoBehaviour
     /// 3 ->  Este
     /// </summary>
     /// <param name="value">debe estar entre 0-3</param>
-    public void setActivePath(int value)
+    public void SetActivePath(int value)
     {
         if (value >= 0 && value < 4)
         {
@@ -75,7 +75,7 @@ public class Tile : MonoBehaviour
     /// 3 ->  Este
     /// </summary>
     /// <param name="value">debe estar entre 0-3</param>
-    public void setActiveHintPath(int value)
+    public void SetActiveHintPath(int value)
     {
         if (value >= 0 && value < 4)
         {

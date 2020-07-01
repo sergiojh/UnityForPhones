@@ -26,7 +26,7 @@ public class AdController : MonoBehaviour, IUnityAdsListener
     /// <summary>
     /// Método para mostrar el anuncio al usuario.
     /// </summary>
-    public virtual void showAd()
+    public virtual void ShowAd()
     {
         if (Advertisement.IsReady(rewarded_video_ad))
         {
@@ -84,7 +84,7 @@ public class AdController : MonoBehaviour, IUnityAdsListener
     /// <summary>
     /// El objeto deja de ser Listener de Ads.
     /// </summary>
-    public void stopListening()
+    public void StopListening()
     {
         Advertisement.RemoveListener(this);
     }

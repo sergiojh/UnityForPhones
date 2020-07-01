@@ -16,7 +16,7 @@ public class AdControllerChallenge : AdController
             // Reward the user for watching the ad to completion.
             if (challengeLevelManager == null)
                 challengeLevelManager = FindObjectOfType<ChallengeLevelManager>();
-            challengeLevelManager.adSeen();
+            challengeLevelManager.AdSeen();
             
         }
         else if (showResult == ShowResult.Skipped)

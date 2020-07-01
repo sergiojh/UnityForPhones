@@ -21,7 +21,7 @@ public class AdControllerGame : AdController
         if (showResult == ShowResult.Finished)
         {
             // Reward the user for watching the ad to completion.
-            levelManager.addCoins(25);
+            levelManager.AddCoins(25);
         }
         else if (showResult == ShowResult.Skipped)
         {

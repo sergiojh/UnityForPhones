@@ -23,7 +23,7 @@ public class TimerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (challengeLevelManager.checkEndGame())
+        if (challengeLevelManager.CheckEndGame())
             Destroy(this.gameObject);
         timer += Time.deltaTime;
 
@@ -33,7 +33,7 @@ public class TimerController : MonoBehaviour
             seconds--;
             if (seconds == 0)
             {
-                challengeLevelManager.timeFinish();
+                challengeLevelManager.TimeFinish();
                 Destroy(this.gameObject);
             }
             if(seconds > 9)

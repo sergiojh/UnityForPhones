@@ -13,7 +13,7 @@ public class InputManagerChallenge : InputManagerGameplay
     /// Devuelve el Tracker.
     /// </summary>
     /// <returns>Tracker de la pulsación del usuario.</returns>
-    public SpriteRenderer getClickTracker()
+    public SpriteRenderer GetClickTracker()
     {
         return clickTracker;
     }
@@ -33,11 +33,11 @@ public class InputManagerChallenge : InputManagerGameplay
                 clickTracker.transform.position = v;
                 v = boardContainer.transform.InverseTransformPoint(v);
                 boardContainer.Clicked(v);
-                bool fin = boardContainer.checkFinJuego();
+                bool fin = boardContainer.CheckFinJuego();
 
                 if (fin)
                 {
-                    challengeLevelManager.endGame();
+                    challengeLevelManager.EndGame();
                     Destroy(this.gameObject);
                 }
             }
@@ -57,10 +57,10 @@ public class InputManagerChallenge : InputManagerGameplay
             clickTracker.transform.position = v;
             v = boardContainer.transform.InverseTransformPoint(v);
             boardContainer.Clicked(v);
-            bool fin = boardContainer.checkFinJuego();
+            bool fin = boardContainer.CheckFinJuego();
             if (fin)
             {
-                challengeLevelManager.endGame();
+                challengeLevelManager.EndGame();
                 Destroy(this.gameObject);
             }
         }

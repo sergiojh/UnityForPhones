@@ -27,17 +27,17 @@ public class ChallengeLevelManager : MonoBehaviour
 
         EndGameCanvas.gameObject.SetActive(false);
         ChallengeFailedCanvas.gameObject.SetActive(false);
-        int levelLoad = Random.Range(0,gameManager.getTotalLevels());
+        int levelLoad = Random.Range(0,gameManager.GetTotalLevels());
 
-        int numOfTiles = boardManager.getTotalTypeTiles();
+        int numOfTiles = boardManager.GetTotalTypeTiles();
         int piel = Random.Range(0, numOfTiles); // es exclusivo en el valor max
         inputManager.Init(piel);
-        boardManager.initBoard("maps", levelLoad, piel, inputManager.getClickTracker());
+        boardManager.InitBoard("maps", levelLoad, piel, inputManager.GetClickTracker());
     }
     /// <summary>
     /// Método ejecutado al terminarse el mapa correctamentre o se acaba el tiempo.
     /// </summary>
-    public void endGame()
+    public void EndGame()
     {
         finNivel = true;
         EndGameCanvas.gameObject.SetActive(true);
@@ -45,39 +45,39 @@ public class ChallengeLevelManager : MonoBehaviour
     /// <summary>
     /// Método ejecutado al usar el botón Back.
     /// </summary>
-    public void backButton()
+    public void BackButton()
     {
         if (!finNivel)
         {
-            gameManager.resetTimerChallenge();
-            adController.stopListening();
+            gameManager.ResetTimerChallenge();
+            adController.StopListening();
             SceneManager.LoadScene("MenuScene", LoadSceneMode.Single);
         }
     }
     /// <summary>
     /// Método ejecutado al usar el botón OK una vez se ha superado el nivel Challenge.
     /// </summary>
-    public void okayButton()
+    public void OkayButton()
     {
-        gameManager.resetTimerChallenge();
-        gameManager.addCoins(50);
-        gameManager.addArchievement();
-        gameManager.savePersistance();
-        adController.stopListening();
+        gameManager.ResetTimerChallenge();
+        gameManager.AddCoins(50);
+        gameManager.AddArchievement();
+        gameManager.SavePersistance();
+        adController.StopListening();
         SceneManager.LoadScene("MenuScene", LoadSceneMode.Single);
     }
     /// <summary>
     /// Se muestra el anuncio al dar al botón para ganr doble de monedas.
     /// </summary>
-    public void dobleBoostWithAdd()
+    public void DobleBoostWithAdd()
     {
-        adController.showAd();
-        gameManager.addArchievement();
+        adController.ShowAd();
+        gameManager.AddArchievement();
     }
     /// <summary>
     /// Método que se ejecuta una vez el tiempo ha llegado a 0 y el nivel no se ha completado.
     /// </summary>
-    public void timeFinish()
+    public void TimeFinish()
     {
         Destroy(inputManager.gameObject);
         ChallengeFailedCanvas.gameObject.SetActive(true);
@@ -85,28 +85,28 @@ public class ChallengeLevelManager : MonoBehaviour
     /// <summary>
     /// Pulsación del botón Okay en la pantalla que aparece al fallar el nivel.
     /// </summary>
-    public void okayBottonFailed()
+    public void OkayBottonFailed()
     {
-        gameManager.resetTimerChallenge();
-        adController.stopListening();
+        gameManager.ResetTimerChallenge();
+        adController.StopListening();
         SceneManager.LoadScene("MenuScene", LoadSceneMode.Single);
     }
     /// <summary>
     /// En el caso de haberse visto el anuncio para ganar el doble de monedas al completarse el nivel.
     /// </summary>
-    public void adSeen()
+    public void AdSeen()
     {
-        gameManager.resetTimerChallenge();
-        gameManager.addCoins(100);
-        gameManager.savePersistance();
-        adController.stopListening();
+        gameManager.ResetTimerChallenge();
+        gameManager.AddCoins(100);
+        gameManager.SavePersistance();
+        adController.StopListening();
         SceneManager.LoadScene("MenuScene", LoadSceneMode.Single);
     }
     /// <summary>
     /// Comprueba el final del nivel
     /// </summary>
     /// <returns>True en caso de finalización del nivel, falso en caso contrario.</returns>
-    public bool checkEndGame()
+    public bool CheckEndGame()
     {
         return finNivel;
     }

@@ -24,36 +24,36 @@ public class SelectLevelManager : MonoBehaviour
     void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
-        actualCategory = gameManager.getNameCategory();
+        actualCategory = gameManager.GetNameCategory();
         categoryText.text = actualCategory;
 
         if(actualCategory == "BEGINNER")
         {
-            levelsCompleted = gameManager.getTotalLevelCompletedOfCategory(0);
+            levelsCompleted = gameManager.GetTotalLevelCompletedOfCategory(0);
         }
         else if (actualCategory == "REGULAR")
         {
-            levelsCompleted = gameManager.getTotalLevelCompletedOfCategory(1);
+            levelsCompleted = gameManager.GetTotalLevelCompletedOfCategory(1);
         }
         else if (actualCategory == "ADVANCED")
         {
-            levelsCompleted = gameManager.getTotalLevelCompletedOfCategory(2);
+            levelsCompleted = gameManager.GetTotalLevelCompletedOfCategory(2);
         }
         else if (actualCategory == "EXPERT")
         {
-            levelsCompleted = gameManager.getTotalLevelCompletedOfCategory(3);
+            levelsCompleted = gameManager.GetTotalLevelCompletedOfCategory(3);
         }
         else if (actualCategory == "MASTER")
         {
-            levelsCompleted = gameManager.getTotalLevelCompletedOfCategory(4);
+            levelsCompleted = gameManager.GetTotalLevelCompletedOfCategory(4);
         }
-        createBoard(gameManager.getTotalLevelOfCategory(gameManager.getActualCategory()),levelsCompleted);
+        CreateBoard(gameManager.GetTotalLevelOfCategory(gameManager.GetActualCategory()),levelsCompleted);
 
     }
     /// <summary>
     /// LLamado al pulsar el botón de atrás.
     /// </summary>
-    public void back()
+    public void Back()
     {
         SceneManager.LoadScene("MenuScene", LoadSceneMode.Single);
     }
@@ -61,9 +61,9 @@ public class SelectLevelManager : MonoBehaviour
     /// Click en un nivel. Carga la escena de juego con el nivel seleccionado.
     /// </summary>
     /// <param name="levelPress">Nivel seleccinado</param>
-    public void click(int levelPress)
+    public void Click(int levelPress)
     {
-        if (gameManager.setActualLevel(levelPress) && levelPress >= 0)
+        if (gameManager.SetActualLevel(levelPress) && levelPress >= 0)
             SceneManager.LoadScene("GameScene", LoadSceneMode.Single);
     }
 
@@ -72,7 +72,7 @@ public class SelectLevelManager : MonoBehaviour
     /// </summary>
     /// <param name="totalLevels">Niveles totales que tiene que mostrar</param>
     /// <param name="passedLevels">Niveles que están activos porque ya han sido desbloqueados.</param>
-    private void createBoard(int totalLevels,int passedLevels)
+    private void CreateBoard(int totalLevels,int passedLevels)
     {
         Button b;
         for(int i = 0; i < totalLevels; i++)

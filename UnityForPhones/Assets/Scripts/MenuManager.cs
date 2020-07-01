@@ -47,35 +47,35 @@ public class MenuManager : MonoBehaviour
         if (gameManager == null)
         {
             gameManager = Instantiate(prefab, this.transform);
-            gameManager.starRuning();
+            gameManager.StarRuning();
         }
         
-        gameManager.loadPersistance();
+        gameManager.LoadPersistance();
 
-        coins = gameManager.getCoins();
+        coins = gameManager.GetCoins();
         coinsText.text = "" + coins;
-        archievementText.text = "" + gameManager.getArchievement();
-        numLevelBeginnerText.text = "" + gameManager.getTotalLevelCompletedOfCategory(0) + "/" + gameManager.getTotalLevelOfCategory(0);
-        numLevelRegularText.text = "" + gameManager.getTotalLevelCompletedOfCategory(1) + "/" + gameManager.getTotalLevelOfCategory(1);
-        numLevelAdvancedText.text = "" + gameManager.getTotalLevelCompletedOfCategory(2) + "/" + gameManager.getTotalLevelOfCategory(2);
-        numLevelExpertText.text = "" + gameManager.getTotalLevelCompletedOfCategory(3) + "/" + gameManager.getTotalLevelOfCategory(3);
-        numLevelMasterText.text = "" + gameManager.getTotalLevelCompletedOfCategory(4) + "/" + gameManager.getTotalLevelOfCategory(4);
+        archievementText.text = "" + gameManager.GetArchievement();
+        numLevelBeginnerText.text = "" + gameManager.GetTotalLevelCompletedOfCategory(0) + "/" + gameManager.GetTotalLevelOfCategory(0);
+        numLevelRegularText.text = "" + gameManager.GetTotalLevelCompletedOfCategory(1) + "/" + gameManager.GetTotalLevelOfCategory(1);
+        numLevelAdvancedText.text = "" + gameManager.GetTotalLevelCompletedOfCategory(2) + "/" + gameManager.GetTotalLevelOfCategory(2);
+        numLevelExpertText.text = "" + gameManager.GetTotalLevelCompletedOfCategory(3) + "/" + gameManager.GetTotalLevelOfCategory(3);
+        numLevelMasterText.text = "" + gameManager.GetTotalLevelCompletedOfCategory(4) + "/" + gameManager.GetTotalLevelOfCategory(4);
 
-        gameManager.setLevelsCompleted(0, gameManager.getTotalLevelCompletedOfCategory(0));
-        gameManager.setLevelsCompleted(1, gameManager.getTotalLevelCompletedOfCategory(1));
-        gameManager.setLevelsCompleted(2, gameManager.getTotalLevelCompletedOfCategory(2));
-        gameManager.setLevelsCompleted(3, gameManager.getTotalLevelCompletedOfCategory(3));
-        gameManager.setLevelsCompleted(4, gameManager.getTotalLevelCompletedOfCategory(4));
+        gameManager.SetLevelsCompleted(0, gameManager.GetTotalLevelCompletedOfCategory(0));
+        gameManager.SetLevelsCompleted(1, gameManager.GetTotalLevelCompletedOfCategory(1));
+        gameManager.SetLevelsCompleted(2, gameManager.GetTotalLevelCompletedOfCategory(2));
+        gameManager.SetLevelsCompleted(3, gameManager.GetTotalLevelCompletedOfCategory(3));
+        gameManager.SetLevelsCompleted(4, gameManager.GetTotalLevelCompletedOfCategory(4));
         
-        if (!gameManager.checkChallenge())
+        if (!gameManager.CheckChallenge())
         {
             challengeDoneFrame.gameObject.SetActive(true);
-            timeMenuChallege.init(gameManager.getTimer());
+            timeMenuChallege.Init(gameManager.GetTimer());
         }
         else
         {
             challengeDoneFrame.gameObject.SetActive(false);
-            timeMenuChallege.notNow();
+            timeMenuChallege.NotNow();
         }
 
         regalo.Init();
@@ -83,80 +83,80 @@ public class MenuManager : MonoBehaviour
     /// <summary>
     /// Cierra la aplicación.
     /// </summary>
-    public void exitApp()
+    public void ExitApp()
     {
         Application.Quit();
     }
     /// <summary>
     /// Carga la selección de niveles de la categoría Beginner.
     /// </summary>
-    public void goToBeginner()
+    public void GoToBeginner()
     {
-        if (!frameActive && gameManager.setActualCategory(0))
+        if (!frameActive && gameManager.SetActualCategory(0))
         {
-            adController.stopListening();
+            adController.StopListening();
             SceneManager.LoadScene("LevelScene", LoadSceneMode.Single);
         }
     }
     /// <summary>
     /// Carga la selección de niveles de la categoría Regular.
     /// </summary>
-    public void goToRegular()
+    public void GoToRegular()
     {
-        if (!frameActive && gameManager.setActualCategory(1))
+        if (!frameActive && gameManager.SetActualCategory(1))
         {
-            adController.stopListening();
+            adController.StopListening();
             SceneManager.LoadScene("LevelScene", LoadSceneMode.Single);
         }
     }
     /// <summary>
     /// Carga la selección de niveles de la categoría Advanced.
     /// </summary>
-    public void goToAdvanced()
+    public void GoToAdvanced()
     {
-        if (!frameActive && gameManager.setActualCategory(2))
+        if (!frameActive && gameManager.SetActualCategory(2))
         {
-            adController.stopListening();
+            adController.StopListening();
             SceneManager.LoadScene("LevelScene", LoadSceneMode.Single);
         }
     }
     /// <summary>
     /// Carga la selección de niveles de la categoría Expert.
     /// </summary>
-    public void goToExpert()
+    public void GoToExpert()
     {
-        if (!frameActive && gameManager.setActualCategory(3))
+        if (!frameActive && gameManager.SetActualCategory(3))
         {
-            adController.stopListening();
+            adController.StopListening();
             SceneManager.LoadScene("LevelScene", LoadSceneMode.Single);
         }
     }
     /// <summary>
     /// Carga la selección de niveles de la categoría Master.
     /// </summary>
-    public void goToMaster()
+    public void GoToMaster()
     {
-        if (!frameActive && gameManager.setActualCategory(4))
+        if (!frameActive && gameManager.SetActualCategory(4))
         {
-            adController.stopListening();
+            adController.StopListening();
             SceneManager.LoadScene("LevelScene", LoadSceneMode.Single);
         }
     }
     /// <summary>
     /// Cambia el botón de Challenge para que este no tenga el tiempo de espera.
     /// </summary>
-    public void updateChallenge()
+    public void UpdateChallenge()
     {
-        gameManager.checkChallenge();
+        gameManager.CheckChallenge();
         challengeDoneFrame.gameObject.SetActive(false);
-        timeMenuChallege.notNow();
+        timeMenuChallege.NotNow();
     }
     /// <summary>
     /// Carga la pantalla del modo challenge.
     /// </summary>
-    public void goToChallenge()
+    public void GoToChallenge()
     {
-        if (gameManager.checkChallenge())
+        if (gameManager.CheckChallenge())
         {
             frameActive = true;
             challengeFrame.gameObject.SetActive(true);
@@ -173,18 +173,18 @@ public class MenuManager : MonoBehaviour
     /// <summary>
     /// Carga el anuncio para jugar el modo challenge gratis.
     /// </summary>
-    public void challengeAd()
+    public void ChallengeAd()
     {
-        adController.showAd();
+        adController.ShowAd();
     }
     /// <summary>
     /// Añade la visualización del anuncio y carga la escena challenge.
     /// </summary>
-    public void adSeen()
+    public void AdSeen()
     {
-        if (gameManager.setActualCategory(5))
+        if (gameManager.SetActualCategory(5))
         {
-            adController.stopListening();
+            adController.StopListening();
             SceneManager.LoadScene("Challenge", LoadSceneMode.Single);
         }
     }
@@ -193,8 +193,8 @@ public class MenuManager : MonoBehaviour
     /// </summary>
     public void GiftClicked()
     {
-        gameManager.addCoins(25);
-        coins = gameManager.getCoins();
+        gameManager.AddCoins(25);
+        coins = gameManager.GetCoins();
         coinsText.text = "" + coins;
         gameManager.GiftTaken();
     }
@@ -206,12 +206,12 @@ public class MenuManager : MonoBehaviour
     /// <summary>
     /// Carga el modo challenge pagando monedas.
     /// </summary>
-    public void challengeCost()
+    public void ChallengeCost()
     {
-        if (gameManager.subtractCoins(25) && gameManager.setActualCategory(5))
+        if (gameManager.SubtractCoins(25) && gameManager.SetActualCategory(5))
         {
-            adController.stopListening();
-            gameManager.savePersistance();
+            adController.StopListening();
+            gameManager.SavePersistance();
             SceneManager.LoadScene("Challenge", LoadSceneMode.Single);
         }
     }

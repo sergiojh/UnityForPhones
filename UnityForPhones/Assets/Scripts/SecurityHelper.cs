@@ -13,11 +13,11 @@ public class SecurityHelper
         md5 = MD5.Create();
     }
     /// <summary>
-    /// Encripta el archivo
+    /// Resume el contenido en un hash MD5
     /// </summary>
-    /// <param name="data">Contenido del archivo que se va a encriptar.</param>
-    /// <returns>Texto encriptado.</returns>
-    public string encript(string data)
+    /// <param name="data">Contenido del archivo que se va a resumir en hash.</param>
+    /// <returns>Texto generado por el hash.</returns>
+    public string CreateMD5(string data)
     {
         byte[] inputBytes = Encoding.ASCII.GetBytes(data);
         byte[] hash = md5.ComputeHash(inputBytes);

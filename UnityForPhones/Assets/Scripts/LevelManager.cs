@@ -42,57 +42,57 @@ public class LevelManager : MonoBehaviour
     void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
-        coins = gameManager.getCoins();
-        actualLevel = gameManager.getActualLevel();
-        actualCategory = gameManager.getNameCategory();
+        coins = gameManager.GetCoins();
+        actualLevel = gameManager.GetActualLevel();
+        actualCategory = gameManager.GetNameCategory();
 
         coinsText.text = "" + coins;
         categoryText.text = actualCategory+ " " + actualLevel;
         priceText.text = "" + price;
 
-        int levelLoad = gameManager.getActualLevel() + gameManager.getActualCategory() * 100;
+        int levelLoad = gameManager.GetActualLevel() + gameManager.GetActualCategory() * 100;
 
-        int numOfTiles = boardManager.getTotalTypeTiles();
+        int numOfTiles = boardManager.GetTotalTypeTiles();
         int r = Random.Range(0,numOfTiles); // es exclusivo en el valor max
         inputManager.Init(r);
-        boardManager.initBoard("maps",levelLoad - 1, r, inputManager.getClickTracker());
+        boardManager.InitBoard("maps",levelLoad - 1, r, inputManager.GetClickTracker());
         container.gameObject.SetActive(false);
     }
     /// <summary>
     /// Método ejecutado al usar el botón Back. Carga la escena de selección de niveles.
     /// </summary>
-    public void back()
+    public void Back()
     {
         if (!finNivel)
         {
-            adController.stopListening();
+            adController.StopListening();
             SceneManager.LoadScene("LevelScene", LoadSceneMode.Single);
         }
     }
     /// <summary>
     /// Carga el siguiente nivel.
     /// </summary>
-    public void loadNextLevel()
+    public void LoadNextLevel()
     {
-        adController.stopListening();
+        adController.StopListening();
         SceneManager.LoadScene("GameScene", LoadSceneMode.Single);
     }
     /// <summary>
     /// Compra de pistas. Resta monedas y activa 5 caminos. En caso de no haber más pistas disponibles, no gasta monedas.
     /// </summary>
-    public void buyHints()
+    public void BuyHints()
     {
         if (!finNivel)
         {
-            if (gameManager.subtractCoins(price))
+            if (gameManager.SubtractCoins(price))
             {
                 if (boardManager.ActiveMoreHints())
                 {
-                    coins = gameManager.getCoins();
+                    coins = gameManager.GetCoins();
                     coinsText.text = "" + coins;
                 }
                 else
-                    gameManager.addCoins(price);
+                    gameManager.AddCoins(price);
             }
             else
                 Debug.Log("No hay suficiente dinero");
@@ -101,44 +101,44 @@ public class LevelManager : MonoBehaviour
     /// <summary>
     /// Devuelve el tablero a su estado inicial.
     /// </summary>
-    public void resetBoard()
+    public void ResetBoard()
     {
         if(!finNivel)
-            boardManager.resetBoard();
+            boardManager.ResetBoard();
     }
     /// <summary>
     /// Se visualiza un anuncio para ganar monedas. Solo puede verse 1 anuncio por nivel.
     /// </summary>
-    public void viewAdd()
+    public void ViewAdd()
     {
         if (!finNivel && !adSeen)
         {
             adSeen = true;
-            adController.showAd();
+            adController.ShowAd();
         }
     }
     /// <summary>
     /// Se ejecuta al finalizarse el nivel lo que guarda en la persistencia que se ha completado.
     /// </summary>
-    public void finLevel()
+    public void FinLevel()
     {
         gameOverCategory.text = "" + actualCategory;
         gameOverLevel.text = "" + actualLevel;
         finNivel = true;
-        adController.showAd();
+        adController.ShowAd();
         container.gameObject.SetActive(true);
-        gameManager.levelCompleted();
-        gameManager.setActualLevel(gameManager.getActualLevel() + 1);
-        gameManager.savePersistance();
+        gameManager.LevelCompleted();
+        gameManager.SetActualLevel(gameManager.GetActualLevel() + 1);
+        gameManager.SavePersistance();
     }
     /// <summary>
     /// Devuelve al usuario al menú principal.
     /// </summary>
-    public void goHome()
+    public void GoHome()
     {
         if (finNivel)
         {
-            adController.stopListening();
+            adController.StopListening();
             SceneManager.LoadScene("MenuScene", LoadSceneMode.Single);
         }
     }
@@ -146,7 +146,7 @@ public class LevelManager : MonoBehaviour
     /// Devuelve las monedas que tiene el ususario.
     /// </summary>
     /// <returns>Número de monedas del usuario.</returns>
-    public int getCoins()
+    public int GetCoins()
     {
         return coins;
     }
@@ -154,11 +154,11 @@ public class LevelManager : MonoBehaviour
     /// Suma monedas a las actuales.
     /// </summary>
     /// <param name="value">Monedas a sumar.</param>
-    public void addCoins(int value)
+    public void AddCoins(int value)
     {
-        gameManager.addCoins(25);
-        gameManager.savePersistance();
-        coins = gameManager.getCoins();
+        gameManager.AddCoins(25);
+        gameManager.SavePersistance();
+        coins = gameManager.GetCoins();
         coinsText.text = "" + coins;
     }
 }

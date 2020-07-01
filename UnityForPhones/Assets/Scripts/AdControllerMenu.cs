@@ -16,7 +16,7 @@ public class AdControllerMenu : AdController
         if (showResult == ShowResult.Finished)
         {
             // Reward the user for watching the ad to completion.
-            menuManager.adSeen();
+            menuManager.AdSeen();
         }
         else if (showResult == ShowResult.Skipped)
         {

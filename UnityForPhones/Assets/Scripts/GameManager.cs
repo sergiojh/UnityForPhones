@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Al incio de la ejecución.
     /// </summary>
-    public void starRuning()
+    public void StarRuning()
     {
         DontDestroyOnLoad(this);
 
@@ -67,7 +67,7 @@ public class GameManager : MonoBehaviour
     /// Añade el número de monedas a las actuales.
     /// </summary>
     /// <param name="value">Monedas que añadir.</param>
-    public void addCoins(int value)
+    public void AddCoins(int value)
     {
         persistance.coins += value;
     }
@@ -76,7 +76,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     /// <param name="value">Monedas que restar.</param>
     /// <returns></returns>
-    public bool subtractCoins(int value)
+    public bool SubtractCoins(int value)
     {
         if (persistance.coins - value >= 0)
         {
@@ -89,7 +89,7 @@ public class GameManager : MonoBehaviour
     /// Devuelve las monedas que tiene el usuario.
     /// </summary>
     /// <returns>Número de monedas que tiene el usuario.</returns>
-    public int getCoins()
+    public int GetCoins()
     {
         return persistance.coins;
     }
@@ -98,7 +98,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     /// <param name="levelNumber">Nivel que pasará a ser el actual.</param>
     /// <returns></returns>
-    public bool setActualLevel(int levelNumber)
+    public bool SetActualLevel(int levelNumber)
     {
         if (levelNumber <= persistance.progress[actualCategory] + 1)
         {
@@ -112,7 +112,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     /// <param name="numberCategory">Categoría a la que queremos cambiar.</param>
     /// <returns>True enc aso de que pueda cambiarse a esa categoría dada, false en caso contrario.</returns>
-    public bool setActualCategory(int numberCategory)
+    public bool SetActualCategory(int numberCategory)
     {
         if (nameCategories.Length > numberCategory)
         {
@@ -125,7 +125,7 @@ public class GameManager : MonoBehaviour
     /// Devuelve el nombre de la categoría actual.
     /// </summary>
     /// <returns>Nombre de la categoría actual.</returns>
-    public string getNameCategory()
+    public string GetNameCategory()
     {
         return nameCategories[actualCategory];
     }
@@ -133,7 +133,7 @@ public class GameManager : MonoBehaviour
     /// Devuelve la categoría actual.
     /// </summary>
     /// <returns>Categoría actual.</returns>
-    public int getActualCategory()
+    public int GetActualCategory()
     {
         return actualCategory;
     }
@@ -141,7 +141,7 @@ public class GameManager : MonoBehaviour
     /// Devuelve el nivel actual.
     /// </summary>
     /// <returns>Nivel actual.</returns>
-    public int getActualLevel()
+    public int GetActualLevel()
     {
         return actualLevel;
     }
@@ -149,7 +149,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     /// <param name="category">Categoría para la que queremos los niveles.</param>
     /// <returns>Niveles para una categoría dada.</returns>
-    public int getTotalLevelOfCategory(int category)
+    public int GetTotalLevelOfCategory(int category)
     {
         return levelsPerCategory[category];
     }
@@ -158,14 +158,14 @@ public class GameManager : MonoBehaviour
     /// </summary>
     /// <param name="category">Categoría para la que queremos los niveles completados.</param>
     /// <returns>Niveles completados para una categoría dada.</returns>
-    public int getTotalLevelCompletedOfCategory(int category)
+    public int GetTotalLevelCompletedOfCategory(int category)
     {
         return persistance.progress[category];
     }
     /// <summary>
     /// </summary>
     /// <returns>Niveles totales del juego.</returns>
-    public int getTotalLevels()
+    public int GetTotalLevels()
     {
         int levelN = 0;
         foreach (int i in levelsPerCategory)
@@ -177,7 +177,7 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Método llamado al completarse un nivel. Si es un nivel nuevo aumenta tu progreso.
     /// </summary>
-    public void levelCompleted()
+    public void LevelCompleted()
     {
         if (actualLevel > persistance.progress[actualCategory])
         {
@@ -187,14 +187,14 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Añade una medalla a los challenges completados.
     /// </summary>
-    public void addArchievement()
+    public void AddArchievement()
     {
         persistance.archievement++;
     }
     /// <summary>
     /// </summary>
     /// <returns>Número de medallas conseguidas.</returns>
-    public int getArchievement()
+    public int GetArchievement()
     {
         return persistance.archievement;
     }
@@ -202,17 +202,17 @@ public class GameManager : MonoBehaviour
     /// 
     /// </summary>
     /// <returns>Número de niveles completados de la categoría actual.</returns>
-    public int getLevelsCompletedFromActualLevel()
+    public int GetLevelsCompletedFromActualLevel()
     {
         return persistance.progress[actualCategory];
     }
     /// <summary>
     /// Carga el archivo que contiene la persistencia, en caso de que este no exista, carga una persistencia por defecto.
     /// </summary>
-    public void loadPersistance()
+    public void LoadPersistance()
     {
         PersistanceManager p = new PersistanceManager();
-        persistance = p.loadPersistance(nameCategories[0], nameCategories.Length);
+        persistance = p.LoadPersistance(nameCategories[0], nameCategories.Length);
     }
 
     /// <summary>
@@ -220,7 +220,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     /// <param name="category">Categoría del juego</param>
     /// <param name="levelCompleted">Número de niveles completados para la categoría.</param>
-    public void setLevelsCompleted(int category, int levelCompleted)
+    public void SetLevelsCompleted(int category, int levelCompleted)
     {
         persistance.progress[category] = levelCompleted;
     }
@@ -228,7 +228,7 @@ public class GameManager : MonoBehaviour
     /// Comprobación si el modo Challenge está listo para usarse. En caso de que el tiempo de espera llegue a 0, activa el modo para que el usuario pueda usarlo.
     /// </summary>
     /// <returns>True en caso de que pueda usarse y false en caso contrario.</returns>
-    public bool checkChallenge()
+    public bool CheckChallenge()
     {
 
         if (challengeReady)
@@ -248,7 +248,7 @@ public class GameManager : MonoBehaviour
     /// Devuelve la referencia al objeto que maneja el tiempo.
     /// </summary>
     /// <returns>Objeto Timer</returns>
-    public float getTimer()
+    public float GetTimer()
     {
         return timer;
     }
@@ -256,7 +256,7 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Reset del tiempo restante para ejecutar el modo challenge de nuevo.
     /// </summary>
-    public void resetTimerChallenge()
+    public void ResetTimerChallenge()
     {
         timer = 1800.0f;
         challengeReady = false;
@@ -265,10 +265,10 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Guardado de la persistencia en un archivo.
     /// </summary>
-    public void savePersistance()
+    public void SavePersistance()
     {
         PersistanceManager p = new PersistanceManager();
-        p.savePersistance(persistance, nameCategories[0]);
+        p.SavePersistance(persistance, nameCategories[0]);
     }
     /// <summary>
     /// Activamos que hemos cogido el regalo de la sesión

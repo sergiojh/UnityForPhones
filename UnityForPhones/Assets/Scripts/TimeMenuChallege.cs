@@ -16,7 +16,7 @@ public class TimeMenuChallege : MonoBehaviour
     /// Inicialización de los atributos del tiempo y el texto de este.
     /// </summary>
     /// <param name="timer">Tiempo.</param>
-    public void init(float timer)
+    public void Init(float timer)
     {
         _timer = timer;
         int min = (int)_timer % 60;
@@ -39,7 +39,7 @@ public class TimeMenuChallege : MonoBehaviour
     /// <summary>
     /// Destruye el objeto tiempo ya que el Challenge puede realizarse.
     /// </summary>
-    public void notNow()
+    public void NotNow()
     {
         Destroy(this.gameObject);
     }
@@ -66,6 +66,6 @@ public class TimeMenuChallege : MonoBehaviour
         chrono.text = timeLeft;
 
         if (_timer <= 0.0f)
-            menuManager.updateChallenge();
+            menuManager.UpdateChallenge();
     }
 }
