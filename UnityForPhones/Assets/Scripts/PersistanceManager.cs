@@ -34,33 +34,34 @@ public class PersistanceManager : MonoBehaviour
                 string salted = s.CreateMD5(salt + jsonCode);
                 if (salted != persistanceSec.hash)
                 {
-                    persistance = new Persistance();
-                    persistance.coins = 0;
-                    persistance.progress = new int[tam];
-                    for (int i = 0; i < tam; i++)
-                        persistance.progress[i] = 0;
-                    persistance.archievement = 0;
+                    persistance = GenerateDefaultValues(tam);
                 }
             }
             else
             {
-                persistance = new Persistance();
-                persistance.coins = 0;
-                persistance.progress = new int[tam];
-                for (int i = 0; i < tam; i++)
-                    persistance.progress[i] = 0;
-                persistance.archievement = 0;
+                persistance = GenerateDefaultValues(tam);
             }
         }
         else
         {
-            persistance = new Persistance();
-            persistance.coins = 0;
-            persistance.progress = new int[tam];
-            for (int i = 0; i < tam; i++)
-                persistance.progress[i] = 0;
-            persistance.archievement = 0;
+            persistance = GenerateDefaultValues(tam);
         }
+        return persistance;
+    }
+    /// <summary>
+    /// Generamos la persistencia desde cero
+    /// </summary>
+    /// <param name="tam">Tamaño del array del progreso</param>
+    /// <returns>Retorna la persistencia con valores por defecto</returns>
+    private Persistance GenerateDefaultValues(int tam)
+    {
+        Persistance persistance = new Persistance();
+        persistance.coins = 0;
+        persistance.progress = new int[tam];
+        for (int i = 0; i < tam; i++)
+            persistance.progress[i] = 0;
+        persistance.archievement = 0;
+
         return persistance;
     }
 
