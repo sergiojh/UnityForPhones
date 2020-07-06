@@ -35,11 +35,12 @@ public class GameManager : MonoBehaviour
         if (gameManager == null)
         {
             gameManager = this;
+            gameManager.challengeReady = true;
+            gameManager.giftReady = true;
+            gameManager.timer = 1800.0f;
         }
-        //Relleno con valores por defecto
-        gameManager.challengeReady = true;
-        gameManager.giftReady = true;
-        gameManager.timer = 1800.0f;
+        else
+            Destroy(this.gameObject); //Borramos el objeto de unity duplicado
     }
     /// <summary>
     /// Permite conseguir la instancia del GameManager
@@ -280,7 +281,7 @@ public class GameManager : MonoBehaviour
     public void SavePersistance()
     {
         PersistanceManager p = new PersistanceManager();
-        p.SavePersistance(persistance, nameCategories[0]);
+        p.SavePersistance(persistance, "BEGINNER");
     }
     /// <summary>
     /// Activamos que hemos cogido el regalo de la sesión

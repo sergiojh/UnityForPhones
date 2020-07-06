@@ -7,8 +7,6 @@ using UnityEngine.SceneManagement;
 public class MenuManager : MonoBehaviour
 {
     [SerializeField]
-    private GameManager prefab;
-    [SerializeField]
     private AdControllerMenu adController;
 
     private GameManager gameManager;
