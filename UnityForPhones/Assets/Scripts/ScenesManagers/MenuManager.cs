@@ -25,7 +25,21 @@ public class MenuManager : MonoBehaviour
     [SerializeField]
     private Text numLevelMasterText;
     [SerializeField]
+    private Text numArchievementText;
+    [SerializeField]
+    private Text levelBeginnerText;
+    [SerializeField]
+    private Text levelRegularText;
+    [SerializeField]
+    private Text levelAdvancedText;
+    [SerializeField]
+    private Text levelExpertText;
+    [SerializeField]
+    private Text levelMasterText;
+    [SerializeField]
     private Text archievementText;
+    [SerializeField]
+    private Text archievementTextFrame;
     [SerializeField]
     private CanvasRenderer challengeFrame;
     [SerializeField]
@@ -42,24 +56,28 @@ public class MenuManager : MonoBehaviour
     /// </summary>
     void Start()
     {
-        gameManager = FindObjectOfType<GameManager>();
+        gameManager = GameManager.GetGameManager();
         challengeFrame.gameObject.SetActive(false);
-        if (gameManager == null)
-        {
-            gameManager = Instantiate(prefab, this.transform);
-            gameManager.StarRuning();
-        }
         
         gameManager.LoadPersistance();
 
         coins = gameManager.GetCoins();
         coinsText.text = "" + coins;
-        archievementText.text = "" + gameManager.GetArchievement();
+        numArchievementText.text = "" + gameManager.GetArchievement();
         numLevelBeginnerText.text = "" + gameManager.GetTotalLevelCompletedOfCategory(0) + "/" + gameManager.GetTotalLevelOfCategory(0);
         numLevelRegularText.text = "" + gameManager.GetTotalLevelCompletedOfCategory(1) + "/" + gameManager.GetTotalLevelOfCategory(1);
         numLevelAdvancedText.text = "" + gameManager.GetTotalLevelCompletedOfCategory(2) + "/" + gameManager.GetTotalLevelOfCategory(2);
         numLevelExpertText.text = "" + gameManager.GetTotalLevelCompletedOfCategory(3) + "/" + gameManager.GetTotalLevelOfCategory(3);
         numLevelMasterText.text = "" + gameManager.GetTotalLevelCompletedOfCategory(4) + "/" + gameManager.GetTotalLevelOfCategory(4);
+
+        archievementTextFrame.text = "" + gameManager.GetNameCategoryByIndex(5);
+        archievementText.text = "" + gameManager.GetNameCategoryByIndex(5);
+        levelBeginnerText.text = "" + gameManager.GetNameCategoryByIndex(0);
+        levelRegularText.text = "" + gameManager.GetNameCategoryByIndex(1);
+        levelAdvancedText.text = "" + gameManager.GetNameCategoryByIndex(2);
+        levelExpertText.text = "" + gameManager.GetNameCategoryByIndex(3);
+        levelMasterText.text = "" + gameManager.GetNameCategoryByIndex(4);
+
 
         gameManager.SetLevelsCompleted(0, gameManager.GetTotalLevelCompletedOfCategory(0));
         gameManager.SetLevelsCompleted(1, gameManager.GetTotalLevelCompletedOfCategory(1));
@@ -197,6 +215,7 @@ public class MenuManager : MonoBehaviour
         coins = gameManager.GetCoins();
         coinsText.text = "" + coins;
         gameManager.GiftTaken();
+        gameManager.SavePersistance();
     }
 
     public bool CheckGiftActive()

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 /// <summary>
 /// Clase que controla el nivel de Challenge al completo.
@@ -6,7 +7,8 @@ using UnityEngine.SceneManagement;
 public class ChallengeLevelManager : MonoBehaviour
 {
     private GameManager gameManager;
-
+    [SerializeField]
+    private Text challengeText;
     [SerializeField]
     private AdControllerChallenge adController;
     [SerializeField]
@@ -23,7 +25,9 @@ public class ChallengeLevelManager : MonoBehaviour
     /// </summary>
     void Start()
     {
-        gameManager = FindObjectOfType<GameManager>();
+        gameManager = GameManager.GetGameManager();
+
+        challengeText.text = "" + gameManager.GetNameCategoryByIndex(5);
 
         EndGameCanvas.gameObject.SetActive(false);
         ChallengeFailedCanvas.gameObject.SetActive(false);

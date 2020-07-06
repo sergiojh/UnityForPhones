@@ -2229,6 +2229,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 092b308505646184bb1bc53f6a2f1b56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  challengeText: {fileID: 437378479}
   adController: {fileID: 700018268}
   EndGameCanvas: {fileID: 2006456683}
   ChallengeFailedCanvas: {fileID: 1839496668}

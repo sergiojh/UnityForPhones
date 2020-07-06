@@ -14,10 +14,7 @@ public class AdControllerChallenge : AdController
         if (showResult == ShowResult.Finished)
         {
             // Reward the user for watching the ad to completion.
-            if (challengeLevelManager == null)
-                challengeLevelManager = FindObjectOfType<ChallengeLevelManager>();
             challengeLevelManager.AdSeen();
-            
         }
         else if (showResult == ShowResult.Skipped)
         {

@@ -11,7 +11,7 @@ public class SelectLevelManager : MonoBehaviour
     [SerializeField]
     private Text categoryText;
 
-    private string actualCategory;
+    private int actualCategory;
     private int levelsCompleted;
 
     [SerializeField]
@@ -23,27 +23,27 @@ public class SelectLevelManager : MonoBehaviour
     /// </summary>
     void Start()
     {
-        gameManager = FindObjectOfType<GameManager>();
-        actualCategory = gameManager.GetNameCategory();
-        categoryText.text = actualCategory;
+        gameManager = GameManager.GetGameManager();
+        actualCategory = gameManager.GetActualCategory();
+        categoryText.text = gameManager.GetNameCategory();
 
-        if(actualCategory == "BEGINNER")
+        if(actualCategory == 0)
         {
             levelsCompleted = gameManager.GetTotalLevelCompletedOfCategory(0);
         }
-        else if (actualCategory == "REGULAR")
+        else if (actualCategory == 1)
         {
             levelsCompleted = gameManager.GetTotalLevelCompletedOfCategory(1);
         }
-        else if (actualCategory == "ADVANCED")
+        else if (actualCategory == 2)
         {
             levelsCompleted = gameManager.GetTotalLevelCompletedOfCategory(2);
         }
-        else if (actualCategory == "EXPERT")
+        else if (actualCategory == 3)
         {
             levelsCompleted = gameManager.GetTotalLevelCompletedOfCategory(3);
         }
-        else if (actualCategory == "MASTER")
+        else if (actualCategory == 4)
         {
             levelsCompleted = gameManager.GetTotalLevelCompletedOfCategory(4);
         }

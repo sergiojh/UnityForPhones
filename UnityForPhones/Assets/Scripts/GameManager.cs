@@ -28,37 +28,36 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Al incio de la ejecución.
     /// </summary>
-    public void StarRuning()
+    public void Start()
     {
         DontDestroyOnLoad(this);
-
-        if (gameManager == null)
-        {
-            gameManager = this;
-            challengeReady = true;
-            giftReady = true;
-            timer = 1800.0f;
-        }
-        else
-        {
-            Destroy(this.gameObject);
-        }
-    }
-
-
-    void Awake()
-    {
-        DontDestroyOnLoad(this);
-
+        //Si es nulo, le doy valor a mi variable estatica
         if (gameManager == null)
         {
             gameManager = this;
         }
-        else
-        {
-            Destroy(this.gameObject);
-        }
+        //Relleno con valores por defecto
+        gameManager.challengeReady = true;
+        gameManager.giftReady = true;
+        gameManager.timer = 1800.0f;
     }
+    /// <summary>
+    /// Permite conseguir la instancia del GameManager
+    /// </summary>
+    /// <returns></returns>
+    public static GameManager GetGameManager()
+    {
+        if (gameManager == null)
+        {
+            gameManager = new GameManager();
+            gameManager.challengeReady = true;
+            gameManager.giftReady = true;
+            gameManager.timer = 1800.0f;
+        }
+
+        return gameManager;
+    }
+
     void Update()
     {
         timer -= Time.deltaTime;
@@ -129,6 +128,19 @@ public class GameManager : MonoBehaviour
     {
         return nameCategories[actualCategory];
     }
+    /// <summary>
+    /// Devuelve el nombre de la categoria por index
+    /// </summary>
+    /// <param name="index">Index de la categoria</param>
+    /// <returns>Nombre de la categoría si no devuelvo vacio como error</returns>
+    public string GetNameCategoryByIndex(int index)
+    {
+        if (index >= 0 && index < nameCategories.Length)
+            return nameCategories[index];
+        else
+            return "";
+    }
+
     /// <summary>
     /// Devuelve la categoría actual.
     /// </summary>
@@ -212,7 +224,7 @@ public class GameManager : MonoBehaviour
     public void LoadPersistance()
     {
         PersistanceManager p = new PersistanceManager();
-        persistance = p.LoadPersistance(nameCategories[0], nameCategories.Length);
+        persistance = p.LoadPersistance("BEGINNER", nameCategories.Length);
     }
 
     /// <summary>

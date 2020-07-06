@@ -41,7 +41,7 @@ public class LevelManager : MonoBehaviour
     /// </summary>
     void Start()
     {
-        gameManager = FindObjectOfType<GameManager>();
+        gameManager = GameManager.GetGameManager();
         coins = gameManager.GetCoins();
         actualLevel = gameManager.GetActualLevel();
         actualCategory = gameManager.GetNameCategory();
@@ -126,6 +126,8 @@ public class LevelManager : MonoBehaviour
         gameOverLevel.text = "" + actualLevel;
         finNivel = true;
         adController.ShowAd();
+        //quitamos puntos ya que el ad da 25 y este ad es de no recompensa
+        gameManager.SubtractCoins(25);
         container.gameObject.SetActive(true);
         gameManager.LevelCompleted();
         gameManager.SetActualLevel(gameManager.GetActualLevel() + 1);

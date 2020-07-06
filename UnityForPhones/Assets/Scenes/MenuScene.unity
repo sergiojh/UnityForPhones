@@ -632,7 +632,7 @@ GameObject:
   - component: {fileID: 183965339}
   - component: {fileID: 183965338}
   m_Layer: 5
-  m_Name: Text
+  m_Name: AdvanceText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -856,7 +856,7 @@ GameObject:
   - component: {fileID: 367654648}
   - component: {fileID: 367654647}
   m_Layer: 5
-  m_Name: Text
+  m_Name: MasterText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1325,7 +1325,7 @@ GameObject:
   - component: {fileID: 495492380}
   - component: {fileID: 495492379}
   m_Layer: 5
-  m_Name: Text
+  m_Name: ExpertText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1402,7 +1402,7 @@ GameObject:
   - component: {fileID: 511093305}
   - component: {fileID: 511093304}
   m_Layer: 5
-  m_Name: ChallengeText
+  m_Name: ChallengeTextFrame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2787,7 +2787,7 @@ GameObject:
   - component: {fileID: 1068312726}
   - component: {fileID: 1068312725}
   m_Layer: 5
-  m_Name: Text
+  m_Name: RegularText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2945,7 +2945,7 @@ GameObject:
   - component: {fileID: 1159583242}
   - component: {fileID: 1159583241}
   m_Layer: 5
-  m_Name: Text
+  m_Name: BeginnerText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2963,7 +2963,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1769215260}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.051320054, y: 0.5}
   m_AnchorMax: {x: 0.051320054, y: 0.5}
@@ -3472,7 +3472,14 @@ MonoBehaviour:
   numLevelAdvancedText: {fileID: 1492206376}
   numLevelExpertText: {fileID: 608091618}
   numLevelMasterText: {fileID: 156090411}
-  archievementText: {fileID: 1278520734}
+  numArchievementText: {fileID: 1278520734}
+  levelBeginnerText: {fileID: 1159583241}
+  levelRegularText: {fileID: 1068312725}
+  levelAdvancedText: {fileID: 183965338}
+  levelExpertText: {fileID: 495492379}
+  levelMasterText: {fileID: 367654647}
+  archievementText: {fileID: 1887588520}
+  archievementTextFrame: {fileID: 511093304}
   challengeFrame: {fileID: 82760904}
   challengeDoneFrame: {fileID: 1743068632}
   timeMenuChallege: {fileID: 1821086406}
@@ -3572,8 +3579,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2056472619}
   m_HandleRect: {fileID: 2056472618}
   m_Direction: 2
-  m_Value: 1
-  m_Size: 1
+  m_Value: 1.0000043
+  m_Size: 0.97144574
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -4586,7 +4593,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1769215260}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -5362,8 +5369,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1159583240}
   - {fileID: 1709766283}
+  - {fileID: 1159583240}
   m_Father: {fileID: 44574217}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5528,6 +5535,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: GameManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 5032848321539388781, guid: 6253dc4048d94eb4a8e71b1b94caa568,
+        type: 3}
+      propertyPath: levelsPerCategory.Array.data[0]
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 5032848321539388781, guid: 6253dc4048d94eb4a8e71b1b94caa568,
+        type: 3}
+      propertyPath: nameCategories.Array.data[0]
+      value: BEGINNER
+      objectReference: {fileID: 0}
+    - target: {fileID: 5032848321539388781, guid: 6253dc4048d94eb4a8e71b1b94caa568,
+        type: 3}
+      propertyPath: nameCategories.Array.data[1]
+      value: REGULAR
+      objectReference: {fileID: 0}
+    - target: {fileID: 5032848321539388781, guid: 6253dc4048d94eb4a8e71b1b94caa568,
+        type: 3}
+      propertyPath: nameCategories.Array.data[5]
+      value: CHALLENGE
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6253dc4048d94eb4a8e71b1b94caa568, type: 3}
@@ -5906,7 +5933,7 @@ GameObject:
   - component: {fileID: 1887588521}
   - component: {fileID: 1887588520}
   m_Layer: 5
-  m_Name: Text
+  m_Name: ChallengeText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
