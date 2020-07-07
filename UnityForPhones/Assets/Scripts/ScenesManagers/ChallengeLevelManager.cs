@@ -18,14 +18,14 @@ public class ChallengeLevelManager : MonoBehaviour
     [SerializeField]
     private BoardManager boardManager;
     [SerializeField]
-    private InputManagerChallenge inputManager;
+    private InputManagerGameplay inputManager;
     private bool finNivel = false;
     /// <summary>
     /// Secarga el nivel al azar, se añade una piel  y se carga el tablero.
     /// </summary>
     void Start()
     {
-        gameManager = GameManager.GetGameManager();
+        gameManager = GameManager.GetInstance();
 
         challengeText.text = "" + gameManager.GetNameCategoryByIndex(5);
 

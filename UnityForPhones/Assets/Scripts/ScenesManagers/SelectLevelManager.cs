@@ -23,7 +23,7 @@ public class SelectLevelManager : MonoBehaviour
     /// </summary>
     void Start()
     {
-        gameManager = GameManager.GetGameManager();
+        gameManager = GameManager.GetInstance();
         actualCategory = gameManager.GetActualCategory();
         categoryText.text = gameManager.GetNameCategory();
 

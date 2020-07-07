@@ -10,7 +10,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField]
     private BoardManager boardManager;
     [SerializeField]
-    private InputManagerGame inputManager;
+    private InputManagerGameplay inputManager;
     [SerializeField]
     private Text coinsText;
     [SerializeField]
@@ -41,7 +41,7 @@ public class LevelManager : MonoBehaviour
     /// </summary>
     void Start()
     {
-        gameManager = GameManager.GetGameManager();
+        gameManager = GameManager.GetInstance();
         coins = gameManager.GetCoins();
         actualLevel = gameManager.GetActualLevel();
         actualCategory = gameManager.GetNameCategory();

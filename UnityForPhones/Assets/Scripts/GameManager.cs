@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
 
 
     private static GameManager gameManager;
+    private static bool first = false;
     private int actualLevel;
     private int actualCategory;
 
@@ -32,8 +33,9 @@ public class GameManager : MonoBehaviour
     {
         DontDestroyOnLoad(this);
         //Si es nulo, le doy valor a mi variable estatica
-        if (gameManager == null)
+        if (!first)
         {
+            first = true;
             gameManager = this;
             gameManager.challengeReady = true;
             gameManager.giftReady = true;
@@ -46,14 +48,11 @@ public class GameManager : MonoBehaviour
     /// Permite conseguir la instancia del GameManager
     /// </summary>
     /// <returns></returns>
-    public static GameManager GetGameManager()
+    public static GameManager GetInstance()
     {
         if (gameManager == null)
         {
-            gameManager = new GameManager();
-            gameManager.challengeReady = true;
-            gameManager.giftReady = true;
-            gameManager.timer = 1800.0f;
+            gameManager = FindObjectOfType<GameManager>();
         }
 
         return gameManager;

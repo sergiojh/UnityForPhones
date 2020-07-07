@@ -54,7 +54,7 @@ public class MenuManager : MonoBehaviour
     /// </summary>
     void Start()
     {
-        gameManager = GameManager.GetGameManager();
+        gameManager = GameManager.GetInstance();
         challengeFrame.gameObject.SetActive(false);
         
         gameManager.LoadPersistance();

@@ -2669,7 +2669,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1821108011}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e2ab9980fdad009428595601bca01d21, type: 3}
+  m_Script: {fileID: 11500000, guid: f79f870f24f29704bb91b378609b48fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   TypeClickTrackers:
@@ -2681,6 +2681,7 @@ MonoBehaviour:
   - {fileID: 4189276706015378014, guid: a5e8c0bd5e793b94895d933732d1a9fc, type: 3}
   - {fileID: 4189276706015378014, guid: 15202353ed3345f43980d52c7eec59f6, type: 3}
   boardContainer: {fileID: 2119189486}
+  levelManager: {fileID: 0}
   challengeLevelManager: {fileID: 1293270033}
 --- !u!4 &1821108013
 Transform:

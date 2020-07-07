@@ -5,7 +5,7 @@ using System.IO;
 /// <summary>
 /// Clase encargada de guardar y cargar el archivo de la persistencia
 /// </summary>
-public class PersistanceManager : MonoBehaviour
+public class PersistanceManager
 {
     string path = "save.json";
     /// <summary>
