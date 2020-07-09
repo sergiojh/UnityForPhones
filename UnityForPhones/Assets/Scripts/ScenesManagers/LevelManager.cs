@@ -50,12 +50,12 @@ public class LevelManager : MonoBehaviour
         categoryText.text = actualCategory+ " " + actualLevel;
         priceText.text = "" + price;
 
-        int levelLoad = gameManager.GetActualLevel() + gameManager.GetActualCategory() * 100;
-
+        int levelLoad = gameManager.GetActualLevel();
+        int numberCategory = gameManager.GetActualCategory();
         int numOfTiles = boardManager.GetTotalTypeTiles();
         int r = Random.Range(0,numOfTiles); // es exclusivo en el valor max
         inputManager.Init(r);
-        boardManager.InitBoard("maps",levelLoad - 1, r, inputManager.GetClickTracker());
+        boardManager.InitBoard(numberCategory,levelLoad - 1, r, inputManager.GetClickTracker());
         container.gameObject.SetActive(false);
     }
     /// <summary>

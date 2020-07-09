@@ -33,10 +33,11 @@ public class BoardManager : MonoBehaviour
     /// <param name="level">Nivel a cargar</param>
     /// <param name="piel">Piel a usar para que el color sea uniforme.</param>
     /// <param name="clickTracker">Tracker de la pulsación del usuario.</param>
-    public void InitBoard(string mapName, int level, int piel, SpriteRenderer clickTracker)
+    public void InitBoard(int actualCategory,int level, int piel, SpriteRenderer clickTracker)
     {
         _hintNumber = 1;
         _piel = piel;
+        string mapName = "maps" + actualCategory;
         mapa = ParseTxtMaps(mapName, level);
         CreateBoard(mapa);
         _nivel = level;

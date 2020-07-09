@@ -1450,6 +1450,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 114446785227587790, guid: 6253dc4048d94eb4a8e71b1b94caa568,
+        type: 2}
+      propertyPath: levelsPerCategory.Array.data[0]
+      value: 100
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6253dc4048d94eb4a8e71b1b94caa568, type: 2}
   m_IsPrefabAsset: 0
@@ -3401,8 +3406,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2056472619}
   m_HandleRect: {fileID: 2056472618}
   m_Direction: 2
-  m_Value: 0.99999887
-  m_Size: 0.8915735
+  m_Value: 0.9999957
+  m_Size: 0.97144574
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

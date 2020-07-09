@@ -219,6 +219,14 @@ public class GameManager : MonoBehaviour
         return persistance.progress[actualCategory];
     }
     /// <summary>
+    /// 
+    /// </summary>
+    /// <returns>Numero de categorias existentes sin challenge</returns>
+    public int GetCategoriesLength()
+    {
+        return levelsPerCategory.Length;
+    }
+    /// <summary>
     /// Carga el archivo que contiene la persistencia, en caso de que este no exista, carga una persistencia por defecto.
     /// </summary>
     public void LoadPersistance()

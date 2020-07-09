@@ -31,12 +31,13 @@ public class ChallengeLevelManager : MonoBehaviour
 
         EndGameCanvas.gameObject.SetActive(false);
         ChallengeFailedCanvas.gameObject.SetActive(false);
-        int levelLoad = Random.Range(0,gameManager.GetTotalLevels());
-
+    
+        int numberCategory = Random.Range(0, gameManager.GetCategoriesLength());
+        int levelLoad = Random.Range(0, gameManager.GetTotalLevelOfCategory(numberCategory));
         int numOfTiles = boardManager.GetTotalTypeTiles();
         int piel = Random.Range(0, numOfTiles); // es exclusivo en el valor max
         inputManager.Init(piel);
-        boardManager.InitBoard("maps", levelLoad, piel, inputManager.GetClickTracker());
+        boardManager.InitBoard(numberCategory, levelLoad, piel, inputManager.GetClickTracker());
     }
     /// <summary>
     /// Método ejecutado al terminarse el mapa correctamentre o se acaba el tiempo.
