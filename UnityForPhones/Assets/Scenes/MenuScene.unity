@@ -1455,6 +1455,11 @@ Prefab:
       propertyPath: levelsPerCategory.Array.data[0]
       value: 100
       objectReference: {fileID: 0}
+    - target: {fileID: 114446785227587790, guid: 6253dc4048d94eb4a8e71b1b94caa568,
+        type: 2}
+      propertyPath: levelsPerCategory.Array.data[1]
+      value: 100
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6253dc4048d94eb4a8e71b1b94caa568, type: 2}
   m_IsPrefabAsset: 0

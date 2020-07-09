@@ -3006,3 +3006,8 @@ MonoBehaviour:
   - {fileID: 4860047663098483857, guid: 5a8d7b9f01650ee49b67e3d16f8daaf2, type: 2}
   scaler: {fileID: 2021428285}
   camera: {fileID: 963194227}
+  maps0: {fileID: 4900000, guid: 30645f5835895f740a0fd37fe32b5c43, type: 3}
+  maps1: {fileID: 4900000, guid: 7e9f48966d5ef1b45b5000557aa80c16, type: 3}
+  maps2: {fileID: 4900000, guid: ec7810c370d4e8b4394eadac285e8906, type: 3}
+  maps3: {fileID: 4900000, guid: 9caba80d932d6554280936517ea96087, type: 3}
+  maps4: {fileID: 4900000, guid: 5f8812c0e6c16f142a9f27d4df5ba8fb, type: 3}

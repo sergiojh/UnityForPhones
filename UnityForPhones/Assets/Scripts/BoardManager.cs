@@ -15,6 +15,17 @@ public class BoardManager : MonoBehaviour
     [SerializeField]
     private Camera camera;
 
+    [SerializeField]
+    private TextAsset maps0;
+    [SerializeField]
+    private TextAsset maps1;
+    [SerializeField]
+    private TextAsset maps2;
+    [SerializeField]
+    private TextAsset maps3;
+    [SerializeField]
+    private TextAsset maps4;
+
     private Board mapa;
     private Tile[,] matrix;
     private int _yTileActivo;
@@ -37,8 +48,7 @@ public class BoardManager : MonoBehaviour
     {
         _hintNumber = 1;
         _piel = piel;
-        string mapName = "maps" + actualCategory;
-        mapa = ParseTxtMaps(mapName, level);
+        mapa = ParseTxtMaps(actualCategory, level);
         CreateBoard(mapa);
         _nivel = level;
         scaler.StartScaling(clickTracker);
@@ -278,10 +288,27 @@ public class BoardManager : MonoBehaviour
     /// <param name="level"> Nivel que se quiere cargar.</param>
     /// <returns></returns>
 
-    private Board ParseTxtMaps(string pathToMaps, int level)
+    private Board ParseTxtMaps(int numCategory, int level)
     {
-        TextAsset files = Resources.Load(pathToMaps) as TextAsset;
-
+        TextAsset files;
+        switch (numCategory)
+        {
+            case 0:
+                files = maps0;
+                break;
+            case 1:
+                files = maps1;
+                break;
+            case 2:
+                files = maps2;
+                break;
+            case 3:
+                files = maps3;
+                break;
+            default:
+                files = maps4;
+                break;
+        }
         string text = files.text;
         //Regular Expressions de Unity permite definir que queremos del txt y que no
         Regex r = new Regex("(?:[^ 0-9 } ]|(?<=['\",]))");
