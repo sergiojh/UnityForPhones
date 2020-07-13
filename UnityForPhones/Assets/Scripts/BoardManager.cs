@@ -56,14 +56,14 @@ public class BoardManager : MonoBehaviour
         float y = 0.5f;
         if (_alto != 0)
         {
-            if (y % 2 == 0)
+            if (_alto % 2 == 0)
                 y = _alto / 2 - 0.5f;
             else
                 y = _alto / 2;
         }
         if (_ancho != 0)
         {
-            if (x % 2 == 0)
+            if (_ancho % 2 == 0)
                 x = _ancho / 2 - 0.5f;
             else
                 x = _ancho / 2;
