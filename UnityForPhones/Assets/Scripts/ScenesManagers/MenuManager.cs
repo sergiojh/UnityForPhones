@@ -215,7 +215,10 @@ public class MenuManager : MonoBehaviour
         gameManager.GiftTaken();
         gameManager.SavePersistance();
     }
-
+    /// <summary>
+    /// Miramos si el regalo está activo
+    /// </summary>
+    /// <returns>True si lo está, falso si no lo está</returns>
     public bool CheckGiftActive()
     {
         return gameManager.CheckGiftActive();

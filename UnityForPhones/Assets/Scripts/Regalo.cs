@@ -15,7 +15,9 @@ public class Regalo : MonoBehaviour
     private MenuManager menuManager;
 
     private bool isActive;
-
+    /// <summary>
+    /// Inicializa el regalo
+    /// </summary>
     public void Init()
     {
         if (menuManager.CheckGiftActive())
@@ -29,7 +31,9 @@ public class Regalo : MonoBehaviour
             imagenComponent.sprite = Sprite.Create(regaloInactivo, new Rect(0, 0, regaloInactivo.width, regaloInactivo.height), new Vector2(0, 0));
         }
     }
-
+    /// <summary>
+    /// Si esta activo, añade las monedas al jugador
+    /// </summary>
     public void GetCoins()
     {
         if (isActive)
